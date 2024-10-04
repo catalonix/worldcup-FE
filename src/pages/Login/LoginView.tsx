@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import backgroundImg from 'common/assets/img/login-bg.png';
 
-type LoginType = 'phone' | 'account';
+type LoginType = 'user' | 'admin';
 
 const { useBreakpoint } = Grid;
 const { Text, Title, Link } = Typography;
@@ -13,7 +13,7 @@ const LoginView = () => {
   const { token } = theme.useToken();
   const screens = useBreakpoint();
 
-  const [loginType, setLoginType] = useState('user');
+  const [loginType, setLoginType] = useState<LoginType>('user');
   const [userId, setUserId] = useState('');
 
   const onFinish = (values: any) => {
@@ -70,10 +70,17 @@ const LoginView = () => {
     loginBox: {
       backgroundColor: '#3a587a',
       padding: '20px',
-      borderRadius: '10px'
+      borderRadius: '10px',
+      width: '70%',
+      display: 'flex',
+      flexDirection: 'column' as 'column',
+      alignItems: 'center'
     },
     rememberDesc: {
       color: '#8c9fb9'
+    },
+    loginInnerBox: {
+      width: '80%'
     }
   };
 
@@ -93,54 +100,56 @@ const LoginView = () => {
           <Text style={styles.text}>월드컵경기장 잔디 생육 관리 시스템</Text>
         </div>
         <div style={styles.loginBox}>
-          <div>
-            <Radio.Group
-              onChange={handleModeChange}
-              value={loginType}
-              style={{
-                marginBottom: 25
-              }}>
-              <Radio.Button value="user">사용자 로그인</Radio.Button>
-              <Radio.Button value="admin">관리자 로그인</Radio.Button>
-            </Radio.Group>
+          <div style={styles.loginInnerBox}>
+            <div>
+              <Radio.Group
+                onChange={handleModeChange}
+                value={loginType}
+                style={{
+                  marginBottom: 25
+                }}>
+                <Radio.Button value="user">사용자 로그인</Radio.Button>
+                <Radio.Button value="admin">관리자 로그인</Radio.Button>
+              </Radio.Group>
+            </div>
+            <Form
+              initialValues={{
+                remember: true,
+                userId: localStorage.getItem('userId')
+              }}
+              onFinish={onFinish}
+              layout="vertical"
+              requiredMark="optional">
+              <Form.Item
+                name="userId"
+                rules={[
+                  {
+                    required: true,
+                    message: '아이디를 입력해주세요.'
+                  }
+                ]}>
+                <Input prefix={<UserOutlined />} placeholder="id" value={userId} />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: '비밀번호를 입력해주세요.'
+                  }
+                ]}>
+                <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
+              </Form.Item>
+              <Form.Item name="remember" valuePropName="checked" style={styles.rememberDesc}>
+                <Checkbox style={styles.rememberDesc}>아이디 저장</Checkbox>
+              </Form.Item>
+              <Form.Item style={{ marginBottom: '0px' }}>
+                <Button block type="primary" htmlType="submit">
+                  로그인
+                </Button>
+              </Form.Item>
+            </Form>
           </div>
-          <Form
-            initialValues={{
-              remember: true,
-              userId: localStorage.getItem('userId')
-            }}
-            onFinish={onFinish}
-            layout="vertical"
-            requiredMark="optional">
-            <Form.Item
-              name="userId"
-              rules={[
-                {
-                  required: true,
-                  message: '아이디를 입력해주세요.'
-                }
-              ]}>
-              <Input prefix={<UserOutlined />} placeholder="id" value={userId} />
-            </Form.Item>
-            <Form.Item
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: '비밀번호를 입력해주세요.'
-                }
-              ]}>
-              <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
-            </Form.Item>
-            <Form.Item name="remember" valuePropName="checked" style={styles.rememberDesc}>
-              <Checkbox style={styles.rememberDesc}>아이디 저장</Checkbox>
-            </Form.Item>
-            <Form.Item style={{ marginBottom: '0px' }}>
-              <Button block type="primary" htmlType="submit">
-                로그인
-              </Button>
-            </Form.Item>
-          </Form>
         </div>
       </div>
     </section>
