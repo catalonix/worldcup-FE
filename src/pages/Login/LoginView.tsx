@@ -1,7 +1,6 @@
 import { Button, Input, Radio, Checkbox, theme, Grid, Form, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
-import styled from '@emotion/styled';
 
 import backgroundImg from 'common/assets/img/login-bg.png';
 
