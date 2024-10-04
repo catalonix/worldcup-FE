@@ -4,7 +4,8 @@ export const theme = {
     colorPrimary: '#3786e9',
     colorSuccess: '#52c41a',
     colorWarning: '#faad14',
-    colorError: '#ff4d4f'
+    colorError: '#ff4d4f',
+    fontFamily: 'NanumSquare_R'
   },
   components: {
     // component token

@@ -1,6 +1,7 @@
-import { Button, Input, Space, Radio, Checkbox, theme, Grid, Form, Typography } from 'antd';
+import { Button, Input, Radio, Checkbox, theme, Grid, Form, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
 
 import backgroundImg from 'common/assets/img/login-bg.png';
 
@@ -58,7 +59,7 @@ const LoginView = () => {
       color: 'white'
     },
     title: {
-      fontSize: screens.md ? token.fontSizeHeading2 : token.fontSizeHeading3,
+      fontSize: screens.md ? token.fontSizeHeading1 : token.fontSizeHeading2,
       fontWeight: 800,
       color: 'white',
       display: 'flex',
@@ -69,7 +70,7 @@ const LoginView = () => {
     },
     loginBox: {
       backgroundColor: '#3a587a',
-      padding: '20px',
+      padding: '30px 20px',
       borderRadius: '10px',
       width: '70%',
       display: 'flex',
@@ -128,7 +129,12 @@ const LoginView = () => {
                     message: '아이디를 입력해주세요.'
                   }
                 ]}>
-                <Input prefix={<UserOutlined />} placeholder="id" value={userId} />
+                <Input
+                  prefix={<UserOutlined />}
+                  placeholder="id"
+                  value={userId}
+                  style={{ backgroundColor: '#16293a', color: 'white' }}
+                />
               </Form.Item>
               <Form.Item
                 name="password"
@@ -138,7 +144,12 @@ const LoginView = () => {
                     message: '비밀번호를 입력해주세요.'
                   }
                 ]}>
-                <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
+                <Input.Password
+                  prefix={<LockOutlined />}
+                  type="password"
+                  placeholder="Password"
+                  style={{ backgroundColor: '#16293a', color: 'white' }}
+                />
               </Form.Item>
               <Form.Item name="remember" valuePropName="checked" style={styles.rememberDesc}>
                 <Checkbox style={styles.rememberDesc}>아이디 저장</Checkbox>
