@@ -1,0 +1,80 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["prettier", "import", "@typescript-eslint", "react"],
+  "extends": ["prettier", "plugin:prettier/recommended"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"],
+        "extensions": [".ts", ".tsx"]
+      }
+    }
+  },
+  "rules": {
+    "react/jsx-filename-extension": 1,
+    "max-len": 0,
+    "no-alert": 0,
+    "no-shadow": 0,
+    "no-console": 0,
+    "no-plusplus": 0,
+    "react/jsx-key": 2,
+    "no-unused-vars": 0,
+    "import/no-cycle": 0,
+    "no-return-assign": 0,
+    "react/prop-types": 0,
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "react/button-has-type": 1,
+    "react/no-chi/ldren-prop": 0,
+    "react/jsx-boolean-value": 0,
+    "react/no-array-index-key": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-wrap-multilines": 0,
+    "react/require-default-props": 0,
+    "react/no-unescaped-entities": 0,
+    "@typescript-eslint/no-shadow": 0,
+    //    "react/jsx-props-no-spreading": 0,
+    "import/prefer-default-export": 0,
+    //    "react/destructuring-assignment": 0,
+    //    "react/jsx-one-expression-per-line": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/naming-convention": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "import/no-extraneous-dependencies": 0,
+    "object-curly-spacing": [1, "always"],
+    "@typescript-eslint/no-unused-vars": [
+      1,
+      {
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true,
+        "trailingComma": "none",
+        "singleQuote": true,
+        "printWidth": 120,
+        "tabWidth": 2,
+        "endOfLine": "auto"
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "mjs": "never",
+        "": "never"
+      }
+    ],
+    "quotes": ["error", "single"] // single으로 유지
+  },
+  "root": true
+}
