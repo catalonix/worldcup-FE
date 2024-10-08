@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -7,18 +7,29 @@ import {
   UserOutlined,
   VideoCameraOutlined
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme, Tag } from 'antd';
+import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
+import type { MenuProps } from 'antd';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
-  const [isSideBarOpen, setIsSideBarOpen] = React.useState(true);
 
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG }
   } = theme.useToken();
+
+  const userMenuItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+          LOGOUT
+        </a>
+      )
+    }
+  ];
 
   return (
     <Layout style={{ position: 'relative', height: '100vh' }}>
@@ -34,16 +45,21 @@ const DefaultLayout: React.FC = () => {
           width: '100%',
           top: 0
         }}>
-        <Button
-          type="text"
-          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
-          style={{
-            fontSize: '16px',
-            width: 64,
-            height: 64
-          }}
-        />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>LOGO</div>
+          <div>서울 월드컵 경기장</div>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64
+            }}
+          />
+        </div>
+
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px' }}>
             미세먼지
@@ -59,7 +75,13 @@ const DefaultLayout: React.FC = () => {
           </div>
           <div>기온 강수량 습도</div>
         </div>
-        <div></div>
+
+        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <Avatar icon={<UserOutlined />} />
+            <div>user name</div>
+          </div>
+        </Dropdown>
       </Header>
       <Sider trigger={null} collapsible collapsed={collapsed} style={{ top: '70px' }}>
         <div className="demo-logo-vertical" />
