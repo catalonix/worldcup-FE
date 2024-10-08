@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  AppstoreOutlined,
+  FileOutlined,
   UserOutlined,
-  VideoCameraOutlined
+  CopyOutlined,
+  StockOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import WeatherInfo from 'components/layout/WeatherInfo';
+import { AppPaths } from '../routing/app-routing';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
   const {
     token: { colorBgContainer, borderRadiusLG }
   } = theme.useToken();
@@ -31,6 +36,15 @@ const DefaultLayout: React.FC = () => {
       )
     }
   ];
+
+  const handleClickMenu = (menu: string) => {
+    navigate(`${menu}`);
+  };
+
+  useEffect(() => {
+    const path = location.pathname;
+    setSelectedKeys([path.slice(1)]);
+  }, [location.pathname]);
 
   return (
     <Layout style={{ position: 'relative', height: '100vh' }}>
@@ -69,7 +83,7 @@ const DefaultLayout: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
             미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
-              좋음{' '}
+              좋음
             </Tag>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
@@ -92,22 +106,65 @@ const DefaultLayout: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={selectedKeys}
           items={[
             {
-              key: '1',
-              icon: <UserOutlined />,
-              label: '통합모니터링 요약(그라운드)'
+              key: AppPaths.HOME,
+              icon: <AppstoreOutlined />,
+              label: '통합모니터링 요약(그라운드)',
+              onClick: () => handleClickMenu(AppPaths.HOME)
             },
             {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'nav 2'
+              key: AppPaths.MONITORING_EQUIPMENT,
+              icon: <FileOutlined />,
+              label: '잔디생육 데이터',
+              children: [
+                {
+                  key: AppPaths.NDVI_SUMMARY,
+                  label: '식생지수 정보',
+                  onClick: () => handleClickMenu(AppPaths.NDVI_SUMMARY)
+                },
+                {
+                  key: AppPaths.NDVI_DETAIL,
+                  label: '식생지수 정보 상세',
+                  onClick: () => handleClickMenu(AppPaths.NDVI_DETAIL)
+                },
+                {
+                  key: AppPaths.SOIL_SUMMARY,
+                  label: '토양관측정보',
+                  onClick: () => handleClickMenu(AppPaths.SOIL_SUMMARY)
+                },
+                {
+                  key: AppPaths.SOIL_DETAIL,
+                  label: '토양관측정보 상세',
+                  onClick: () => handleClickMenu(AppPaths.SOIL_DETAIL)
+                },
+                {
+                  key: AppPaths.WEATHER_SUMMARY,
+                  label: '기상센서정보 ',
+                  onClick: () => handleClickMenu(AppPaths.WEATHER_SUMMARY)
+                },
+                {
+                  key: AppPaths.WEATHER_DETAIL,
+                  label: '기상센서정보 상세',
+                  onClick: () => handleClickMenu(AppPaths.WEATHER_DETAIL)
+                }
+              ]
             },
             {
               key: '3',
-              icon: <UploadOutlined />,
-              label: 'nav 3'
+              icon: <StockOutlined />,
+              label: '관측상세 정보'
+            },
+            {
+              key: '4',
+              icon: <CopyOutlined />,
+              label: '원격작동 정보'
+            },
+            {
+              key: '5',
+              icon: <UserOutlined />,
+              label: '사용자 관리'
             }
           ]}
         />
@@ -121,7 +178,7 @@ const DefaultLayout: React.FC = () => {
             background: colorBgContainer,
             borderRadius: borderRadiusLG
           }}>
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

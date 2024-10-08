@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 export enum AppPaths {
   HOME = 'home',
   LOGIN = 'login',
+  MONITORING_EQUIPMENT = 'monitoringEquipment',
+  NDVI_SUMMARY = 'ndviSummary',
+  NDVI_DETAIL = 'ndviDetail',
+  SOIL_SUMMARY = 'soilSummary',
+  SOIL_DETAIL = 'soilDetail',
+  WEATHER_SUMMARY = 'weatherSummary',
+  WEATHER_DETAIL = 'weatherDetail',
   ALL_PATHS = '*'
 }
 
