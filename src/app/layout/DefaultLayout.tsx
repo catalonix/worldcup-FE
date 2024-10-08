@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
+import WeatherInfo from 'components/layout/WeatherInfo';
 
 const { Header, Sider, Content } = Layout;
 
@@ -35,7 +36,7 @@ const DefaultLayout: React.FC = () => {
     <Layout style={{ position: 'relative', height: '100vh' }}>
       <Header
         style={{
-          padding: 0,
+          padding: '0 20px',
           background: colorBgContainer,
           display: 'flex',
           justifyContent: 'space-between',
@@ -43,47 +44,50 @@ const DefaultLayout: React.FC = () => {
           zIndex: 100,
           position: 'absolute',
           width: '100%',
-          top: 0
+          top: 0,
+          backgroundColor: '#22354e'
         }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div>LOGO</div>
-          <div>서울 월드컵 경기장</div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src="https://seoul.fieldon.io/assets/img/logo-icon.png" alt="logo" />
+          {!collapsed && (
+            <span style={{ fontSize: '22px', color: 'white', fontWeight: '700' }}>서울 월드컵 경기장</span>
+          )}
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: '16px',
+              fontSize: '22px',
               width: 64,
-              height: 64
+              height: 64,
+              color: 'white'
             }}
           />
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
             미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음{' '}
             </Tag>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
             초미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음
             </Tag>
           </div>
-          <div>기온 강수량 습도</div>
+          <WeatherInfo />
+          <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'white' }}>
+              <Avatar icon={<UserOutlined />} />
+              <div>user name</div>
+            </div>
+          </Dropdown>
         </div>
-
-        <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <Avatar icon={<UserOutlined />} />
-            <div>user name</div>
-          </div>
-        </Dropdown>
       </Header>
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ top: '70px' }}>
+      <Sider trigger={null} collapsible collapsed={collapsed} style={{ top: '60px', paddingTop: '20px' }}>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
