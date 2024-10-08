@@ -28,14 +28,17 @@ const DefaultLayout: React.FC = () => {
 
   const userMenuItems: MenuProps['items'] = [
     {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-          LOGOUT
-        </a>
-      )
+      key: 'logout',
+      label: <div onClick={() => handleLogout()}>LOGOUT</div>
     }
   ];
+
+  const handleLogout = () => {
+    // TODO: LOGOUT 로직 추가
+    // TODO: 추후 hooks 로 빼야됨
+    localStorage.removeItem('userId');
+    navigate(AppPaths.LOGIN);
+  };
 
   const handleClickMenu = (menu: string) => {
     navigate(`${menu}`);
@@ -106,7 +109,8 @@ const DefaultLayout: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={selectedKeys}
+          defaultSelectedKeys={['home']}
+          selectedKeys={selectedKeys}
           items={[
             {
               key: AppPaths.HOME,
@@ -152,19 +156,22 @@ const DefaultLayout: React.FC = () => {
               ]
             },
             {
-              key: '3',
+              key: AppPaths.OBSERVATION,
               icon: <StockOutlined />,
-              label: '관측상세 정보'
+              label: '관측상세 정보',
+              onClick: () => handleClickMenu(AppPaths.OBSERVATION)
             },
             {
-              key: '4',
+              key: AppPaths.REMOTE_OPERATION,
               icon: <CopyOutlined />,
-              label: '원격작동 정보'
+              label: '원격작동 정보',
+              onClick: () => handleClickMenu(AppPaths.REMOTE_OPERATION)
             },
             {
-              key: '5',
+              key: AppPaths.USER_MANAGEMENT,
               icon: <UserOutlined />,
-              label: '사용자 관리'
+              label: '사용자 관리',
+              onClick: () => handleClickMenu(AppPaths.USER_MANAGEMENT)
             }
           ]}
         />
