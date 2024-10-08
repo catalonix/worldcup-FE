@@ -10,6 +10,9 @@ export enum AppPaths {
   SOIL_DETAIL = 'soilDetail',
   WEATHER_SUMMARY = 'weatherSummary',
   WEATHER_DETAIL = 'weatherDetail',
+  OBSERVATION = 'observation',
+  REMOTE_OPERATION = 'remoteOperation',
+  USER_MANAGEMENT = 'userManagement',
   ALL_PATHS = '*'
 }
 
