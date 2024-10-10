@@ -27,6 +27,7 @@ const UserManagment = () => {
     }
   };
 
+  /* 모달용 */
   const handleClickUserAddBtn = () => {
     setIsModalVisible(true);
   };
@@ -39,6 +40,9 @@ const UserManagment = () => {
     setIsModalVisible(false);
   };
 
+  const handleDuplicationCheckBtnClick = () => {
+    alert('중복확인 api 연동필요');
+  };
   return (
     <div className="user-page">
       <Card title="상세검색">
@@ -72,7 +76,10 @@ const UserManagment = () => {
                 message: '아이디를 입력해주세요.'
               }
             ]}>
-            <Input />
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <Input />
+              <Button onClick={handleDuplicationCheckBtnClick}>중복 확인</Button>
+            </div>
           </Form.Item>
           <Form.Item
             label="비밀번호"
@@ -127,7 +134,7 @@ const UserManagment = () => {
                 message: 'Please input!'
               }
             ]}>
-            <Input />
+            <Select options={userSearchOptions} defaultValue={'all'} style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item
             label="연락처"
