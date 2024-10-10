@@ -1,4 +1,4 @@
-import { Button, DatePicker, Form, Select, Input } from 'antd';
+import { Button, DatePicker, Form, Select, Input, Radio } from 'antd';
 import Card from 'components/common/Card';
 import { userSearchOptions } from 'common/constants/UserManagement';
 import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
@@ -123,7 +123,10 @@ const UserManagment = () => {
                 message: 'Please input!'
               }
             ]}>
-            <Input />
+            <Radio.Group defaultValue="user" style={{ width: '100%' }}>
+              <Radio.Button value="user">사용자</Radio.Button>
+              <Radio.Button value="admin">관리자</Radio.Button>
+            </Radio.Group>
           </Form.Item>
           <Form.Item
             label="부서"
