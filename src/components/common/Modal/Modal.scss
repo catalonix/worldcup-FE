@@ -1,0 +1,28 @@
+.antd-modal {
+  .ant-modal-close {
+    color: white;
+  }
+
+  .ant-modal-content {
+    border-radius: 0.5rem;
+    background-color: #22354e;
+    color: white;
+  }
+
+  .ant-modal-header {
+    position: relative;
+    border-color: #f0f0ff;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #475f7a;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ant-modal-title {
+    color: #aed5ff;
+    font-size: 16px;
+  }
+}
