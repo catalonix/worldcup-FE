@@ -1,0 +1,28 @@
+.search-box {
+  border-radius: 11px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #22354e;
+  background-clip: border-box;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.search-box__title {
+  position: relative;
+  border-color: #f0f0ff;
+  padding: 20px 0 10px 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e8e8f7;
+  background: transparent;
+  color: #aed5ff;
+  font-size: 16px;
+}
+
+.search-box__content {
+  margin-top: 10px;
+  color: white;
+}
