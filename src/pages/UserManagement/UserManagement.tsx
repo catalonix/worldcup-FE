@@ -65,7 +65,13 @@ const UserManagment = () => {
         <div className="search-content"></div>
       </Card>
 
-      <Modal title="회원 추가" isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}>
+      <Modal
+        title="회원 추가"
+        isModalVisible={isModalVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        okText="등록"
+        cancelText="취소">
         <Form style={{ marginTop: '20px' }} {...formItemLayout} className="antd-form">
           <Form.Item
             label="아이디"
