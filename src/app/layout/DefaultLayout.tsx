@@ -180,14 +180,19 @@ const DefaultLayout: React.FC = () => {
       <Layout>
         <Content
           style={{
-            margin: '100px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG
+            margin: '80px 16px'
           }}>
           <Breadcrumb />
-          <Outlet />
+          <Content
+            style={{
+              marginTop: '10px',
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+              padding: 20,
+              minHeight: 280
+            }}>
+            <Outlet />
+          </Content>
         </Content>
       </Layout>
     </Layout>

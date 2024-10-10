@@ -14,7 +14,12 @@ const Breadcrumb = () => {
     console.log('title', title);
     console.log('route', route);
     return {
-      title: <Link to={route}>{title || 'Home'}</Link>,
+      title: (
+        <div>
+          <div className="navTitle"> {title}</div>
+          <Link to={route}>Home / {title || 'Home'}</Link>
+        </div>
+      ),
       key: route
     };
   });
