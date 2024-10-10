@@ -177,7 +177,7 @@ const DefaultLayout: React.FC = () => {
           ]}
         />
       </Sider>
-      <Layout>
+      <Layout style={{ background: '#182535' }}>
         <Content
           style={{
             margin: '80px 16px'
@@ -186,9 +186,7 @@ const DefaultLayout: React.FC = () => {
           <Content
             style={{
               marginTop: '10px',
-              background: colorBgContainer,
               borderRadius: borderRadiusLG,
-              padding: 20,
               minHeight: 280
             }}>
             <Outlet />

@@ -14,8 +14,10 @@ const Breadcrumb = () => {
     return {
       title: (
         <div>
-          <div className="nav-title"> {title}</div>
-          <Link to={route}>Home / {title || 'Home'}</Link>
+          <div className="bread-crumb"> {title}</div>
+          <Link to={route} className="bread-crumb__link">
+            Home / {title || 'Home'}
+          </Link>
         </div>
       ),
       key: route
