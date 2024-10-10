@@ -1,4 +1,4 @@
-import '../layout/WeatherInfo.scss';
+import '../WeatherInfo/WeatherInfo.scss';
 
 import { CloudOutlined } from '@ant-design/icons';
 

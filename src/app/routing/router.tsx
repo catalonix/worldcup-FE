@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppPaths } from './app-routing';
 import Layout from '../layout/DefaultLayout';
-// import Login from '@pages/Login/index';
 import Login from 'pages/Login/index';
 import Monitoring from 'pages/Monitoring';
 import NdviSummary from 'pages/MonitoringEquipment/NdviSummary';
