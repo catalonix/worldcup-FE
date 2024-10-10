@@ -1,3 +1,10 @@
+.user-page {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .search-content {
   display: flex;
   align-items: center;

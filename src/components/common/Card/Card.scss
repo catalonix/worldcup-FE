@@ -1,4 +1,4 @@
-.search-box {
+.card {
   border-radius: 11px;
   position: relative;
   display: flex;
@@ -11,18 +11,21 @@
   padding-right: 25px;
 }
 
-.search-box__title {
+.card__title {
   position: relative;
   border-color: #f0f0ff;
   padding: 20px 0 10px 0;
   margin-bottom: 0;
-  border-bottom: 1px solid #e8e8f7;
+  border-bottom: 1px solid #475f7a;
   background: transparent;
   color: #aed5ff;
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.search-box__content {
+.card__content {
   margin-top: 10px;
   color: white;
   padding-bottom: 10px;
