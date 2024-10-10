@@ -12,6 +12,7 @@ import {
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import WeatherInfo from 'components/layout/WeatherInfo';
+import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
 
 const { Header, Sider, Content } = Layout;
@@ -185,6 +186,7 @@ const DefaultLayout: React.FC = () => {
             background: colorBgContainer,
             borderRadius: borderRadiusLG
           }}>
+          <Breadcrumb />
           <Outlet />
         </Content>
       </Layout>
