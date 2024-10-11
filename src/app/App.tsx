@@ -1,12 +1,11 @@
 import React from 'react';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, theme } from 'antd';
 import { Routing } from './routing';
-import { theme } from 'common/styles/theme';
 
 function App() {
   return (
     <>
-      <ConfigProvider theme={theme}>
+      <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
         <Routing />
       </ConfigProvider>
     </>

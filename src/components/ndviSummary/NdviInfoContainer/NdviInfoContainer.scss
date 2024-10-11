@@ -1,0 +1,25 @@
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-box {
+  flex: 1 1 45%; /* 기본적으로 한 줄에 2개 (여백을 고려하여 45% 설정) */
+  margin: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .item {
+    flex: 1 1 100%; /* 모바일에서 한 줄에 1개 */
+  }
+}
+
+.card {
+  border: 1px solid #22354e;
+  color: #aed5ff;
+}
+
+.card-header {
+}

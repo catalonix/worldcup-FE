@@ -1,0 +1,99 @@
+.ndvi-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ndvi-camera {
+  flex: 1 1 30%; /* 기본적으로 한 줄에 3개 */
+  margin: 10px;
+  box-sizing: border-box;
+  background: lightblue;
+  padding: 20px;
+  text-align: center;
+
+  border-radius: 11px;
+  border: 1px solid #22354e;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #22354e;
+  background-clip: border-box;
+  margin-bottom: 20px;
+}
+
+.ndvi-camera__header {
+  color: #aed5ff;
+  font-size: 16px;
+}
+
+@media (max-width: 600px) {
+  .item {
+    flex: 1 1 100%; /* 모바일에서 한 줄에 1개 */
+  }
+}
+
+.ndvi-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.ndvi-value > .ndvi-now > h5 {
+  font-size: 14px;
+  color: #8c9fb9;
+}
+.ndvi-value > .ndvi-now > .now-value > span {
+  padding: 1px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-left: 15px;
+}
+
+.ndvi-value > .ndvi-now > .now-value > h4 {
+  color: #d9e3f3;
+  font-weight: bold;
+  margin: 0;
+}
+
+.ndvi-value > .ndvi-prediction > h5 {
+  font-size: 14px;
+  color: #8c9fb9;
+  text-align: right;
+}
+
+.ndvi-value > .ndvi-prediction > .prediction-value {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.ndvi-value > .ndvi-prediction > .prediction-value > span {
+  padding: 1px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  margin-right: 15px;
+}
+
+.ndvi-value > .ndvi-prediction > .prediction-value {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.ndvi-prediction {
+  box-sizing: border-box;
+}
+
+.ndvi-value > .ndvi-prediction > h5 {
+  font-size: 14px;
+  color: #8c9fb9;
+  text-align: right;
+}
+
+.situation-success {
+  color: #25b372;
+  background-color: #25b37247;
+}
