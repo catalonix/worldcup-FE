@@ -1,9 +1,10 @@
 import { Button, DatePicker, Form, Select, Input, Radio } from 'antd';
 import Card from 'components/common/Card';
-import { userSearchOptions } from 'common/constants/UserManagement';
+
 import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import Modal from 'components/common/Modal';
+import { userSearchOptions } from 'common/constants/userManagement';
 
 const UserManagment = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
