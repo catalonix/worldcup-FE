@@ -9,7 +9,7 @@ const SoilDetail = () => {
       <Card title="상세검색">
         <div>
           <div className="search-content">
-            <Select options={soilSearchOptions} defaultValue={'camera'} style={{ width: '20%' }} />
+            <Select options={soilSearchOptions} defaultValue={'soilRobot'} style={{ width: '20%' }} />
             <DatePicker />
             <DatePicker />
             <Button icon={<SearchOutlined />}>조회하기</Button>
