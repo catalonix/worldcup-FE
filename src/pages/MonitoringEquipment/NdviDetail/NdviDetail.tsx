@@ -1,3 +1,4 @@
+import React from 'react';
 import Card from 'components/common/Card';
 import { Button, DatePicker, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
