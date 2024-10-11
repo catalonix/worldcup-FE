@@ -1,3 +1,5 @@
+import React from 'react';
+
 const NdviCameraContainer = () => {
   return (
     <div className="ndvi-container">

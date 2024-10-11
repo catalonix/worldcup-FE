@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Button, Input, Radio, Checkbox, theme, Grid, Form, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
@@ -7,7 +9,7 @@ import backgroundImg from 'common/assets/img/login-bg.png';
 type LoginType = 'user' | 'admin';
 
 const { useBreakpoint } = Grid;
-const { Text, Title, Link } = Typography;
+const { Text, Title } = Typography;
 
 const LoginView = () => {
   const { token } = theme.useToken();
@@ -73,7 +75,7 @@ const LoginView = () => {
       borderRadius: '10px',
       width: '70%',
       display: 'flex',
-      flexDirection: 'column' as 'column',
+      flexDirection: 'column' as const,
       alignItems: 'center'
     },
     rememberDesc: {
