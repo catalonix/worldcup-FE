@@ -9,7 +9,7 @@ const WeatherDetail = () => {
       <Card title="상세검색">
         <div>
           <div className="search-content">
-            <Select disabled options={weatherSearchOptions} defaultValue={'weatherStation'} style={{ width: '20%' }} />
+            <Select options={weatherSearchOptions} defaultValue={'weatherStation'} style={{ width: '20%' }} />
             <DatePicker />
             <DatePicker />
             <Button icon={<SearchOutlined />}>조회하기</Button>
