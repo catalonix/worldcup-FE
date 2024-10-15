@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { AppPaths } from 'app/routing/app-routing';
 import airblowerIcon from 'common/assets/img/airblower-icon.png';
 import wateringIcon from 'common/assets/img/watering-icon.png';
-import stadiumRemote from 'common/assets/img/stadium-remote.png';
+import stadium from 'common/assets/img/stadium.png';
 import sensorIcon from 'common/assets/img/sensor-icon.png';
+import cameraIcon from 'common/assets/img/camera-icon.png';
 
 const MonitoringView = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const MonitoringView = () => {
             </div>
             <div className="card-body pt-1">
               <div className="stadium-img stadium-map">
-                <img src={stadiumRemote} alt="stadium" />
+                <img src={stadium} alt="stadium" />
                 <div className="equipment-location">
                   <div className="sensor-1">
                     <div className="equipment-btn-box">
@@ -126,7 +127,7 @@ const MonitoringView = () => {
                     <div className="equipment-btn-box">
                       <div className="condition-icon condition-weird">
                         <img
-                          src="common/assets/img/camera-icon.png"
+                          src={cameraIcon}
                           onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C003`)}
                         />
                       </div>
@@ -141,7 +142,7 @@ const MonitoringView = () => {
                     <div className="equipment-btn-box">
                       <div className="condition-icon condition-normal">
                         <img
-                          src="common/assets/img/camera-icon.png"
+                          src={cameraIcon}
                           onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C002`)}
                         />
                       </div>
@@ -156,7 +157,7 @@ const MonitoringView = () => {
                     <div className="equipment-btn-box">
                       <div className="condition-icon condition-weird">
                         <img
-                          src="common/assets/img/camera-icon.png"
+                          src={cameraIcon}
                           onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C001`)}
                         />
                       </div>
@@ -895,7 +896,7 @@ const MonitoringView = () => {
                           <div className="sensor-temperature-data temperature-low"></div>
                         </div>
                       </div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -926,7 +927,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="30"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -957,7 +958,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="29"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -988,7 +989,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="28"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1019,7 +1020,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="27"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-15px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-15px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1050,7 +1051,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="26"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-45px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-45px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1083,7 +1084,7 @@ const MonitoringView = () => {
                   <div className="sensor-row">
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="18"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1114,7 +1115,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="19"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1145,7 +1146,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="20"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1176,7 +1177,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="21"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1207,7 +1208,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="22"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-15px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-15px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1238,7 +1239,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="23"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-45px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-45px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1273,7 +1274,7 @@ const MonitoringView = () => {
                   <div className="sensor-row">
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="14"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1304,7 +1305,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="13"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1335,7 +1336,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="12"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1366,7 +1367,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="15"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1397,7 +1398,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="11"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-15px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-15px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1428,7 +1429,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="10"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-45px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-45px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1461,7 +1462,7 @@ const MonitoringView = () => {
                   <div className="sensor-row">
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="02"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1492,7 +1493,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="03"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1523,7 +1524,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="04"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1554,7 +1555,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="05"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '25px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '25px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1585,7 +1586,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="06"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-15px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-15px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
@@ -1616,7 +1617,7 @@ const MonitoringView = () => {
                     </div>
                     <div className="sensor-location">
                       <div className="sensor-btn" data-loc="07"></div>
-                      <div className="sensor-info-box infoBox" style={{ left: '-45px' }}>
+                      <div className="sensor-info-box infoBox" style={{ left: '-45px', display: 'none' }}>
                         <div className="info-header">
                           <h4>토양정보</h4>
                           <button onClick={() => handleNavigate(AppPaths.SOIL_SUMMARY)}>
