@@ -51,6 +51,9 @@ const DefaultLayout: React.FC = () => {
   const handleResize = () => {
     if (window.innerWidth >= 990) {
       setIsOpenWeatherInfo(false);
+      setCollapsed(false);
+    } else {
+      setCollapsed(true);
     }
   };
 

@@ -7,7 +7,20 @@ const RemoteOperation = () => {
   return (
     <div className="remote-operation-container">
       <div className="remote-operation-box">
-        <Card title="원격작동 현황">
+        <Card
+          title="원격작동 현황"
+          titleButton={
+            <div className="stadium-legend">
+              <div className="legend-normal">
+                <div></div>
+                <span>작동중</span>
+              </div>
+              <div className="legend-weird">
+                <div></div>
+                <span>정지</span>
+              </div>
+            </div>
+          }>
           <StadiumWatering />
         </Card>
         <Card title="원격작동 상세정보">

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 export enum AppPaths {
-  HOME = '',
+  HOME = 'monitoring',
   LOGIN = 'login',
   MONITORING_EQUIPMENT = 'monitoringEquipment',
   NDVI_SUMMARY = 'ndviSummary',
