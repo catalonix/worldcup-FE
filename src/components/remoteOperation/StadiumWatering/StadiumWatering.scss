@@ -188,8 +188,13 @@ img {
   background: #eee;
   border-radius: 50px;
 }
+
 .tab-stop {
   background: linear-gradient(to top, #f78a8a, #ff5163) !important;
+}
+
+.tab-working {
+  background: linear-gradient(to top, #89c092, #10d183) !important;
 }
 
 .remote-tab-link > span {

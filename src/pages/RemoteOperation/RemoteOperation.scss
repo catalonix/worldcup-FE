@@ -14,6 +14,42 @@
   }
 }
 
+.stadium-legend {
+  display: flex;
+  align-items: center;
+  span {
+    color: #d9e3f3;
+    font-size: 13px;
+  }
+}
+
+.stadium-legend > .legend-normal {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.stadium-legend > .legend-weird {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.stadium-legend > .legend-normal > div {
+  background: linear-gradient(to top, #89c092, #10d183);
+  width: 12px;
+  height: 12px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+.stadium-legend > .legend-weird > div {
+  background: linear-gradient(to top, #f78a8a, #ff5163);
+  width: 12px;
+  height: 12px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
 /*
 * 반응형
 */
