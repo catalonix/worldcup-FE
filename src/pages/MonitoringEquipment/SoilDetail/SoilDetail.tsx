@@ -50,11 +50,11 @@ const SoilDetail = () => {
         </div>
       </Card>
       <Card title="관측정보">
-        <div className="search-content">
-          <div className="chart-description">
+        <div className="search-content d-column">
+          <div className="chart-header">
             <div>
-              <div>토양로봇</div>
-              <div>선택하신 장비에 대한 관측 데이터 그래프 입니다.</div>
+              <div className="chart-title">토양로봇</div>
+              <div className="chart-description">선택하신 장비에 대한 관측 데이터 그래프 입니다.</div>
             </div>
             <div>
               <Button icon={<DownloadOutlined />} />

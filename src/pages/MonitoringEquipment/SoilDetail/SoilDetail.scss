@@ -4,10 +4,11 @@
   gap: 1rem;
 }
 
-.search-content {
+.d-column {
   flex-direction: column;
 }
-.chart-description {
+
+.chart-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
