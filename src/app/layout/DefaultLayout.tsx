@@ -14,6 +14,7 @@ import type { MenuProps } from 'antd';
 import WeatherInfo from 'components/layout/WeatherInfo';
 import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
+import './DefaultLayout.scss';
 
 const { Header, Sider, Content } = Layout;
 
@@ -82,13 +83,13 @@ const DefaultLayout: React.FC = () => {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
+          <div className="weather-tag">
             미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음
             </Tag>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
+          <div className="weather-tag">
             초미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음
