@@ -1,0 +1,9 @@
+.weather-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.d-column {
+  flex-direction: column;
+}
