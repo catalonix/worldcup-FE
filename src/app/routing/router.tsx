@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppPaths } from './app-routing';
 import Layout from '../layout/DefaultLayout';
-import Login from 'pages/Login/index';
+import Login from 'pages/Login';
 import Monitoring from 'pages/Monitoring';
 import NdviSummary from 'pages/MonitoringEquipment/NdviSummary';
 import NdviDetail from 'pages/MonitoringEquipment/NdviDetail';
@@ -22,7 +22,7 @@ export function Routing() {
           <Route path={AppPaths.LOGIN} element={<Login />} />
           <Route element={<Layout />}>
             <Route path={AppPaths.HOME} element={<Monitoring />} />
-            <Route path={AppPaths.MONITORING_EQUIPMENT} element={<Monitoring />}></Route>
+            {/* <Route path={AppPaths.MONITORING_EQUIPMENT} element={<Monitoring />}></Route> */}
             <Route path={AppPaths.NDVI_SUMMARY} element={<NdviSummary />}></Route>
             <Route path={AppPaths.NDVI_DETAIL} element={<NdviDetail />}></Route>
             <Route path={AppPaths.NDVI_SUMMARY} element={<NdviSummary />}></Route>
