@@ -1,0 +1,29 @@
+.remote-operation-container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.remote-operation-box {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-direction: row;
+  .card {
+    flex: 1;
+  }
+}
+
+/*
+* 반응형
+*/
+
+@media (max-width: 1200px) {
+  .remote-operation-container {
+    flex-direction: column; /* 1200px 이상일 때 방향: 행 */
+  }
+
+  .remote-operation-box {
+    flex-direction: column;
+  }
+}

@@ -77,3 +77,42 @@
   font-size: 14px;
   color: #8c9fb9;
 }
+
+/*자주 쓰는 클래스명*/
+
+/* TODO: 추후 파일 분리*/
+
+.flex-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.wd-100p {
+  width: 100% !important;
+}
+
+.border-0 {
+  border: 0 !important;
+}
+
+.mr-2,
+.mx-2 {
+  margin-right: 0.5rem !important;
+}

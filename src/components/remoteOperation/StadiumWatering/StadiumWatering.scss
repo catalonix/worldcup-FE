@@ -1,0 +1,208 @@
+.stadium-watering {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 40%;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.stadium-watering-row:nth-child(1) {
+  width: 80%;
+}
+
+.stadium-watering-row:nth-child(2) {
+  width: 65%;
+}
+
+.stadium-watering-row:nth-child(3) {
+  width: 55%;
+}
+
+.stadium-watering > .stadium-watering-row {
+  height: 33.3333%;
+}
+.stadium-watering-row {
+  margin: 0px auto;
+}
+
+.stadium-watering > .stadium-watering-row > .watering-box {
+  display: flex;
+  background: #21adf4;
+  border-radius: 5px;
+  padding: 3px 6px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.stadium-watering > .stadium-watering-row > .water-off {
+  background: lightslategray;
+}
+
+.stadium-watering > .stadium-watering-row > .watering-box > .watering-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 5px;
+  background: #22354e;
+}
+
+.watering-icon {
+  display: none;
+}
+
+.stadium-watering > .stadium-watering-row > .watering-box > .watering-icon > img {
+  width: 15px;
+  display: block;
+  margin: auto;
+  padding-top: 3px;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 100%;
+}
+
+.stadium-watering > .stadium-watering-row > .watering-box > h4.watering-number {
+  margin: 0;
+  font-size: 8px;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 5px;
+  margin-right: 3px;
+}
+
+.stadium-remote-map > img {
+  height: 214px;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-justified .nav-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+.nav-item {
+  z-index: 3;
+}
+.robot-tab {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.airblower-tab1 {
+  position: absolute;
+  top: 0px;
+  left: 18%;
+  display: flex;
+}
+
+.airblower-tab2 {
+  position: absolute;
+  top: 0px;
+  right: 18%;
+  display: flex;
+}
+.airblower-tab3 {
+  position: absolute;
+  bottom: 40px;
+  left: 1%;
+  display: flex;
+}
+
+.airblower-tab4 {
+  position: absolute;
+  bottom: 40px;
+  right: 1%;
+  display: flex;
+}
+
+.airblower-tab5 {
+  position: absolute;
+  bottom: 10px;
+  left: 13%;
+  display: flex;
+  margin-bottom: 140px !important;
+}
+
+.airblower-tab6 {
+  position: absolute;
+  bottom: 20px;
+  left: 7%;
+  display: flex;
+  margin-bottom: 70px !important;
+}
+
+.airblower-tab7 {
+  position: absolute;
+  bottom: 20px;
+  right: 7%;
+  display: flex;
+  margin-bottom: 70px !important;
+}
+
+.airblower-tab8 {
+  position: absolute;
+  bottom: 10px;
+  right: 13%;
+  display: flex;
+  margin-bottom: 140px !important;
+}
+
+.irrigation-tab {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.remote-tab-link {
+  background: #172535;
+  color: #fff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 3px 10px;
+}
+
+.remote-tab-link > .remote-situation {
+  width: 20px;
+  height: 20px;
+  background: #eee;
+  border-radius: 50px;
+}
+.tab-stop {
+  background: linear-gradient(to top, #f78a8a, #ff5163) !important;
+}
+
+.remote-tab-link > span {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.remote-tab-link.active {
+  color: #73fff2;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 100%;
+}
