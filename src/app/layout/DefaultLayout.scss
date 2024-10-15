@@ -3,8 +3,46 @@
   align-items: center;
   gap: 0.2rem;
   font-size: 10px;
-  color: white;
+  color: #8c9fb9;
   @media (max-width: 991px) {
     display: none;
+  }
+}
+
+.more-btn {
+  font-size: 22px;
+  width: 64px;
+  height: 64px;
+  color: white;
+  @media (max-width: 991px) {
+    display: block;
+  }
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+
+.weather-info__mobile {
+  z-index: 10000;
+  width: 100vw;
+  position: absolute;
+  top: 64px;
+  left: 0;
+  padding: 5px 1rem;
+
+  display: flex;
+  border-bottom: 1px solid #374860;
+  border-top: 1px solid #374860;
+  background-color: #22354e;
+
+  flex-direction: column;
+  justify-content: center;
+  .weather-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .weather-tag {
+    display: flex;
   }
 }
