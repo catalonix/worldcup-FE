@@ -48,10 +48,24 @@ const DefaultLayout: React.FC = () => {
     navigate(`${menu}`);
   };
 
+  const handleResize = () => {
+    if (window.innerWidth >= 990) {
+      setIsOpenWeatherInfo(false);
+    }
+  };
+
   useEffect(() => {
     const path = location.pathname;
     setSelectedKeys([path.slice(1)]);
   }, [location.pathname]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Layout style={{ position: 'relative', height: '100vh' }}>
