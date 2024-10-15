@@ -1,3 +1,4 @@
+import React from 'react';
 import '../WeatherInfo/WeatherInfo.scss';
 
 import { CloudOutlined } from '@ant-design/icons';

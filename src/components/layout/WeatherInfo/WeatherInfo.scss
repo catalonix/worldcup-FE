@@ -1,6 +1,9 @@
 .weather-container {
   display: flex;
   height: 40px;
+  @media (max-width: 991px) {
+    display: none;
+  }
 }
 
 .weather-box {

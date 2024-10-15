@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
+  AlignLeftOutlined,
   AppstoreOutlined,
   FileOutlined,
   UserOutlined,
   CopyOutlined,
-  StockOutlined
+  StockOutlined,
+  MoreOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import WeatherInfo from 'components/layout/WeatherInfo';
 import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
+import './DefaultLayout.scss';
 
 const { Header, Sider, Content } = Layout;
 
@@ -21,6 +22,8 @@ const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
+
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   const {
@@ -45,10 +48,24 @@ const DefaultLayout: React.FC = () => {
     navigate(`${menu}`);
   };
 
+  const handleResize = () => {
+    if (window.innerWidth >= 990) {
+      setIsOpenWeatherInfo(false);
+    }
+  };
+
   useEffect(() => {
     const path = location.pathname;
     setSelectedKeys([path.slice(1)]);
   }, [location.pathname]);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <Layout style={{ position: 'relative', height: '100vh' }}>
@@ -70,25 +87,50 @@ const DefaultLayout: React.FC = () => {
           {!collapsed && <span style={{ fontSize: '22px', color: 'white', fontWeight: '700' }}>서울월드컵경기장</span>}
           <Button
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            icon={<AlignLeftOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
               fontSize: '22px',
-              width: 64,
-              height: 64,
               color: 'white'
             }}
           />
+          <Button
+            type="text"
+            icon={<MoreOutlined />}
+            onClick={() => setIsOpenWeatherInfo(!isOpenWeatherInfo)}
+            className="more-btn"
+          />
         </div>
 
+        {isOpenWeatherInfo && (
+          <div className="weather-info__mobile">
+            <div style={{ display: 'flex' }}>
+              <div className="weather-tag">
+                미세먼지
+                <Tag color="blue" style={{ fontSize: '10px' }}>
+                  좋음
+                </Tag>
+              </div>
+              <div className="weather-tag">
+                초미세먼지
+                <Tag color="blue" style={{ fontSize: '10px' }}>
+                  좋음
+                </Tag>
+              </div>
+            </div>
+
+            <WeatherInfo />
+          </div>
+        )}
+
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
+          <div className="weather-tag">
             미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음
             </Tag>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '10px', color: 'white' }}>
+          <div className="weather-tag">
             초미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
               좋음
