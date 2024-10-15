@@ -3,7 +3,7 @@ import React from 'react';
 import Card from 'components/common/Card';
 import { Chart } from 'react-chartjs-2';
 import { Button, DatePicker, Select } from 'antd';
-import { SearchOutlined, DownloadOutlined } from '@ant-design/icons';
+import { SearchOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons';
 import { weatherSearchOptions } from 'common/constants/weatherDetail';
 
 const WeatherDetail = () => {
@@ -52,7 +52,7 @@ const WeatherDetail = () => {
           </div>
         </div>
       </Card>
-      <Card title="관측정보" titleButton={<Button>차트보기</Button>}>
+      <Card title="관측정보" titleButton={<Button icon={<BarChartOutlined />}>차트보기</Button>}>
         <div className="search-content d-column">
           <div className="chart-header">
             <div>
