@@ -67,9 +67,7 @@ const DefaultLayout: React.FC = () => {
         }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <img src="https://seoul.fieldon.io/assets/img/logo-icon.png" alt="logo" />
-          {!collapsed && (
-            <span style={{ fontSize: '22px', color: 'white', fontWeight: '700' }}>서울 월드컵 경기장</span>
-          )}
+          {!collapsed && <span style={{ fontSize: '22px', color: 'white', fontWeight: '700' }}>서울월드컵경기장</span>}
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

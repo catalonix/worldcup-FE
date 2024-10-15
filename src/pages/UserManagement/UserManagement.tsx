@@ -1,9 +1,12 @@
+import React from 'react';
+
 import { Button, DatePicker, Form, Select, Input, Radio } from 'antd';
 import Card from 'components/common/Card';
-import { userSearchOptions } from 'common/constants/UserManagement';
+
 import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import Modal from 'components/common/Modal';
+import { userSearchOptions } from 'common/constants/userManagement';
 
 const UserManagment = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
@@ -65,7 +68,13 @@ const UserManagment = () => {
         <div className="search-content"></div>
       </Card>
 
-      <Modal title="회원 추가" isModalVisible={isModalVisible} handleOk={handleOk} handleCancel={handleCancel}>
+      <Modal
+        title="회원 추가"
+        isModalVisible={isModalVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        okText="등록"
+        cancelText="취소">
         <Form style={{ marginTop: '20px' }} {...formItemLayout} className="antd-form">
           <Form.Item
             label="아이디"

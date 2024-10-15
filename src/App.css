@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+/* 공통 */
+.card {
+  border-radius: 11px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #22354e;
+  background-clip: border-box;
+  border: 1px solid #22354e;
+}
+
+.card-header {
+  padding-top: 1rem;
+  color: #aed5ff;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.card-body {
+  padding-top: 1rem;
+}
+
+.chart-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart-title {
+  font-size: 16px;
+  color: #d9e3f3;
+}
+
+.chart-description {
+  font-size: 14px;
+  color: #8c9fb9;
+}

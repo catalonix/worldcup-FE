@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Modal as AntdModal } from 'antd';
 import { ReactNode } from 'react';
 interface ModalProps {

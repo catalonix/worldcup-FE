@@ -1,0 +1,16 @@
+.soil-detail-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.d-column {
+  flex-direction: column;
+}
+
+.chart-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
