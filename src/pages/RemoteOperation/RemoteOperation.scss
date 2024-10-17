@@ -2,64 +2,84 @@
   display: flex;
   gap: 1rem;
   flex-direction: column;
-}
 
-.remote-operation-box {
-  display: flex;
-  gap: 1rem;
-  justify-content: space-between;
-  flex-direction: row;
-  .card {
-    flex: 1;
+  .watering-icon {
+    display: none !important;
   }
-}
 
-.stadium-legend {
-  display: flex;
-  align-items: center;
-  span {
-    color: #d9e3f3;
-    font-size: 13px;
+  .stadium-watering {
+    position: absolute;
+    top: 55% !important;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 40% !important;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
   }
-}
 
-.stadium-legend > .legend-normal {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.stadium-legend > .legend-weird {
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-}
-
-.stadium-legend > .legend-normal > div {
-  background: linear-gradient(to top, #89c092, #10d183);
-  width: 12px;
-  height: 12px;
-  border-radius: 20px;
-  margin-right: 5px;
-}
-.stadium-legend > .legend-weird > div {
-  background: linear-gradient(to top, #f78a8a, #ff5163);
-  width: 12px;
-  height: 12px;
-  border-radius: 20px;
-  margin-right: 5px;
-}
-
-/*
-* 반응형
-*/
-
-@media (max-width: 1200px) {
-  .remote-operation-container {
-    flex-direction: column; /* 1200px 이상일 때 방향: 행 */
+  .stadium-watering > .stadium-watering-row {
+    height: 33.3333%;
   }
 
   .remote-operation-box {
-    flex-direction: column;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-direction: row;
+    .card {
+      flex: 1;
+    }
+  }
+
+  .stadium-legend {
+    display: flex;
+    align-items: center;
+    span {
+      color: #d9e3f3;
+      font-size: 13px;
+    }
+  }
+
+  .stadium-legend > .legend-normal {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+
+  .stadium-legend > .legend-weird {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+
+  .stadium-legend > .legend-normal > div {
+    background: linear-gradient(to top, #89c092, #10d183);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+  .stadium-legend > .legend-weird > div {
+    background: linear-gradient(to top, #f78a8a, #ff5163);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+
+  /*
+* 반응형
+*/
+
+  @media (max-width: 1200px) {
+    .remote-operation-container {
+      flex-direction: column; /* 1200px 이상일 때 방향: 행 */
+    }
+
+    .remote-operation-box {
+      flex-direction: column;
+    }
   }
 }
