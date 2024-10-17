@@ -49,7 +49,13 @@ const NdviInfoContainer = () => {
         <div className="card">
           <div className="card-header">NDVI 이미지</div>
           <div className="card-body">
-            <Chart type="line" data={data} options={options} />
+            <img
+              id="ndviImg1"
+              src="https://seoul.fieldon.io/data13/C001/catalonix_show_daily_img.jpg "
+              className="ndvi-img twentytwenty-before"
+              width="100%"
+              height="500px"
+            />
           </div>
         </div>
       </div>

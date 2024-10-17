@@ -1,10 +1,11 @@
 .ndvi-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .ndvi-camera {
-  flex: 1 1 30%; /* 기본적으로 한 줄에 3개 */
+  flex: 1; /* 기본적으로 한 줄에 3개 */
   margin: 10px;
   box-sizing: border-box;
   background: lightblue;
@@ -23,9 +24,10 @@
   margin-bottom: 20px;
 }
 
-.ndvi-camera__header {
+.card-header {
   color: #aed5ff;
   font-size: 16px;
+  text-align: left;
 }
 
 @media (max-width: 1200px) {
