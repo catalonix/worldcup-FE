@@ -148,7 +148,11 @@ const DefaultLayout: React.FC = () => {
           </Dropdown>
         </div>
       </Header>
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ top: '60px', paddingTop: '20px' }}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ top: '60px', paddingTop: '20px', height: '95%' }}>
         <div className="demo-logo-vertical" />
         <Menu
           theme="dark"
@@ -230,7 +234,9 @@ const DefaultLayout: React.FC = () => {
             style={{
               marginTop: '10px',
               borderRadius: borderRadiusLG,
-              minHeight: 280
+              minHeight: 280,
+              height: '95%',
+              overflowY: 'scroll'
             }}>
             <Outlet />
           </Content>

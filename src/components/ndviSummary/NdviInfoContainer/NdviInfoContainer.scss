@@ -1,25 +1,41 @@
 .info-container {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem; /* 요소 간 간격 */
+  margin-bottom: 10px;
 }
 
 .info-box {
-  flex: 1 1 45%; /* 기본적으로 한 줄에 2개 (여백을 고려하여 45% 설정) */
   margin: 10px;
   box-sizing: border-box;
   text-align: center;
+  display: flex; /* flex 컨테이너로 설정 */
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  flex: 1; /* 기본 flex 비율 */
+}
+
+.info-box:first-of-type {
+  flex: 1; /* 첫 번째 박스는 2배 크기 */
+}
+
+.info-box:last-of-type {
+  flex: 2; /* 두 번째 박스는 기본 크기 */
 }
 
 @media (max-width: 1200px) {
-  .info-box {
+  .info-container {
     flex: 1 1 100%; /* 모바일에서 한 줄에 1개 */
+  }
+
+  .info-box {
+    flex: 1; /* 모든 박스가 동일한 비율로 설정 */
   }
 }
 
 .card {
   border: 1px solid #22354e;
   color: #aed5ff;
-}
-
-.card-header {
+  display: flex; /* card를 flex 컨테이너로 설정 */
+  flex-direction: column; /* 내부 요소 세로 정렬 */
+  height: 100%; /* 부모 높이를 모두 차지하도록 설정 */
 }
