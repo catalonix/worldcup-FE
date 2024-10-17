@@ -13,7 +13,7 @@ const SoilSummary = () => {
   };
 
   return (
-    <div>
+    <div className="soil-summary-container">
       <div className="row row-sm mt-4">
         <div className="col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <div className="card custom-card overflow-hidden">
