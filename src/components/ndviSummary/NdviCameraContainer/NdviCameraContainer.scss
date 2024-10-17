@@ -32,6 +32,10 @@
   .ndvi-camera {
     flex: 1 1 100%; /* 모바일에서 한 줄에 1개 */
   }
+  .card-header {
+    text-align: left;
+    font-size: 1.4rem !important;
+  }
 }
 
 .ndvi-value {
@@ -44,7 +48,14 @@
 .ndvi-value > .ndvi-now > h5 {
   font-size: 14px;
   color: #8c9fb9;
+  text-align: left;
 }
+
+.ndvi-value > .ndvi-now > .now-value {
+  display: flex;
+  align-items: center;
+}
+
 .ndvi-value > .ndvi-now > .now-value > span {
   padding: 1px 15px;
   border-radius: 20px;

@@ -4,10 +4,20 @@
 }
 
 .info-box {
-  flex: 1 1 45%; /* 기본적으로 한 줄에 2개 (여백을 고려하여 45% 설정) */
+  display: flex;
   margin: 10px;
   box-sizing: border-box;
   text-align: center;
+  flex: 1;
+  align-items: stretch;
+}
+
+.info-box:first-of-type {
+  flex: 2;
+}
+
+.info-box:last-of-type {
+  flex: 1;
 }
 
 @media (max-width: 1200px) {
@@ -19,7 +29,4 @@
 .card {
   border: 1px solid #22354e;
   color: #aed5ff;
-}
-
-.card-header {
 }
