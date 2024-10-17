@@ -18,3 +18,13 @@ h5 {
   margin-top: 0;
   margin-bottom: 0;
 }
+
+*::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  transition: 0.3s background;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(232, 232, 247);
+}

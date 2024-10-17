@@ -1,0 +1,67 @@
+.stadium-sensor > .sensor-row > .sensor-info > .sensor-info-row > .sensor-temperature {
+  width: 43px;
+  background: #304760;
+  border-radius: 5px;
+  padding: 0 0px;
+}
+
+.stadium-sensor > .sensor-row > .sensor-info > .sensor-info-row > .sensor-temperature > h5 {
+  text-align: center;
+  color: #fff;
+  font-size: 11px;
+  padding-top: 6px;
+  margin-bottom: 5px;
+}
+
+.stadium-sensor > .sensor-row > .sensor-info > .sensor-info-row > .sensor-ec {
+  width: 43px;
+  background: #304760;
+  border-radius: 5px;
+  padding: 0 0px;
+}
+
+.stadium-sensor > .sensor-row > .sensor-info > .sensor-info-row > .sensor-ec > h4 {
+  text-align: center;
+  color: #fff;
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.pm-state {
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.pm-good {
+  background: #1c62c3;
+}
+
+@media screen and (min-width: 750px) {
+  .sensor-temperature {
+    width: 100px !important;
+    margin: 5px;
+  }
+
+  .sensor-info h5 {
+    font-size: 18px !important;
+    color: #aed5ff !important;
+  }
+
+  .sensor-ec,
+  .sensor-ph {
+    width: 100px !important;
+    margin: 5px;
+  }
+
+  .sensor-info h4 {
+    font-size: 20px !important;
+  }
+
+  .unit {
+    font-size: 12px;
+  }
+}
