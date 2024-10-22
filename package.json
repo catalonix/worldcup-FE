@@ -67,6 +67,5 @@
     "prettier": "^3.3.3",
     "react-app-rewired": "^2.2.1",
     "typescript-eslint": "^8.8.0"
-  },
-  "proxy": "http://121.133.122.31:8004"
+  }
 }
