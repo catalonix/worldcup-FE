@@ -11,7 +11,8 @@ const authAxiosInstance = axios.create({
     'Content-Type': 'application/json;charset=UTF-8',
     Accept: 'application/json',
     ...(typeof window !== 'undefined' && {
-      Authorization: localStorage.getItem('accessToken') || ''
+      // eslint-disable-next-line quotes
+      Authorization: localStorage.getItem('accessToken') ? `Bearer ${localStorage.getItem('accessToken')}` : ''
     })
   }
 });
@@ -26,7 +27,9 @@ authAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) 
   if (typeof window !== 'undefined') {
     const token = window.localStorage.getItem('accessToken');
     if (token) {
-      config.headers.Authorization = token;
+      config.headers.Authorization = localStorage.getItem('accessToken')
+        ? `Bearer ${localStorage.getItem('accessToken')}`
+        : '';
     }
   }
   return config;
