@@ -1,64 +1,67 @@
 import React from 'react';
 import { Table } from 'antd';
 import type { GetProp, TableProps } from 'antd';
+import { User } from 'shared/api/user/userAPIService.types';
 
 type ColumnsType<T extends object> = GetProp<TableProps<T>, 'columns'>;
 
-interface DataType {
-  key: number;
-  name: string;
-  age: number;
-  address: string;
-  description: string;
+interface UserTableProps {
+  data: User[];
 }
 
-const UserTable = () => {
-  const programColumns: ColumnsType<DataType> = [
-    {
-      title: '구분',
-      dataIndex: 'name',
-      filters: [
-        {
-          text: '사용자',
-          value: 'user'
-        },
-        {
-          text: '관리자',
-          value: 'admin'
-        }
-      ],
-      onFilter: (value, record) => record.address.indexOf(value as string) === 0
-    },
+const UserTable = (props: UserTableProps) => {
+  const programColumns: ColumnsType<User> = [
+    // {
+    //   title: '구분',
+    //   key: 'index',
+    //   render: (it, index) => <span>{index}</span>
+    // },
     {
       title: '아이디',
-      key: 'action'
+      key: 'userId',
+      dataIndex: 'userId'
     },
     {
       title: '담당자',
-      dataIndex: 'address'
+      key: 'userName',
+      dataIndex: 'userName'
     },
     {
       title: '연락처',
-      key: 'action',
-      render: () => <div>HI</div>
+      key: 'hp',
+      dataIndex: 'hp'
     },
     {
       title: '부서',
-      key: 'action',
-      render: () => <div>HI</div>
+      key: 'dept',
+      dataIndex: 'dept'
     },
     {
       title: '권한',
-      key: 'action',
-      render: () => <div>HI</div>
+      key: 'userCode',
+      dataIndex: 'userCode',
+      filters: [
+        {
+          text: '사용자',
+          value: '0'
+        },
+        {
+          text: '관리자',
+          value: '1'
+        }
+      ],
+      render: (it: string) => (it === '0' ? '사용자' : '관리자'),
+      onFilter: (value, record) => {
+        return record.userCode.indexOf(value as string) === 0;
+      }
     },
     {
       title: '등록일',
-      key: 'action',
-      render: () => <div>HI</div>
+      key: 'regDate',
+      dataIndex: 'regDate'
     }
   ];
 
-  return <Table columns={programColumns} style={{ width: '100%' }} />;
+  return <Table columns={programColumns} style={{ width: '100%' }} dataSource={props.data} key="userTable" />;
 };
 export default UserTable;

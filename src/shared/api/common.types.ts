@@ -8,5 +8,5 @@ export interface ApiResponse<T> {
 
 export interface Pagination<T> {
   total: number;
-  result: T;
+  results: T;
 }
