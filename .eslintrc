@@ -4,7 +4,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["prettier", "import", "@typescript-eslint", "react"],
-  "extends": ["prettier", "plugin:prettier/recommended"],
+  "extends": ["prettier", "plugin:prettier/recommended", "plugin:import/typescript"],
   "settings": {
     "import/resolver": {
       "node": {

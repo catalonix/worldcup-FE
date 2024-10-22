@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { Breadcrumb as AntBreadcrumb } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import breadcrumbNameMap from 'app/routing/breadCrumbNameMap';
-import { AppPaths } from '~/app/routing/app-routing';
+import { AppPaths } from 'app/routing/app-routing';
 
 const Breadcrumb = () => {
   const location = useLocation();
