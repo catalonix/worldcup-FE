@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Button, Input, Checkbox, theme, Grid, Form, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useState } from 'react';
 
 import backgroundImg from 'common/assets/img/login-bg.png';
 import useAuth from 'hooks/useAuth';
@@ -19,8 +18,9 @@ const LoginView = () => {
   const { login } = useAuth();
 
   // const [loginType, setLoginType] = useState<LoginType>('user');
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+
+  const userId = '';
+  const password = '';
 
   const onFinish = (values: LoginParams) => {
     if (values.remember) {

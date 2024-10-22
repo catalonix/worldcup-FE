@@ -8,7 +8,7 @@ const authAxiosInstance = axios.create({
   baseURL,
   withCredentials: true,
   headers: {
-    'Content-Type': `application/json;charset=UTF-8`,
+    'Content-Type': 'application/json;charset=UTF-8',
     Accept: 'application/json',
     ...(typeof window !== 'undefined' && {
       Authorization: localStorage.getItem('accessToken') || ''
@@ -17,7 +17,8 @@ const authAxiosInstance = axios.create({
 });
 
 const unAuthAxiosInstance = axios.create({
-  baseURL
+  baseURL,
+  withCredentials: true
 });
 
 authAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
