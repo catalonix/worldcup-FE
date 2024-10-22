@@ -1,12 +1,14 @@
 import React from 'react';
 
-import { Button, Input, Radio, Checkbox, theme, Grid, Form, Typography } from 'antd';
+import { Button, Input, Checkbox, theme, Grid, Form, Typography } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import backgroundImg from 'common/assets/img/login-bg.png';
+import useAuth from 'hooks/useAuth';
+import { LoginParams } from 'shared/api/auth/authAPIService.types';
 
-type LoginType = 'user' | 'admin';
+// type LoginType = 'user' | 'admin';
 
 const { useBreakpoint } = Grid;
 const { Text, Title } = Typography;
@@ -14,22 +16,25 @@ const { Text, Title } = Typography;
 const LoginView = () => {
   const { token } = theme.useToken();
   const screens = useBreakpoint();
+  const { login } = useAuth();
 
-  const [loginType, setLoginType] = useState<LoginType>('user');
+  // const [loginType, setLoginType] = useState<LoginType>('user');
   const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: LoginParams) => {
     if (values.remember) {
       localStorage.setItem('userId', values.userId);
+      login({ ...values });
     } else {
       localStorage.removeItem('userId');
     }
     console.log('Received values of form: ', values);
   };
 
-  const handleModeChange = (e: any) => {
-    setLoginType(e.target.value);
-  };
+  // const handleModeChange = (e: any) => {
+  //   setLoginType(e.target.value);
+  // };
 
   const styles = {
     container: {
@@ -86,11 +91,11 @@ const LoginView = () => {
     }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('userId')) {
-      setUserId(localStorage.getItem('userId') as string);
-    } else setUserId('');
-  }, [loginType]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('userId')) {
+  //     setUserId(localStorage.getItem('userId') as string);
+  //   } else setUserId('');
+  // }, [loginType]);
 
   return (
     <section style={styles.section}>
@@ -103,7 +108,7 @@ const LoginView = () => {
         </div>
         <div style={styles.loginBox}>
           <div style={styles.loginInnerBox}>
-            <div>
+            {/* <div>
               <Radio.Group
                 onChange={handleModeChange}
                 value={loginType}
@@ -113,7 +118,7 @@ const LoginView = () => {
                 <Radio.Button value="user">사용자 로그인</Radio.Button>
                 <Radio.Button value="admin">관리자 로그인</Radio.Button>
               </Radio.Group>
-            </div>
+            </div> */}
             <Form
               initialValues={{
                 remember: true,
@@ -150,6 +155,7 @@ const LoginView = () => {
                   type="password"
                   placeholder="Password"
                   style={{ backgroundColor: '#16293a', color: 'white' }}
+                  value={password}
                 />
               </Form.Item>
               <Form.Item name="remember" valuePropName="checked" style={styles.rememberDesc}>

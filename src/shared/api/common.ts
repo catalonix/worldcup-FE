@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { InternalAxiosRequestConfig } from 'axios';
-const baseURL = `${process.env.REACT_PUBLIC_API_END_POINT}`;
+
+// eslint-disable-next-line quotes
+const baseURL = `${process.env.REACT_APP_API_END_POINT}`;
 
 const authAxiosInstance = axios.create({
   baseURL,

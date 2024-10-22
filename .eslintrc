@@ -83,7 +83,7 @@
         "": "never"
       }
     ],
-    "quotes": ["error", "single"] // single으로 유지
+    "quotes": ["error", "string"] // single으로 유지
   },
   "root": true
 }
