@@ -1,5 +1,7 @@
 // LoadingContext.tsx
 import React, { createContext, useContext, useState } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 interface LoadingContextType {
   loading: boolean;
@@ -21,8 +23,7 @@ export const LoadingProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
 const LoadingSpinner = () => (
   <div className="loading-spinner">
-    {/* 로딩 스피너 스타일 */}
-    <p>Loading...</p>
+    <Spin indicator={<LoadingOutlined spin />} size="small" />
   </div>
 );
 

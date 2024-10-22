@@ -17,8 +17,7 @@ const authAxiosInstance = axios.create({
 });
 
 const unAuthAxiosInstance = axios.create({
-  baseURL,
-  withCredentials: true
+  baseURL
 });
 
 authAxiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
