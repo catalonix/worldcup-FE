@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConfigProvider, theme } from 'antd';
 import { Routing } from './routing';
-
+import { LoadingProvider } from 'contexts/LoadingContext';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -19,9 +19,11 @@ function App() {
 
   return (
     <>
-      <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
-        <Routing />
-      </ConfigProvider>
+      <LoadingProvider>
+        <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
+          <Routing />
+        </ConfigProvider>
+      </LoadingProvider>
     </>
   );
 }

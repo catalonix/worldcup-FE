@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, DatePicker, Select } from 'antd';
 import Card from 'components/common/Card';
@@ -8,8 +8,11 @@ import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
 import { userSearchOptions } from 'common/constants/userManagement';
 import AddUserModal from 'components/UserManagement/AddUserModal';
 import UserTable from 'components/UserManagement/UserTable';
+import useUserManagement from 'hooks/userManagement';
 
 const UserManagment = () => {
+  const { getUserList } = useUserManagement();
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const handleClickUserAddBtn = () => {
@@ -19,6 +22,10 @@ const UserManagment = () => {
   const handleIsModalVisible = (isModalVisible: boolean) => {
     setIsModalVisible(isModalVisible);
   };
+
+  useEffect(() => {
+    getUserList();
+  }, []);
 
   return (
     <div className="user-page">
