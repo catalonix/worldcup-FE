@@ -1,5 +1,5 @@
 export const userSearchOptions = [
-  { value: 'all', label: '전체' },
-  { value: 'user', label: '사용자' },
-  { value: 'admin', label: '관리자' }
+  { value: '', label: '전체' },
+  { value: '0', label: '사용자' },
+  { value: '1', label: '관리자' }
 ];

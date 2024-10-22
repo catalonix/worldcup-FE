@@ -16,19 +16,19 @@ const NdviDetail = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
+    labels: ['1', '2', '3', '4', '5'], // x축을 나타내는 가상의 레이블
     datasets: [
       {
         label: '토양습도',
         backgroundColor: 'rgba(0, 0, 255, 0.5)',
         borderColor: 'blue',
-        data: [3, 5, 11] // y 값
+        data: [3, 3, 10, 4, 20] // y 값
       },
       {
         label: '토양온도',
         backgroundColor: 'rgba(255, 0, 0, 0.5)',
         borderColor: 'red',
-        data: [5, 10, 10] // y 값
+        data: [5, 10, 10, 0, 2] // y 값
       },
       {
         label: '토양양분',
