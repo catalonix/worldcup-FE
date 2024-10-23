@@ -1,6 +1,8 @@
 import React from 'react';
-import { Form, Input, Radio } from 'antd';
+import { Button, Form, Input, Radio } from 'antd';
+import useUserManagement from 'hooks/useUserManagement';
 const MyPage = () => {
+  const { editUser } = useUserManagement();
   const [form] = Form.useForm();
 
   const formItemLayout = {
@@ -20,6 +22,10 @@ const MyPage = () => {
         span: 16
       }
     }
+  };
+
+  const handleEdit = async () => {
+    await editUser(form.getFieldsValue());
   };
 
   return (
@@ -116,6 +122,9 @@ const MyPage = () => {
           <Input />
         </Form.Item>
       </Form>
+      <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
+        수정
+      </Button>
     </div>
   );
 };
