@@ -1,7 +1,9 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Dropdown, Button, Modal } from 'antd';
 import type { GetProp, TableProps } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
 import { User } from 'shared/api/user/userAPIService.types';
+import useUserManagement from 'hooks/userManagement';
 
 type ColumnsType<T extends object> = GetProp<TableProps<T>, 'columns'>;
 
@@ -10,12 +12,18 @@ interface UserTableProps {
 }
 
 const UserTable = (props: UserTableProps) => {
+  const { deleteUser } = useUserManagement();
+  const handleDelete = (user: User) => {
+    Modal.confirm({
+      title: '정말로 삭제하시겠어요?',
+      content: '삭제 후 복구할 수 없어요.',
+      onOk: () => {
+        deleteUser(user.userId);
+      }
+    });
+  };
+
   const programColumns: ColumnsType<User> = [
-    // {
-    //   title: '구분',
-    //   key: 'index',
-    //   render: (it, index) => <span>{index}</span>
-    // },
     {
       title: '아이디',
       key: 'userId',
@@ -59,6 +67,28 @@ const UserTable = (props: UserTableProps) => {
       title: '등록일',
       key: 'regDate',
       dataIndex: 'regDate'
+    },
+    {
+      title: '관리',
+      key: 'action',
+      render: text => (
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 'edit',
+                label: <span>수정</span>
+              },
+              {
+                key: 'delete',
+                label: <span onClick={() => handleDelete(text)}>삭제</span>
+              }
+            ]
+          }}
+          trigger={['click']}>
+          <Button type="text" icon={<MenuOutlined />} />
+        </Dropdown>
+      )
     }
   ];
 
