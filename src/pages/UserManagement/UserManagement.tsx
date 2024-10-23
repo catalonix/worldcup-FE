@@ -19,8 +19,8 @@ const dateFormat = 'YYYY-MM-DD';
 const UserManagment = () => {
   const { getUserList, userList } = useUserManagement();
 
-  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date()));
-  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const [userSearchForm, setUserSearchForm] = useState<GetUserListRequestType>({
@@ -30,7 +30,6 @@ const UserManagment = () => {
   });
 
   const handleChangeUserCode = (value: UserCode) => {
-    console.log('value', value);
     setUserSearchForm({ ...userSearchForm, userCode: value });
   };
 
