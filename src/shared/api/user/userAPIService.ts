@@ -12,8 +12,12 @@ const userAPI = {
     const res = await authAxiosInstance.post('/api/user/manage/', params);
     return res.data;
   },
-  checkId: async (id: string) => {
-    const res = await authAxiosInstance.get(`/api/user/check_user_id/?userId=${id}`);
+  checkId: async (userId: string) => {
+    const res = await authAxiosInstance.get(`/api/user/check_user_id/?userId=${userId}`);
+    return res.data;
+  },
+  deleteUser: async (userId: string) => {
+    const res = await authAxiosInstance.delete(`/api/user/manage/?userId=${userId}`);
     return res.data;
   }
 };

@@ -38,10 +38,10 @@ const useUserManagement = () => {
     }
   };
 
-  const checkId = async (id: string) => {
+  const checkId = async (userId: string) => {
     setLoading(true);
     try {
-      const result = await userAPI.checkId(id);
+      const result = await userAPI.checkId(userId);
       console.log('result', result);
       if (result.exists) {
         openNotification('warning', '이미 사용하고 있는 아이디입니다.');
@@ -59,11 +59,27 @@ const useUserManagement = () => {
     }
   };
 
+  const deleteUser = async (userId: string) => {
+    setLoading(true);
+    try {
+      await userAPI.deleteUser(userId);
+      openNotification('success', '아이디 삭제에 성공하였습니다. 다시 시도해주세요.');
+      return true;
+    } catch (error) {
+      console.error('deleteUser', error);
+      openNotification('error', '아이디 삭제에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     userList,
     getUserList,
     addUser,
-    checkId
+    checkId,
+    deleteUser
   };
 };
 export default useUserManagement;
