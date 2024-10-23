@@ -20,6 +20,10 @@ const userAPI = {
     const res = await authAxiosInstance.get(`/api/user/check_user_id/?userId=${userId}`);
     return res.data;
   },
+  checkPassword: async (password: string) => {
+    const res = await authAxiosInstance.post('/api/user/check_password/', { password });
+    return res.data;
+  },
   deleteUser: async (userId: string) => {
     const res = await authAxiosInstance.delete(`/api/user/manage/?userId=${userId}`);
     return res.data;

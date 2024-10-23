@@ -34,6 +34,10 @@ const DefaultLayout: React.FC = () => {
     {
       key: 'logout',
       label: <div onClick={() => handleLogout()}>LOGOUT</div>
+    },
+    {
+      key: 'mypage',
+      label: <div onClick={() => handleGoMyPage()}>MY PAGE</div>
     }
   ];
 
@@ -42,6 +46,10 @@ const DefaultLayout: React.FC = () => {
     // TODO: 추후 hooks 로 빼야됨
     localStorage.removeItem('userId');
     navigate(AppPaths.LOGIN);
+  };
+
+  const handleGoMyPage = () => {
+    navigate(AppPaths.MYPAGE);
   };
 
   const handleClickMenu = (menu: string) => {

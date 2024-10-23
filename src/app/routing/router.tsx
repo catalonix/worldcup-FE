@@ -13,6 +13,7 @@ import WeatherDetail from 'pages/MonitoringEquipment/WeatherDetail';
 import Observation from 'pages/Observation';
 import RemoteOperation from 'pages/RemoteOperation';
 import UserManagment from 'pages/UserManagement';
+import MyPage from 'pages/MyPage';
 
 export function Routing() {
   return (
@@ -22,6 +23,7 @@ export function Routing() {
           <Route path={AppPaths.LOGIN} element={<Login />} />
           <Route element={<Layout />}>
             <Route path={AppPaths.HOME} element={<Monitoring />} />
+            <Route path={AppPaths.MYPAGE} element={<MyPage />} />
             {/* <Route path={AppPaths.MONITORING_EQUIPMENT} element={<Monitoring />}></Route> */}
             <Route path={AppPaths.NDVI_SUMMARY} element={<NdviSummary />}></Route>
             <Route path={AppPaths.NDVI_DETAIL} element={<NdviDetail />}></Route>

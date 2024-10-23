@@ -3,6 +3,7 @@ import { AppPaths } from './app-routing';
 const breadcrumbNameMap: Record<AppPaths, string> = {
   [AppPaths.HOME]: '통합모니터링 요약(그라운드)',
   [AppPaths.LOGIN]: '로그인',
+  [AppPaths.MYPAGE]: '마이페이지',
   [AppPaths.MONITORING_EQUIPMENT]: '모니터링 장비',
   [AppPaths.NDVI_SUMMARY]: '식생지수 정보',
   [AppPaths.NDVI_DETAIL]: '식생지수 정보 상세',

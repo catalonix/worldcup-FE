@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Form, Input, Radio } from 'antd';
-import Modal from 'components/common/Modal';
 import useUserManagement from 'hooks/useUserManagement';
-import useNotification from 'hooks/useNotification';
-import { User } from 'shared/api/user/userAPIService.types';
-
-interface AddUserModalProps {
-  isModalVisible: boolean;
-  handleIsModalVisible: (value: boolean) => void;
-  handleSearch: () => void;
-  initialValue: User;
-  isEdit: boolean;
-}
-
-const AddUserModal = (props: AddUserModalProps) => {
-  const { addUser, editUser, checkId } = useUserManagement();
-  const { openNotification } = useNotification();
-
+const MyPage = () => {
+  const { editUser } = useUserManagement();
   const [form] = Form.useForm();
-
-  const [isCheckedId, setIsCheckedId] = useState<boolean>(false);
 
   const formItemLayout = {
     labelCol: {
@@ -40,86 +24,20 @@ const AddUserModal = (props: AddUserModalProps) => {
     }
   };
 
-  const resetFields = () => {
-    form.setFieldsValue({
-      userId: '',
-      password: '',
-      userName: '',
-      hp: '',
-      dept: '',
-      userCode: '0',
-      passwordCheck: ''
-    });
-    setIsCheckedId(false);
+  const handleEdit = async () => {
+    await editUser(form.getFieldsValue());
   };
-
-  const handleOk = async () => {
-    try {
-      if (!props.isEdit && !isCheckedId) {
-        openNotification('error', '아이디 중복 확인을 해주세요.');
-        return;
-      }
-
-      await form.validateFields();
-      const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
-      if (res) {
-        props.handleIsModalVisible(false);
-        resetFields();
-        props.handleSearch();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleCancel = () => {
-    props.handleIsModalVisible(false);
-    resetFields();
-  };
-
-  const handleDuplicationCheckBtnClick = async () => {
-    const res = await checkId(form.getFieldValue('userId'));
-    setIsCheckedId(res);
-  };
-
-  useEffect(() => {
-    if (props.isModalVisible) {
-      if (props.initialValue && Object.keys(props.initialValue).length > 0) {
-        // 수정 모드
-        form.setFieldsValue({ ...props.initialValue });
-      } else {
-        // 생성 모드
-        resetFields();
-      }
-    }
-  }, [props.isModalVisible]);
 
   return (
-    <Modal
-      title={props.isEdit ? '회원 수정' : '회원 추가'}
-      isModalVisible={props.isModalVisible}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
-      okText={props.isEdit ? '수정' : '등록'}
-      cancelText="취소">
+    <div>
       <Form
-        style={{ marginTop: '20px' }}
+        style={{ marginTop: '2rem', width: '80%', marginLeft: '1rem' }}
         {...formItemLayout}
         className="antd-form"
         form={form}
         initialValues={form.getFieldsValue()}>
-        <Form.Item
-          label="아이디"
-          name="userId"
-          rules={[{ whitespace: true, max: 8, required: true, message: '아이디를 8글자 미만으로 입력해주세요.' }]}>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Form.Item name="userId" noStyle>
-              <Input disabled={isCheckedId || props.isEdit} />
-            </Form.Item>
-            <Button onClick={handleDuplicationCheckBtnClick} disabled={isCheckedId || props.isEdit}>
-              중복 확인
-            </Button>
-          </div>
+        <Form.Item label="아이디" name="userId">
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="비밀번호"
@@ -204,7 +122,10 @@ const AddUserModal = (props: AddUserModalProps) => {
           <Input />
         </Form.Item>
       </Form>
-    </Modal>
+      <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
+        수정
+      </Button>
+    </div>
   );
 };
-export default AddUserModal;
+export default MyPage;

@@ -75,6 +75,27 @@ const useUserManagement = () => {
     }
   };
 
+  const checkPassword = async (password: string) => {
+    setLoading(true);
+    try {
+      const result = await userAPI.checkPassword(password);
+      console.log('result', result);
+      if (!result.isCorrect) {
+        openNotification('warning', '비밀번호가 일치하지 않아요.');
+        return false;
+      } else {
+        openNotification('success', '본인 확인에 성공했어요.');
+        return true;
+      }
+    } catch (error) {
+      console.error('checkPassword', error);
+      openNotification('error', '본인 확인에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const deleteUser = async (userId: string) => {
     setLoading(true);
     try {
@@ -95,6 +116,7 @@ const useUserManagement = () => {
     getUserList,
     addUser,
     checkId,
+    checkPassword,
     deleteUser,
     editUser
   };
