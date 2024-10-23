@@ -23,6 +23,7 @@ const UserManagment = () => {
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User>({} as User);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const [userSearchForm, setUserSearchForm] = useState<GetUserListRequestType>({
     startDate: startDate.format(dateFormat),
@@ -36,6 +37,8 @@ const UserManagment = () => {
 
   const handleClickUserAddBtn = () => {
     setIsModalVisible(true);
+    setIsEdit(false);
+    setSelectedUser({} as User);
   };
 
   const handleIsModalVisible = (isModalVisible: boolean) => {
@@ -49,6 +52,7 @@ const UserManagment = () => {
   const handleOpenEditModal = (value: User) => {
     setIsModalVisible(true);
     setSelectedUser(value);
+    setIsEdit(true);
   };
 
   useEffect(() => {
@@ -91,6 +95,7 @@ const UserManagment = () => {
         isModalVisible={isModalVisible}
         handleSearch={handleSearch}
         initialValue={selectedUser}
+        isEdit={isEdit}
       />
     </div>
   );

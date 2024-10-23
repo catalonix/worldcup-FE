@@ -10,10 +10,11 @@ interface AddUserModalProps {
   handleIsModalVisible: (value: boolean) => void;
   handleSearch: () => void;
   initialValue: User;
+  isEdit: boolean;
 }
 
 const AddUserModal = (props: AddUserModalProps) => {
-  const { addUser, checkId } = useUserManagement();
+  const { addUser, editUser, checkId } = useUserManagement();
   const { openNotification } = useNotification();
 
   const [form] = Form.useForm();
@@ -49,19 +50,18 @@ const AddUserModal = (props: AddUserModalProps) => {
       userCode: '0',
       passwordCheck: ''
     });
-    form.setFieldValue('userId', '');
     setIsCheckedId(false);
   };
 
   const handleOk = async () => {
     try {
-      if (!isCheckedId) {
+      if (!props.isEdit && !isCheckedId) {
         openNotification('error', '아이디 중복 확인을 해주세요.');
         return;
       }
 
       await form.validateFields();
-      const res = await addUser(form.getFieldsValue());
+      const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
       if (res) {
         props.handleIsModalVisible(false);
         resetFields();
@@ -89,7 +89,7 @@ const AddUserModal = (props: AddUserModalProps) => {
         form.setFieldsValue({ ...props.initialValue });
       } else {
         // 생성 모드
-        form.resetFields();
+        resetFields();
       }
     }
   }, [props.isModalVisible]);
@@ -100,7 +100,7 @@ const AddUserModal = (props: AddUserModalProps) => {
       isModalVisible={props.isModalVisible}
       handleOk={handleOk}
       handleCancel={handleCancel}
-      okText="등록"
+      okText={props.isEdit ? '수정' : '등록'}
       cancelText="취소">
       <Form
         style={{ marginTop: '20px' }}
@@ -114,9 +114,9 @@ const AddUserModal = (props: AddUserModalProps) => {
           rules={[{ whitespace: true, max: 8, required: true, message: '아이디를 8글자 미만으로 입력해주세요.' }]}>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <Form.Item name="userId" noStyle>
-              <Input disabled={isCheckedId} />
+              <Input disabled={isCheckedId || props.isEdit} />
             </Form.Item>
-            <Button onClick={handleDuplicationCheckBtnClick} disabled={isCheckedId}>
+            <Button onClick={handleDuplicationCheckBtnClick} disabled={isCheckedId || props.isEdit}>
               중복 확인
             </Button>
           </div>
