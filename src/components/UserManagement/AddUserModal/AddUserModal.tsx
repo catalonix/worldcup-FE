@@ -96,7 +96,7 @@ const AddUserModal = (props: AddUserModalProps) => {
 
   return (
     <Modal
-      title="회원 추가"
+      title={props.isEdit ? '회원 수정' : '회원 추가'}
       isModalVisible={props.isModalVisible}
       handleOk={handleOk}
       handleCancel={handleCancel}
