@@ -8,6 +8,17 @@ export type GetUserListRequestType = {
   startDate: string | Dayjs;
   endDate: string;
 };
+
+export type AddUserRequestType = {
+  userId: string;
+  password: string;
+  userName: string;
+  hp: string;
+  dept: string;
+  userCode: string;
+  passwordCheck?: string;
+};
+
 export interface User {
   userId: string;
   groupCode: string;
