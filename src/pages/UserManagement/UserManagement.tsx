@@ -11,8 +11,8 @@ import { SearchOutlined, UserAddOutlined } from '@ant-design/icons';
 import { userSearchOptions } from 'common/constants/userManagement';
 import AddUserModal from 'components/UserManagement/AddUserModal';
 import UserTable from 'components/UserManagement/UserTable';
-import useUserManagement from 'hooks/userManagement';
-import { GetUserListRequestType, UserCode } from 'shared/api/user/userAPIService.types';
+import useUserManagement from 'hooks/useUserManagement';
+import { GetUserListRequestType, User, UserCode } from 'shared/api/user/userAPIService.types';
 
 const dateFormat = 'YYYY-MM-DD';
 
@@ -22,6 +22,7 @@ const UserManagment = () => {
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<User>({} as User);
 
   const [userSearchForm, setUserSearchForm] = useState<GetUserListRequestType>({
     startDate: startDate.format(dateFormat),
@@ -43,6 +44,11 @@ const UserManagment = () => {
 
   const handleSearch = () => {
     getUserList({ ...userSearchForm, startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
+  };
+
+  const handleOpenEditModal = (value: User) => {
+    setIsModalVisible(true);
+    setSelectedUser(value);
   };
 
   useEffect(() => {
@@ -77,10 +83,15 @@ const UserManagment = () => {
           </Button>
         }>
         <div className="search-content">
-          <UserTable data={userList} />
+          <UserTable data={userList} handleSearch={handleSearch} handleOpenEditModal={handleOpenEditModal} />
         </div>
       </Card>
-      <AddUserModal handleIsModalVisible={handleIsModalVisible} isModalVisible={isModalVisible} />
+      <AddUserModal
+        handleIsModalVisible={handleIsModalVisible}
+        isModalVisible={isModalVisible}
+        handleSearch={handleSearch}
+        initialValue={selectedUser}
+      />
     </div>
   );
 };
