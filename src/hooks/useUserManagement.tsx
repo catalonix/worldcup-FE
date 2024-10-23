@@ -28,10 +28,26 @@ const useUserManagement = () => {
     setLoading(true);
     try {
       const result = await userAPI.addUser(params);
+      openNotification('success', '유저 생성에 성공했어요. ');
       if (result) return true;
     } catch (error) {
       console.error('addUser', error);
-      openNotification('error', '유저 생성에 실패하였습니다. 다시 시도해주세요.');
+      openNotification('error', '유저 생성에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const editUser = async (params: AddUserRequestType) => {
+    setLoading(true);
+    try {
+      const result = await userAPI.editUser(params);
+      openNotification('success', '유저 수정에 성공했어요.');
+      if (result) return true;
+    } catch (error) {
+      console.error('editUser', error);
+      openNotification('error', '유저 수정에 실패했어요. 다시 시도해주세요.');
       return false;
     } finally {
       setLoading(false);
@@ -52,7 +68,7 @@ const useUserManagement = () => {
       }
     } catch (error) {
       console.error('checkId', error);
-      openNotification('error', '아이디 중복확인에 실패하였습니다. 다시 시도해주세요.');
+      openNotification('error', '아이디 중복확인에 실패했어요. 다시 시도해주세요.');
       return false;
     } finally {
       setLoading(false);
@@ -63,11 +79,11 @@ const useUserManagement = () => {
     setLoading(true);
     try {
       await userAPI.deleteUser(userId);
-      openNotification('success', '아이디 삭제에 성공하였습니다. 다시 시도해주세요.');
+      openNotification('success', '아이디 삭제에 성공했어요.');
       return true;
     } catch (error) {
       console.error('deleteUser', error);
-      openNotification('error', '아이디 삭제에 실패하였습니다. 다시 시도해주세요.');
+      openNotification('error', '아이디 삭제에 실패했어요. 다시 시도해주세요.');
       return false;
     } finally {
       setLoading(false);
@@ -79,7 +95,8 @@ const useUserManagement = () => {
     getUserList,
     addUser,
     checkId,
-    deleteUser
+    deleteUser,
+    editUser
   };
 };
 export default useUserManagement;

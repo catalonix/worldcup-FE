@@ -3,12 +3,14 @@ import { Table, Dropdown, Button, Modal } from 'antd';
 import type { GetProp, TableProps } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { User } from 'shared/api/user/userAPIService.types';
-import useUserManagement from 'hooks/userManagement';
+import useUserManagement from 'hooks/useUserManagement';
 
 type ColumnsType<T extends object> = GetProp<TableProps<T>, 'columns'>;
 
 interface UserTableProps {
   data: User[];
+  handleSearch: () => void;
+  handleOpenEditModal: (user: User) => void;
 }
 
 const UserTable = (props: UserTableProps) => {
@@ -17,8 +19,11 @@ const UserTable = (props: UserTableProps) => {
     Modal.confirm({
       title: '정말로 삭제하시겠어요?',
       content: '삭제 후 복구할 수 없어요.',
-      onOk: () => {
-        deleteUser(user.userId);
+      onOk: async () => {
+        const res = await deleteUser(user.userId);
+        if (res) {
+          props.handleSearch();
+        }
       }
     });
   };
@@ -77,7 +82,7 @@ const UserTable = (props: UserTableProps) => {
             items: [
               {
                 key: 'edit',
-                label: <span>수정</span>
+                label: <span onClick={() => props.handleOpenEditModal(text)}>수정</span>
               },
               {
                 key: 'delete',

@@ -12,6 +12,10 @@ const userAPI = {
     const res = await authAxiosInstance.post('/api/user/manage/', params);
     return res.data;
   },
+  editUser: async (params: AddUserRequestType) => {
+    const res = await authAxiosInstance.patch('/api/user/manage/', params);
+    return res.data;
+  },
   checkId: async (userId: string) => {
     const res = await authAxiosInstance.get(`/api/user/check_user_id/?userId=${userId}`);
     return res.data;

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import Modal from 'components/common/Modal';
-import useUserManagement from 'hooks/userManagement';
+import useUserManagement from 'hooks/useUserManagement';
 import useNotification from 'hooks/useNotification';
+import { User } from 'shared/api/user/userAPIService.types';
 
 interface AddUserModalProps {
   isModalVisible: boolean;
   handleIsModalVisible: (value: boolean) => void;
+  handleSearch: () => void;
+  initialValue: User;
+  isEdit: boolean;
 }
 
 const AddUserModal = (props: AddUserModalProps) => {
-  const { addUser, checkId } = useUserManagement();
+  const { addUser, editUser, checkId } = useUserManagement();
   const { openNotification } = useNotification();
 
   const [form] = Form.useForm();
@@ -46,22 +50,22 @@ const AddUserModal = (props: AddUserModalProps) => {
       userCode: '0',
       passwordCheck: ''
     });
-    form.setFieldValue('userId', '');
     setIsCheckedId(false);
   };
 
   const handleOk = async () => {
     try {
-      if (!isCheckedId) {
+      if (!props.isEdit && !isCheckedId) {
         openNotification('error', '아이디 중복 확인을 해주세요.');
         return;
       }
 
       await form.validateFields();
-      const res = await addUser(form.getFieldsValue());
+      const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
       if (res) {
         props.handleIsModalVisible(false);
         resetFields();
+        props.handleSearch();
       }
     } catch (error) {
       console.error(error);
@@ -79,34 +83,40 @@ const AddUserModal = (props: AddUserModalProps) => {
   };
 
   useEffect(() => {
-    form.setFieldsValue({
-      userId: '',
-      password: '',
-      userName: '',
-      hp: '',
-      dept: '',
-      userCode: '0',
-      passwordCheck: ''
-    });
-  }, []);
+    if (props.isModalVisible) {
+      if (props.initialValue && Object.keys(props.initialValue).length > 0) {
+        // 수정 모드
+        form.setFieldsValue({ ...props.initialValue });
+      } else {
+        // 생성 모드
+        resetFields();
+      }
+    }
+  }, [props.isModalVisible]);
 
   return (
-    <Form style={{ marginTop: '20px' }} {...formItemLayout} className="antd-form" form={form}>
-      <Modal
-        title="회원 추가"
-        isModalVisible={props.isModalVisible}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        okText="등록"
-        cancelText="취소">
+    <Modal
+      title="회원 추가"
+      isModalVisible={props.isModalVisible}
+      handleOk={handleOk}
+      handleCancel={handleCancel}
+      okText={props.isEdit ? '수정' : '등록'}
+      cancelText="취소">
+      <Form
+        style={{ marginTop: '20px' }}
+        {...formItemLayout}
+        className="antd-form"
+        form={form}
+        initialValues={form.getFieldsValue()}>
         <Form.Item
-          style={{ marginTop: '20px' }}
           label="아이디"
           name="userId"
           rules={[{ whitespace: true, max: 8, required: true, message: '아이디를 8글자 미만으로 입력해주세요.' }]}>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Input onChange={e => form.setFieldValue('userId', e.target.value)} disabled={isCheckedId} />
-            <Button onClick={handleDuplicationCheckBtnClick} disabled={isCheckedId}>
+            <Form.Item name="userId" noStyle>
+              <Input disabled={isCheckedId || props.isEdit} />
+            </Form.Item>
+            <Button onClick={handleDuplicationCheckBtnClick} disabled={isCheckedId || props.isEdit}>
               중복 확인
             </Button>
           </div>
@@ -162,7 +172,7 @@ const AddUserModal = (props: AddUserModalProps) => {
               message: '권한을 선택해주세요.'
             }
           ]}>
-          <Radio.Group defaultValue={'0'} style={{ width: '100%' }}>
+          <Radio.Group style={{ width: '100%' }}>
             <Radio.Button value="0">사용자</Radio.Button>
             <Radio.Button value="1">관리자</Radio.Button>
           </Radio.Group>
@@ -193,8 +203,8 @@ const AddUserModal = (props: AddUserModalProps) => {
           ]}>
           <Input />
         </Form.Item>
-      </Modal>
-    </Form>
+      </Form>
+    </Modal>
   );
 };
 export default AddUserModal;
