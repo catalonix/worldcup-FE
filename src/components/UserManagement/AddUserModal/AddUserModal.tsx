@@ -78,6 +78,10 @@ const AddUserModal = (props: AddUserModalProps) => {
   };
 
   const handleDuplicationCheckBtnClick = async () => {
+    if (!form.getFieldValue('userId')) {
+      openNotification('warning', '아이디를 입력해주세요.');
+      return;
+    }
     const res = await checkId(form.getFieldValue('userId'));
     setIsCheckedId(res);
   };

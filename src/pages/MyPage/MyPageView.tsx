@@ -5,6 +5,8 @@ const MyPage = () => {
   const { editUser } = useUserManagement();
   const [form] = Form.useForm();
 
+  // TODO: 전역상태 작업 후 작업 예정
+
   const formItemLayout = {
     labelCol: {
       xs: {
