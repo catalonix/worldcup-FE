@@ -15,11 +15,14 @@ import WeatherInfo from 'components/layout/WeatherInfo';
 import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
 import './DefaultLayout.scss';
+import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
 
 const { Header, Sider, Content } = Layout;
 
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
+
+  const { dispatchIsLogin } = useMyInfoStore();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
@@ -32,20 +35,20 @@ const DefaultLayout: React.FC = () => {
 
   const userMenuItems: MenuProps['items'] = [
     {
-      key: 'logout',
-      label: <div onClick={() => handleLogout()}>LOGOUT</div>
-    },
-    {
       key: 'mypage',
       label: <div onClick={() => handleGoMyPage()}>MY PAGE</div>
+    },
+    {
+      key: 'logout',
+      label: <div onClick={() => handleLogout()}>LOGOUT</div>
     }
   ];
 
   const handleLogout = () => {
     // TODO: LOGOUT 로직 추가
     // TODO: 추후 hooks 로 빼야됨
-    localStorage.removeItem('userId');
     navigate(AppPaths.LOGIN);
+    dispatchIsLogin(false);
   };
 
   const handleGoMyPage = () => {

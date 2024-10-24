@@ -79,7 +79,6 @@ const useUserManagement = () => {
     setLoading(true);
     try {
       const result = await userAPI.checkPassword(password);
-      console.log('result', result);
       if (!result.isCorrect) {
         openNotification('warning', '비밀번호가 일치하지 않아요.');
         return false;

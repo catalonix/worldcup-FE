@@ -1,3 +1,3 @@
-import UserManagment from './UserManagement';
+import UserManagement from './UserManagement';
 import './UserManagement.scss';
-export default UserManagment;
+export default UserManagement;

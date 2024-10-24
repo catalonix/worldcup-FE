@@ -12,29 +12,57 @@ import WeatherSummary from 'pages/MonitoringEquipment/WeatherSummary';
 import WeatherDetail from 'pages/MonitoringEquipment/WeatherDetail';
 import Observation from 'pages/Observation';
 import RemoteOperation from 'pages/RemoteOperation';
-import UserManagment from 'pages/UserManagement';
+import UserManagement from 'pages/UserManagement';
 import MyPage from 'pages/MyPage';
+import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import ProtectedRoute from './protectedRoute';
 
 export function Routing() {
+  const { isLogin } = useMyInfoStore();
   return (
     <div className="app">
       <BrowserRouter>
         <Routes>
           <Route path={AppPaths.LOGIN} element={<Login />} />
           <Route element={<Layout />}>
-            <Route path={AppPaths.HOME} element={<Monitoring />} />
-            <Route path={AppPaths.MYPAGE} element={<MyPage />} />
-            {/* <Route path={AppPaths.MONITORING_EQUIPMENT} element={<Monitoring />}></Route> */}
-            <Route path={AppPaths.NDVI_SUMMARY} element={<NdviSummary />}></Route>
-            <Route path={AppPaths.NDVI_DETAIL} element={<NdviDetail />}></Route>
-            <Route path={AppPaths.NDVI_SUMMARY} element={<NdviSummary />}></Route>
-            <Route path={AppPaths.SOIL_SUMMARY} element={<SoilSummary />}></Route>
-            <Route path={AppPaths.SOIL_DETAIL} element={<SoilDetail />}></Route>
-            <Route path={AppPaths.WEATHER_SUMMARY} element={<WeatherSummary />}></Route>
-            <Route path={AppPaths.WEATHER_DETAIL} element={<WeatherDetail />}></Route>
-            <Route path={AppPaths.OBSERVATION} element={<Observation />}></Route>
-            <Route path={AppPaths.REMOTE_OPERATION} element={<RemoteOperation />}></Route>
-            <Route path={AppPaths.USER_MANAGEMENT} element={<UserManagment />}></Route>
+            <Route path={AppPaths.HOME} element={<ProtectedRoute element={<Monitoring />} isLoggedIn={isLogin} />} />
+            <Route path={AppPaths.MYPAGE} element={<ProtectedRoute element={<MyPage />} isLoggedIn={isLogin} />} />
+            <Route
+              path={AppPaths.NDVI_SUMMARY}
+              element={<ProtectedRoute element={<NdviSummary />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.NDVI_DETAIL}
+              element={<ProtectedRoute element={<NdviDetail />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.SOIL_SUMMARY}
+              element={<ProtectedRoute element={<SoilSummary />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.SOIL_DETAIL}
+              element={<ProtectedRoute element={<SoilDetail />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.WEATHER_SUMMARY}
+              element={<ProtectedRoute element={<WeatherSummary />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.WEATHER_DETAIL}
+              element={<ProtectedRoute element={<WeatherDetail />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.OBSERVATION}
+              element={<ProtectedRoute element={<Observation />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.REMOTE_OPERATION}
+              element={<ProtectedRoute element={<RemoteOperation />} isLoggedIn={isLogin} />}
+            />
+            <Route
+              path={AppPaths.USER_MANAGEMENT}
+              element={<ProtectedRoute element={<UserManagement />} isLoggedIn={isLogin} />}
+            />
           </Route>
         </Routes>
         {/* <SnackbarBase /> */}

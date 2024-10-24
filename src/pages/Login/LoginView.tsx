@@ -6,6 +6,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import backgroundImg from 'common/assets/img/login-bg.png';
 import useAuth from 'hooks/useAuth';
 import { LoginParams } from 'shared/api/auth/authAPIService.types';
+import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
 
 // type LoginType = 'user' | 'admin';
 
@@ -17,15 +18,21 @@ const LoginView = () => {
   const screens = useBreakpoint();
   const { login } = useAuth();
 
+  const { dispatchIsLogin } = useMyInfoStore();
+
   // const [loginType, setLoginType] = useState<LoginType>('user');
 
   const userId = '';
   const password = '';
 
-  const onFinish = (values: LoginParams) => {
+  const onFinish = async (values: LoginParams) => {
     if (values.remember) {
       localStorage.setItem('userId', values.userId);
-      login({ ...values });
+      const res = await login({ ...values });
+      if (res) {
+        console.log('here');
+        dispatchIsLogin(true);
+      }
     } else {
       localStorage.removeItem('userId');
     }
