@@ -31,7 +31,16 @@ const MyPage = () => {
   };
 
   const handleEdit = async () => {
-    await editUser(form.getFieldsValue());
+    try {
+      await form.validateFields();
+      await editUser(form.getFieldsValue());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCancel = () => {
+    form.setFieldsValue({ ...myInfo });
   };
 
   useEffect(() => {
@@ -131,10 +140,15 @@ const MyPage = () => {
           ]}>
           <Input />
         </Form.Item>
+        <div className="mypage-form__button">
+          <Button type="primary" onClick={handleCancel} style={{ marginTop: '1rem' }}>
+            취소
+          </Button>
+          <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
+            수정
+          </Button>
+        </div>
       </Form>
-      <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
-        수정
-      </Button>
     </div>
   );
 };
