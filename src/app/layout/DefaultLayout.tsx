@@ -22,7 +22,7 @@ const { Header, Sider, Content } = Layout;
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
-  const { dispatchIsLogin } = useMyInfoStore();
+  const { dispatchIsLogin, clear } = useMyInfoStore();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
@@ -49,6 +49,7 @@ const DefaultLayout: React.FC = () => {
     // TODO: 추후 hooks 로 빼야됨
     navigate(AppPaths.LOGIN);
     dispatchIsLogin(false);
+    clear();
   };
 
   const handleGoMyPage = () => {
