@@ -16,7 +16,7 @@ import { GetUserListRequestType, User, UserCode } from 'shared/api/user/userAPIS
 
 const dateFormat = 'YYYY-MM-DD';
 
-const UserManagment = () => {
+const UserManagement = () => {
   const { getUserList, userList } = useUserManagement();
 
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
@@ -100,4 +100,4 @@ const UserManagment = () => {
     </div>
   );
 };
-export default UserManagment;
+export default UserManagement;
