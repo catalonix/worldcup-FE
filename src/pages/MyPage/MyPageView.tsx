@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import useUserManagement from 'hooks/useUserManagement';
+import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import { AddUserRequestType } from 'shared/api/user/userAPIService.types';
 const MyPage = () => {
   const { editUser } = useUserManagement();
-  const [form] = Form.useForm();
+  const { myInfo } = useMyInfoStore();
+
+  const [form] = Form.useForm<AddUserRequestType>();
 
   // TODO: 전역상태 작업 후 작업 예정
 
@@ -29,6 +33,10 @@ const MyPage = () => {
   const handleEdit = async () => {
     await editUser(form.getFieldsValue());
   };
+
+  useEffect(() => {
+    form.setFieldsValue({ ...myInfo });
+  }, []);
 
   return (
     <div>

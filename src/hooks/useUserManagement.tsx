@@ -24,6 +24,19 @@ const useUserManagement = () => {
     }
   };
 
+  const getUser = async (userId: string) => {
+    setLoading(true);
+    try {
+      const result = await userAPI.getUser(userId);
+      return result;
+    } catch (error) {
+      console.error('getUser', error);
+      openNotification('error', '유저 조회에 실패하였습니다. 다시 시도해주세요.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const addUser = async (params: AddUserRequestType) => {
     setLoading(true);
     try {
@@ -113,6 +126,7 @@ const useUserManagement = () => {
   return {
     userList,
     getUserList,
+    getUser,
     addUser,
     checkId,
     checkPassword,

@@ -7,6 +7,7 @@ import backgroundImg from 'common/assets/img/login-bg.png';
 import useAuth from 'hooks/useAuth';
 import { LoginParams } from 'shared/api/auth/authAPIService.types';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import useUserManagement from 'hooks/useUserManagement';
 
 // type LoginType = 'user' | 'admin';
 
@@ -17,8 +18,9 @@ const LoginView = () => {
   const { token } = theme.useToken();
   const screens = useBreakpoint();
   const { login } = useAuth();
+  const { getUser } = useUserManagement();
 
-  const { dispatchIsLogin } = useMyInfoStore();
+  const { dispatchIsLogin, dispatchMyInfo } = useMyInfoStore();
 
   // const [loginType, setLoginType] = useState<LoginType>('user');
 
@@ -30,13 +32,13 @@ const LoginView = () => {
       localStorage.setItem('userId', values.userId);
       const res = await login({ ...values });
       if (res) {
-        console.log('here');
         dispatchIsLogin(true);
+        const myInfo = await getUser(values.userId);
+        if (myInfo) dispatchMyInfo(myInfo);
       }
     } else {
       localStorage.removeItem('userId');
     }
-    console.log('Received values of form: ', values);
   };
 
   // const handleModeChange = (e: any) => {

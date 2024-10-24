@@ -1,14 +1,12 @@
+import { User } from 'shared/api/user/userAPIService.types';
+
 export interface MyInfoState {
   isLogin: boolean;
-  userId: string;
-  userName: string;
-  hp: string;
-  dept: string;
-  userCode: string;
+  myInfo: User;
 }
 
 export interface MyInfoDispatcher extends MyInfoState {
   dispatchIsLogin: (value: boolean) => void;
-  dispatchMyInfo: (value: MyInfoState) => void;
+  dispatchMyInfo: (value: User) => void;
   clear: () => void;
 }
