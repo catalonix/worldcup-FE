@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 import useUserManagement from 'hooks/useUserManagement';
+import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import { AddUserRequestType } from 'shared/api/user/userAPIService.types';
 const MyPage = () => {
   const { editUser } = useUserManagement();
-  const [form] = Form.useForm();
+  const { myInfo } = useMyInfoStore();
+
+  const [form] = Form.useForm<AddUserRequestType>();
 
   // TODO: 전역상태 작업 후 작업 예정
 
@@ -27,8 +31,21 @@ const MyPage = () => {
   };
 
   const handleEdit = async () => {
-    await editUser(form.getFieldsValue());
+    try {
+      await form.validateFields();
+      await editUser(form.getFieldsValue());
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  const handleCancel = () => {
+    form.setFieldsValue({ ...myInfo });
+  };
+
+  useEffect(() => {
+    form.setFieldsValue({ ...myInfo });
+  }, []);
 
   return (
     <div>
@@ -123,10 +140,15 @@ const MyPage = () => {
           ]}>
           <Input />
         </Form.Item>
+        <div className="mypage-form__button">
+          <Button type="primary" onClick={handleCancel} style={{ marginTop: '1rem' }}>
+            취소
+          </Button>
+          <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
+            수정
+          </Button>
+        </div>
       </Form>
-      <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>
-        수정
-      </Button>
     </div>
   );
 };

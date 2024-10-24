@@ -27,6 +27,7 @@ export interface User {
   dept: string;
   regDate: string;
   userCode: string;
+  password?: string;
 }
 
 export type GetUserListResponseType = Pagination<User[]>;

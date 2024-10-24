@@ -1,11 +1,15 @@
 import { authAxiosInstance } from '../common';
-import { AddUserRequestType, GetUserListRequestType, GetUserListResponseType } from './userAPIService.types';
+import { AddUserRequestType, GetUserListRequestType, GetUserListResponseType, User } from './userAPIService.types';
 
 const userAPI = {
   getUserList: async (params: GetUserListRequestType) => {
     const res = await authAxiosInstance.get<GetUserListResponseType>(
       `/api/user/list/?userCode=${params.userCode.toString()}&startDate=${params.startDate}&endDate=${params.endDate}`
     );
+    return res.data;
+  },
+  getUser: async (userId: string) => {
+    const res = await authAxiosInstance.get<User>(`/api/user/manage/?userId=${userId}`);
     return res.data;
   },
   addUser: async (params: AddUserRequestType) => {
