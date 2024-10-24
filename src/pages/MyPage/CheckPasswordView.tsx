@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { Button, Input } from 'antd';
 import useUserManagement from 'hooks/useUserManagement';
 import MyPage from './MyPageView';
+import useNotification from 'hooks/useNotification';
 
 const CheckPasswordView = () => {
   const { checkPassword } = useUserManagement();
+  const { openNotification } = useNotification();
+
   const [password, setPassword] = useState<string>('');
   const [isCheckedPassword, setIsCheckedPassword] = useState<boolean>(false);
 
   const handleCheckPassword = async () => {
+    if (!password) {
+      openNotification('warning', '비밀번호를 입력해주세요.');
+      return;
+    }
     const res = await checkPassword(password);
     if (res) setIsCheckedPassword(true);
   };
