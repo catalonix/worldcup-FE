@@ -24,6 +24,22 @@
     font-size: 14px;
     color: #8c9fb9;
   }
+  .card-header-right > .stadium-legend {
+    display: flex;
+    align-items: center;
+  }
+
+  .card-header-right > .stadium-legend > .legend-normal {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+
+  .card-header-right > .stadium-legend > .legend-weird {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
 
   .card-header-right > .stadium-legend > .legend-none {
     display: flex;
