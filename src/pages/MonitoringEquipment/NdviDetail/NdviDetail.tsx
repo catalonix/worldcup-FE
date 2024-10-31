@@ -28,35 +28,34 @@ const NdviDetail = () => {
     labels: ndviInfo?.dates, // x축을 나타내는 가상의 레이블
     datasets: [
       {
-        label: ndviInfo?.data[0].name,
+        label: ndviInfo?.data[0] ? ndviInfo?.data[0].name : '',
         backgroundColor: '#25B372',
         borderColor: '#25B372',
-        data: ndviInfo?.data[0].data
+        data: ndviInfo?.data[0] ? ndviInfo?.data[0].data : []
       },
       {
-        label: ndviInfo?.data[1].name,
+        label: ndviInfo?.data[1] ? ndviInfo?.data[1]?.name : '',
         backgroundColor: '#2478FF',
         borderColor: '#2478FF',
-        data: ndviInfo?.data[1].data
+        data: ndviInfo?.data[1] ? ndviInfo?.data[1].data : ''
       },
       {
-        label: ndviInfo?.data[2].name,
+        label: ndviInfo?.data[2] ? ndviInfo?.data[2]?.name : '',
         backgroundColor: '#5F00FF',
         borderColor: '#5F00FF',
-        data: ndviInfo?.data[2].data
+        data: ndviInfo?.data[2] ? ndviInfo?.data[2].data : []
       },
       {
-        label: ndviInfo?.data[3].name,
+        label: ndviInfo?.data[3] ? ndviInfo?.data[3].name : '',
         backgroundColor: '#00D8FF',
         borderColor: '#00D8FF',
-        data: ndviInfo?.data[3].data
+        data: ndviInfo?.data[3] ? ndviInfo?.data[3].data : []
       }
     ]
   };
 
   const handleSearch = () => {
     getNdviInfo({ startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
-    console.log('ndvi', ndviInfo);
   };
 
   useEffect(() => {
