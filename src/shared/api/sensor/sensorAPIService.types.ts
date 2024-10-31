@@ -3,7 +3,7 @@ export interface GetNdviInfoParams {
   endDate?: string;
 }
 
-export type GetNdviInfoResponseType = {
+export type GetSensorInfoResponseType = {
   dates: string[];
   data: { key: string; name: string; data: number[] }[];
 };

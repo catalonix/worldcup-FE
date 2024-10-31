@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-chartjs-2';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import Card from 'components/common/Card';
 import { Button, DatePicker, Select } from 'antd';
 import { SearchOutlined, DownloadOutlined } from '@ant-design/icons';
+import useSensor from 'hooks/useSensor';
 import { soilSearchOptions } from 'common/constants/soilDetail';
 
+const dateFormat = 'YYYY-MM-DD';
+
 const SoilDetail = () => {
+  const { soilInfo, getSoilInfo } = useSensor();
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const options = {
     responsive: true,
     plugins: {
@@ -16,37 +24,53 @@ const SoilDetail = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
+    labels: soilInfo?.dates, // x축을 나타내는 가상의 레이블
     datasets: [
       {
-        label: '토양습도',
-        backgroundColor: 'rgba(0, 0, 255, 0.5)',
-        borderColor: 'blue',
-        data: [3, 5, 11] // y 값
+        label: soilInfo?.data[0] ? soilInfo?.data[0].name : '',
+        backgroundColor: '#25B372',
+        borderColor: '#25B372',
+        data: soilInfo?.data[0] ? soilInfo?.data[0].data : []
       },
       {
-        label: '토양온도',
-        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-        borderColor: 'red',
-        data: [5, 10, 10] // y 값
+        label: soilInfo?.data[1] ? soilInfo?.data[1]?.name : '',
+        backgroundColor: '#2478FF',
+        borderColor: '#2478FF',
+        data: soilInfo?.data[1] ? soilInfo?.data[1].data : ''
       },
       {
-        label: '토양양분',
-        backgroundColor: 'rgba(255, 165, 0, 0.5)',
-        borderColor: 'orange',
-        data: [15, 23, 20] // y 값
+        label: soilInfo?.data[2] ? soilInfo?.data[2]?.name : '',
+        backgroundColor: '#5F00FF',
+        borderColor: '#5F00FF',
+        data: soilInfo?.data[2] ? soilInfo?.data[2].data : []
+      },
+      {
+        label: soilInfo?.data[3] ? soilInfo?.data[3].name : '',
+        backgroundColor: '#00D8FF',
+        borderColor: '#00D8FF',
+        data: soilInfo?.data[3] ? soilInfo?.data[3].data : []
       }
     ]
   };
+
+  const handleSearch = () => {
+    getSoilInfo({ startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
   return (
     <div className="soil-detail-container">
       <Card title="상세검색">
         <div className="search-content">
           <Select options={soilSearchOptions} defaultValue={'soilRobot'} style={{ width: '20%' }} />
-          <DatePicker />
-          <DatePicker />
-          <Button icon={<SearchOutlined />}>조회하기</Button>
+          <DatePicker defaultValue={startDate} onChange={value => setStartDate(value)} />
+          <DatePicker defaultValue={endDate} onChange={value => setEndDate(value)} minDate={startDate} />
+          <Button icon={<SearchOutlined />} onClick={handleSearch}>
+            조회하기
+          </Button>
         </div>
       </Card>
       <Card title="관측정보">

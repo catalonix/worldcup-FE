@@ -56,7 +56,6 @@ const NdviDetail = () => {
 
   const handleSearch = () => {
     getNdviInfo({ startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
-    console.log('ndvi', ndviInfo);
   };
 
   useEffect(() => {
