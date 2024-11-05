@@ -33,26 +33,26 @@ const WeatherDetail = () => {
     datasets: [
       {
         label: weatherInfo?.data[0] ? weatherInfo?.data[0].name : '',
-        backgroundColor: '#25B372',
-        borderColor: '#25B372',
+        backgroundColor: '#FFE3E3',
+        borderColor: '#FFE3E3',
         data: weatherInfo?.data[0] ? weatherInfo?.data[0].data : []
       },
       {
         label: weatherInfo?.data[1] ? weatherInfo?.data[1]?.name : '',
-        backgroundColor: '#2478FF',
-        borderColor: '#2478FF',
+        backgroundColor: '#FFC9C9',
+        borderColor: '#FFC9C9',
         data: weatherInfo?.data[1] ? weatherInfo?.data[1].data : ''
       },
       {
         label: weatherInfo?.data[2] ? weatherInfo?.data[2]?.name : '',
-        backgroundColor: '#5F00FF',
-        borderColor: '#5F00FF',
+        backgroundColor: '#FFA8A8',
+        borderColor: '#FFA8A8',
         data: weatherInfo?.data[2] ? weatherInfo?.data[2].data : []
       },
       {
         label: weatherInfo?.data[3] ? weatherInfo?.data[3].name : '',
-        backgroundColor: '#00D8FF',
-        borderColor: '#00D8FF',
+        backgroundColor: '#FF8787',
+        borderColor: '#FF8787',
         data: weatherInfo?.data[3] ? weatherInfo?.data[3].data : []
       }
     ]
