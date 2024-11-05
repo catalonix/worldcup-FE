@@ -93,8 +93,18 @@ const WeatherDetail = () => {
           </div>
         </div>
         <div>
-          <Checkbox.Group options={directionOptions} defaultValue={[]} onChange={handleChangeDirection} />
-          <Checkbox.Group options={valuesOptions} defaultValue={[]} onChange={handleChangeValues} />
+          <Checkbox.Group
+            options={directionOptions}
+            defaultValue={[]}
+            onChange={handleChangeDirection}
+            className="checkbox-group"
+          />
+          <Checkbox.Group
+            options={valuesOptions}
+            defaultValue={[]}
+            onChange={handleChangeValues}
+            className="checkbox-group"
+          />
         </div>
       </Card>
       <Card title="관측정보" titleButton={<Button icon={<BarChartOutlined />}>차트보기</Button>}>
