@@ -30,7 +30,7 @@ const sensorAPI = {
     return res.data;
   },
   getWeatherSummray: async () => {
-    const res = await authAxiosInstance.get<GetWeatherSummaryResponseType>(`/api/sensor/weather-summary/`);
+    const res = await authAxiosInstance.get<GetWeatherSummaryResponseType>('/api/sensor/weather-summary/');
     return res.data;
   }
 };
