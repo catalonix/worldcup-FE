@@ -6,3 +6,20 @@ export const grassDataSearchOptions = [
   { value: 'camera', label: '카메라' },
   { value: 'weatherStation', label: '기상센서' }
 ];
+
+export const directionOptions = [
+  { label: '동남', value: 'Apple' },
+  { label: '서북', value: 'Pear' },
+  { label: '서남', value: 'Orange' },
+  { label: '동북', value: 'Orange' }
+];
+
+export const valuesOptions = [
+  { label: '온도', value: 'Apple' },
+  { label: '습도', value: 'Pear' },
+  { label: '풍속', value: 'Orange' },
+  { label: 'CO2', value: 'Orange' },
+  { label: 'PM10', value: 'Orange' },
+  { label: 'PM25', value: 'Orange' },
+  { label: '광량', value: 'Orange' }
+];

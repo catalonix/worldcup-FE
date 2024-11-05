@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Card from 'components/common/Card';
 import { Chart } from 'react-chartjs-2';
-import { Button, DatePicker, Select } from 'antd';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
+import { Button, Checkbox, DatePicker, Select } from 'antd';
+import type { GetProp } from 'antd';
 import { SearchOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons';
-import { weatherSearchOptions } from 'common/constants/weatherDetail';
+import { directionOptions, valuesOptions, weatherSearchOptions } from 'common/constants/weatherDetail';
+import useSensor from 'hooks/useSensor';
+
+const dateFormat = 'YYYY-MM-DD';
 
 const WeatherDetail = () => {
+  const { weatherInfo, getWeatherInfo } = useSensor();
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
+  const [directions, setDirections] = useState<string[]>([]);
+  const [values, setValues] = useState<string[]>([]);
+
   const options = {
     responsive: true,
     plugins: {
@@ -17,28 +29,55 @@ const WeatherDetail = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
+    labels: weatherInfo?.dates, // x축을 나타내는 가상의 레이블
     datasets: [
       {
-        label: '토양습도',
-        backgroundColor: 'rgba(0, 0, 255, 0.5)',
-        borderColor: 'blue',
-        data: [3, 5, 11] // y 값
+        label: weatherInfo?.data[0] ? weatherInfo?.data[0].name : '',
+        backgroundColor: '#25B372',
+        borderColor: '#25B372',
+        data: weatherInfo?.data[0] ? weatherInfo?.data[0].data : []
       },
       {
-        label: '토양온도',
-        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-        borderColor: 'red',
-        data: [5, 10, 10] // y 값
+        label: weatherInfo?.data[1] ? weatherInfo?.data[1]?.name : '',
+        backgroundColor: '#2478FF',
+        borderColor: '#2478FF',
+        data: weatherInfo?.data[1] ? weatherInfo?.data[1].data : ''
       },
       {
-        label: '토양양분',
-        backgroundColor: 'rgba(255, 165, 0, 0.5)',
-        borderColor: 'orange',
-        data: [15, 23, 20] // y 값
+        label: weatherInfo?.data[2] ? weatherInfo?.data[2]?.name : '',
+        backgroundColor: '#5F00FF',
+        borderColor: '#5F00FF',
+        data: weatherInfo?.data[2] ? weatherInfo?.data[2].data : []
+      },
+      {
+        label: weatherInfo?.data[3] ? weatherInfo?.data[3].name : '',
+        backgroundColor: '#00D8FF',
+        borderColor: '#00D8FF',
+        data: weatherInfo?.data[3] ? weatherInfo?.data[3].data : []
       }
     ]
   };
+
+  const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    setDirections(checkedValues as string[]);
+  };
+
+  const handleChangeValues: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    setValues(checkedValues as string[]);
+  };
+
+  const handleSearch = () => {
+    getWeatherInfo({
+      startDate: startDate.format(dateFormat),
+      endDate: endDate.format(dateFormat),
+      directionType: directions.toString(),
+      values: values.toString()
+    });
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, []);
 
   return (
     <div className="weather-detail-container">
@@ -46,10 +85,16 @@ const WeatherDetail = () => {
         <div>
           <div className="search-content">
             <Select options={weatherSearchOptions} defaultValue={'weatherStation'} style={{ width: '20%' }} />
-            <DatePicker />
-            <DatePicker />
-            <Button icon={<SearchOutlined />}>조회하기</Button>
+            <DatePicker defaultValue={startDate} onChange={value => setStartDate(value)} />
+            <DatePicker defaultValue={endDate} onChange={value => setEndDate(value)} minDate={startDate} />
+            <Button icon={<SearchOutlined />} onClick={handleSearch}>
+              조회하기
+            </Button>
           </div>
+        </div>
+        <div>
+          <Checkbox.Group options={directionOptions} defaultValue={[]} onChange={handleChangeDirection} />
+          <Checkbox.Group options={valuesOptions} defaultValue={[]} onChange={handleChangeValues} />
         </div>
       </Card>
       <Card title="관측정보" titleButton={<Button icon={<BarChartOutlined />}>차트보기</Button>}>
