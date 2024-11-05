@@ -19,8 +19,8 @@ const WeatherDetail = () => {
 
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
-  const [directions, setDirections] = useState<string[]>([]);
-  const [values, setValues] = useState<string[]>([]);
+  const [directions, setDirections] = useState<string[]>(['EN']);
+  const [values, setValues] = useState<string[]>(['temp']);
 
   const options = {
     responsive: true,
@@ -102,13 +102,13 @@ const WeatherDetail = () => {
         <div>
           <Checkbox.Group
             options={directionOptions}
-            defaultValue={[]}
+            defaultValue={['EN']}
             onChange={handleChangeDirection}
             className="checkbox-group"
           />
           <Checkbox.Group
             options={valuesOptions}
-            defaultValue={[]}
+            defaultValue={['temp']}
             onChange={handleChangeValues}
             className="checkbox-group"
           />

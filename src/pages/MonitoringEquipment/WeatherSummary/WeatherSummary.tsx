@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppPaths } from 'app/routing/app-routing';
 import stadium from 'common/assets/img/stadium.png';
 import sensorIcon from 'common/assets/img/sensor-icon.png';
+import useSensor from 'hooks/useSensor';
 
 const WeatherSummary = () => {
   const navigate = useNavigate();
+  const { weatherSummary, getWeatherSummary } = useSensor();
 
   const handleNavigate = (to: string) => {
     navigate(to);
   };
+
+  useEffect(() => {
+    getWeatherSummary();
+  }, []);
 
   return (
     <div className="weather-summary-container">
@@ -22,8 +28,7 @@ const WeatherSummary = () => {
                   <label className="main-content-label my-auto pt-2 tx-16">
                     경기장 장비현황
                     <h5 className="card-data">
-                      측정일시 : <span id="tmFc">2024-07-21 04:07:12</span>
-                      <span id="ndviAvg"> / 식생지수 : 0.385</span>
+                      측정일시 : <span id="tmFc">{weatherSummary?.date || '-'}</span>
                     </h5>
                   </label>
                   <div className="card-header-right">
@@ -126,13 +131,15 @@ const WeatherSummary = () => {
                         <div className="sensor-temperature temp">
                           <h5>온도</h5>
                           <h4>
-                            29.7<span className="unit"> ºC</span>
+                            {weatherSummary?.value[0].temp}
+                            <span className="unit"> ºC</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature humi">
                           <h5>습도</h5>
                           <h4>
-                            39.9<span className="unit"> %</span>
+                            {weatherSummary?.value[0].humi}
+                            <span className="unit"> %</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature wd">

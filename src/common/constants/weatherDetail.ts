@@ -8,18 +8,18 @@ export const grassDataSearchOptions = [
 ];
 
 export const directionOptions = [
-  { label: '동남', value: 'Apple' },
-  { label: '서북', value: 'Pear' },
-  { label: '서남', value: 'Orange' },
-  { label: '동북', value: 'Orange' }
+  { label: '동남', value: 'EN' },
+  { label: '서북', value: 'WS' },
+  { label: '서남', value: 'SE' },
+  { label: '동북', value: 'WN' }
 ];
 
 export const valuesOptions = [
-  { label: '온도', value: 'Apple' },
-  { label: '습도', value: 'Pear' },
-  { label: '풍속', value: 'Orange' },
-  { label: 'CO2', value: 'Orange' },
-  { label: 'PM10', value: 'Orange' },
-  { label: 'PM25', value: 'Orange' },
-  { label: '광량', value: 'Orange' }
+  { label: '온도', value: 'temp' },
+  { label: '습도', value: 'humi' },
+  { label: '풍속', value: 'ws' },
+  { label: 'CO2', value: 'co2' },
+  { label: 'PM10', value: 'pm10' },
+  { label: 'PM25', value: 'pm25' },
+  { label: '광량', value: 'light' }
 ];
