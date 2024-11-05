@@ -9,11 +9,14 @@ import type { GetProp } from 'antd';
 import { SearchOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons';
 import { directionOptions, valuesOptions, weatherSearchOptions } from 'common/constants/weatherDetail';
 import useSensor from 'hooks/useSensor';
+import useNotification from 'hooks/useNotification';
 
 const dateFormat = 'YYYY-MM-DD';
 
 const WeatherDetail = () => {
+  const { openNotification } = useNotification();
   const { weatherInfo, getWeatherInfo } = useSensor();
+
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const [directions, setDirections] = useState<string[]>([]);
@@ -67,6 +70,10 @@ const WeatherDetail = () => {
   };
 
   const handleSearch = () => {
+    if (!directions.length || !values.length) {
+      openNotification('warning', '요소가 선택되지 않았습니다.');
+      return;
+    }
     getWeatherInfo({
       startDate: startDate.format(dateFormat),
       endDate: endDate.format(dateFormat),
