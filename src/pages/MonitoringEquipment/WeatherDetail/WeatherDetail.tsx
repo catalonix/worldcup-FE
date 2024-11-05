@@ -32,17 +32,17 @@ const WeatherDetail = () => {
   };
 
   const data = {
-    labels: weatherInfo?.dates || [], // x축을 나타내는 가상의 레이블
+    labels: weatherInfo?.dates || [],
     datasets:
       weatherInfo?.data?.map((item, idx) => {
-        if (!item) return { data: [] }; // 데이터가 없으면 빈 배열을 제공 (타입에 맞게)
+        if (!item) return { data: [] };
         return {
-          label: item.name || '', // 이름이 없으면 빈 문자열 반환
+          label: item.name || '',
           backgroundColor: chartColor[idx],
           borderColor: chartColor[idx],
-          data: item.data || [] // 데이터가 없으면 빈 배열을 반환
+          data: item.data || []
         };
-      }) || [] // weatherInfo?.data가 없을 경우 빈 배열을 반환
+      }) || []
   };
 
   const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {

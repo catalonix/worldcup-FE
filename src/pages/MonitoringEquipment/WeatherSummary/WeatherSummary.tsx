@@ -144,12 +144,13 @@ const WeatherSummary = () => {
                         </div>
                         <div className="sensor-temperature wd">
                           <h5>풍향</h5>
-                          <h4>북</h4>
+                          <h4> {weatherSummary?.value[0].wd}</h4>
                         </div>
                         <div className="sensor-temperature ws">
                           <h5>풍속</h5>
                           <h4>
-                            38.7<span className="unit"> m/s</span>
+                            {weatherSummary?.value[0].ws}
+                            <span className="unit"> m/s</span>
                           </h4>
                         </div>
                       </div>
@@ -157,30 +158,31 @@ const WeatherSummary = () => {
                         <div className="sensor-ec pm10">
                           <h5>PM10</h5>
                           <h4>
-                            4.4
+                            {weatherSummary?.value[0].pm10.value}
                             <span id="pm10W001" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[0].pm10.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph pm25">
                           <h5>PM25</h5>
                           <h4>
-                            3.1
+                            {weatherSummary?.value[0].pm25.value}
                             <span id="pm25W001" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[0].pm25.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph co2">
                           <h5>CO2</h5>
                           <h4>
-                            156.4<span className="unit"> ppm</span>
+                            {weatherSummary?.value[0].co2}
+                            <span className="unit"> ppm</span>
                           </h4>
                         </div>
                         <div className="sensor-ph light">
                           <h5>광명</h5>
-                          <h4>891.2</h4>
+                          <h4> {weatherSummary?.value[0].light}</h4>
                         </div>
                       </div>
                     </div>
@@ -200,23 +202,26 @@ const WeatherSummary = () => {
                         <div className="sensor-temperature temp">
                           <h5>온도</h5>
                           <h4>
-                            27.3<span className="unit"> ºC</span>
+                            {weatherSummary?.value[4].temp}
+                            <span className="unit"> ºC</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature humi">
                           <h5>습도</h5>
                           <h4>
-                            39.9<span className="unit"> %</span>
+                            {weatherSummary?.value[4].humi}
+                            <span className="unit"> %</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature wd">
                           <h5>풍향</h5>
-                          <h4>북</h4>
+                          <h4> {weatherSummary?.value[4].wd}</h4>
                         </div>
                         <div className="sensor-temperature ws">
                           <h5>풍속</h5>
                           <h4>
-                            15.3<span className="unit"> m/s</span>
+                            {weatherSummary?.value[4].ws}
+                            <span className="unit"> m/s</span>
                           </h4>
                         </div>
                       </div>
@@ -224,55 +229,61 @@ const WeatherSummary = () => {
                         <div className="sensor-ec pm10">
                           <h5>PM10</h5>
                           <h4>
-                            4.5
+                            {weatherSummary?.value[4].pm10.value}
                             <span id="pm10avg" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[4].pm10.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph pm25">
                           <h5>PM25</h5>
                           <h4>
-                            3.2
+                            {weatherSummary?.value[4].pm25.value}
                             <span id="pm25avg" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[4].pm25.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph co2">
                           <h5>CO2</h5>
                           <h4>
-                            116.2<span className="unit"> ppm</span>
+                            {weatherSummary?.value[4].co2}
+                            <span className="unit"> ppm</span>
                           </h4>
                         </div>
                         <div className="sensor-ph light">
                           <h5>광명</h5>
-                          <h4>746.5</h4>
+                          <h4> {weatherSummary?.value[4].light}</h4>
                         </div>
                       </div>
                     </div>
+
+                    {/* 동남 기상센서 */}
                     <div className="sensor-info col-4 col-xs-12" data-sensor="W003">
                       <div className="sensor-info-row mb-2">
                         <div className="sensor-temperature temp">
                           <h5>온도</h5>
                           <h4>
-                            25.4<span className="unit"> ºC</span>
+                            {weatherSummary?.value[2].temp}
+                            <span className="unit"> ºC</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature humi">
                           <h5>습도</h5>
                           <h4>
-                            46.1<span className="unit"> %</span>
+                            {weatherSummary?.value[2].humi}
+                            <span className="unit"> %</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature wd">
                           <h5>풍향</h5>
-                          <h4>북</h4>
+                          <h4> {weatherSummary?.value[2].wd}</h4>
                         </div>
                         <div className="sensor-temperature ws">
                           <h5>풍속</h5>
                           <h4>
-                            6.3<span className="unit"> m/s</span>
+                            {weatherSummary?.value[2].ws}
+                            <span className="unit"> m/s</span>
                           </h4>
                         </div>
                       </div>
@@ -280,37 +291,38 @@ const WeatherSummary = () => {
                         <div className="sensor-ec pm10">
                           <h5>PM10</h5>
                           <h4>
-                            5.8
+                            {weatherSummary?.value[2].pm10.value}
                             <span id="pm10W003" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[2].pm10.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph pm25">
                           <h5>PM25</h5>
                           <h4>
-                            4
+                            {weatherSummary?.value[2].pm25.value}
                             <span id="pm25W003" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[2].pm25.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph co2">
                           <h5>CO2</h5>
                           <h4>
-                            279.3<span className="unit"> ppm</span>
+                            {weatherSummary?.value[2].co2}
+                            <span className="unit"> ppm</span>
                           </h4>
                         </div>
                         <div className="sensor-ph light">
                           <h5>광명</h5>
-                          <h4>1185.6</h4>
+                          <h4> {weatherSummary?.value[2].light}</h4>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="sensor-row"></div>
                 </div>
-
+                {/* 서북기상센서 */}
                 <div className="stadium-sensor sensor-bottom">
                   <div className="sensor-row row">
                     <div className="sensor-info col-4 col-xs-12" data-sensor="W004">
@@ -318,23 +330,26 @@ const WeatherSummary = () => {
                         <div className="sensor-temperature temp">
                           <h5>온도</h5>
                           <h4>
-                            28.6<span className="unit"> ºC</span>
+                            {weatherSummary?.value[3].temp}
+                            <span className="unit"> ºC</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature humi">
                           <h5>습도</h5>
                           <h4>
-                            29<span className="unit"> %</span>
+                            {weatherSummary?.value[3].humi}
+                            <span className="unit"> %</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature wd">
                           <h5>풍향</h5>
-                          <h4>북</h4>
+                          <h4> {weatherSummary?.value[3].wd}</h4>
                         </div>
                         <div className="sensor-temperature ws">
                           <h5>풍속</h5>
                           <h4>
-                            14.4<span className="unit"> m/s</span>
+                            {weatherSummary?.value[3].ws}
+                            <span className="unit"> m/s</span>
                           </h4>
                         </div>
                       </div>
@@ -342,55 +357,61 @@ const WeatherSummary = () => {
                         <div className="sensor-ec pm10">
                           <h5>PM10</h5>
                           <h4>
-                            3.5
+                            {weatherSummary?.value[3].pm10.value}
                             <span id="pm10W004" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[3].pm10.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph pm25">
                           <h5>PM25</h5>
                           <h4>
-                            2.6
+                            {weatherSummary?.value[3].pm25.value}
                             <span id="pm25W004" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[3].pm25.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph co2">
                           <h5>CO2</h5>
                           <h4>
-                            0<span className="unit"> ppm</span>
+                            {weatherSummary?.value[3].co2}
+                            <span className="unit"> ppm</span>
                           </h4>
                         </div>
                         <div className="sensor-ph light">
                           <h5>광명</h5>
-                          <h4>-0.3</h4>
+                          <h4> {weatherSummary?.value[3].light}</h4>
                         </div>
                       </div>
                     </div>
+
+                    {/* 서남기상센서 */}
                     <div className="sensor-info col-4 col-xs-12" data-sensor="W002">
                       <div className="sensor-info-row mb-2">
                         <div className="sensor-temperature temp">
                           <h5>온도</h5>
                           <h4>
-                            25.6<span className="unit"> ºC</span>
+                            {weatherSummary?.value[1].temp}
+                            <span className="unit"> ºC</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature humi">
                           <h5>습도</h5>
                           <h4>
-                            44.7<span className="unit"> %</span>
+                            {weatherSummary?.value[1].humi}
+                            <span className="unit"> %</span>
                           </h4>
                         </div>
                         <div className="sensor-temperature wd">
                           <h5>풍향</h5>
-                          <h4>북</h4>
+                          <h4> {weatherSummary?.value[1].wd}</h4>
                         </div>
                         <div className="sensor-temperature ws">
                           <h5>풍속</h5>
                           <h4>
-                            1.8<span className="unit"> m/s</span>
+                            {weatherSummary?.value[1].ws}
+                            <span className="unit"> m/s</span>
                           </h4>
                         </div>
                       </div>
@@ -398,30 +419,31 @@ const WeatherSummary = () => {
                         <div className="sensor-ec pm10">
                           <h5>PM10</h5>
                           <h4>
-                            4.2
+                            {weatherSummary?.value[1].pm10.value}
                             <span id="pm10W002" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[1].pm10.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph pm25">
                           <h5>PM25</h5>
                           <h4>
-                            3
+                            {weatherSummary?.value[1].pm25.value}
                             <span id="pm25W002" className="pm-good pm-state ml-1">
-                              좋음
+                              {weatherSummary?.value[1].pm25.grade}
                             </span>
                           </h4>
                         </div>
                         <div className="sensor-ph co2">
                           <h5>CO2</h5>
                           <h4>
-                            29.3<span className="unit"> ppm</span>
+                            {weatherSummary?.value[1].co2}
+                            <span className="unit"> ppm</span>
                           </h4>
                         </div>
                         <div className="sensor-ph light">
                           <h5>광명</h5>
-                          <h4>909.4</h4>
+                          <h4> {weatherSummary?.value[1].light}</h4>
                         </div>
                       </div>
                     </div>
