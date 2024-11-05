@@ -20,8 +20,14 @@ export type GetWeatherSummaryResponseType = {
     temp: number;
     humi: number;
     ws: number;
-    pm10: number;
-    pm25: number;
+    pm10: {
+      grade: string;
+      value: number;
+    };
+    pm25: {
+      grade: string;
+      value: number;
+    };
     light: number;
     co2: number;
     wd: number;
