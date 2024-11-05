@@ -24,7 +24,7 @@ const SoilDetail = () => {
   };
 
   const data = {
-    labels: soilInfo?.dates, // x축을 나타내는 가상의 레이블
+    labels: soilInfo?.dates,
     datasets: [
       {
         label: soilInfo?.data[0] ? soilInfo?.data[0].name : '',
@@ -43,12 +43,6 @@ const SoilDetail = () => {
         backgroundColor: '#5F00FF',
         borderColor: '#5F00FF',
         data: soilInfo?.data[2] ? soilInfo?.data[2].data : []
-      },
-      {
-        label: soilInfo?.data[3] ? soilInfo?.data[3].name : '',
-        backgroundColor: '#00D8FF',
-        borderColor: '#00D8FF',
-        data: soilInfo?.data[3] ? soilInfo?.data[3].data : []
       }
     ]
   };
