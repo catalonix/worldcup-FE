@@ -23,3 +23,5 @@ export const valuesOptions = [
   { label: 'PM25', value: 'pm25' },
   { label: '광량', value: 'light' }
 ];
+
+export const chartColor = ['#FFE3E3', '#FFC9C9', '#FFA8A8', '#FF8787'];

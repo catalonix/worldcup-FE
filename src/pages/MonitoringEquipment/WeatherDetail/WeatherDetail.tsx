@@ -7,7 +7,7 @@ import type { Dayjs } from 'dayjs';
 import { Button, Checkbox, DatePicker, Select } from 'antd';
 import type { GetProp } from 'antd';
 import { SearchOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons';
-import { directionOptions, valuesOptions, weatherSearchOptions } from 'common/constants/weatherDetail';
+import { chartColor, directionOptions, valuesOptions, weatherSearchOptions } from 'common/constants/weatherDetail';
 import useSensor from 'hooks/useSensor';
 import useNotification from 'hooks/useNotification';
 
@@ -19,7 +19,7 @@ const WeatherDetail = () => {
 
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
-  const [directions, setDirections] = useState<string[]>(['EN']);
+  const [directions, setDirections] = useState<string[]>(['EN', 'WS', 'SE', 'WN']);
   const [values, setValues] = useState<string[]>(['temp']);
 
   const options = {
@@ -32,33 +32,17 @@ const WeatherDetail = () => {
   };
 
   const data = {
-    labels: weatherInfo?.dates, // x축을 나타내는 가상의 레이블
-    datasets: [
-      {
-        label: weatherInfo?.data[0] ? weatherInfo?.data[0].name : '',
-        backgroundColor: '#FFE3E3',
-        borderColor: '#FFE3E3',
-        data: weatherInfo?.data[0] ? weatherInfo?.data[0].data : []
-      },
-      {
-        label: weatherInfo?.data[1] ? weatherInfo?.data[1]?.name : '',
-        backgroundColor: '#FFC9C9',
-        borderColor: '#FFC9C9',
-        data: weatherInfo?.data[1] ? weatherInfo?.data[1].data : ''
-      },
-      {
-        label: weatherInfo?.data[2] ? weatherInfo?.data[2]?.name : '',
-        backgroundColor: '#FFA8A8',
-        borderColor: '#FFA8A8',
-        data: weatherInfo?.data[2] ? weatherInfo?.data[2].data : []
-      },
-      {
-        label: weatherInfo?.data[3] ? weatherInfo?.data[3].name : '',
-        backgroundColor: '#FF8787',
-        borderColor: '#FF8787',
-        data: weatherInfo?.data[3] ? weatherInfo?.data[3].data : []
-      }
-    ]
+    labels: weatherInfo?.dates || [], // x축을 나타내는 가상의 레이블
+    datasets:
+      weatherInfo?.data?.map((item, idx) => {
+        if (!item) return { data: [] }; // 데이터가 없으면 빈 배열을 제공 (타입에 맞게)
+        return {
+          label: item.name || '', // 이름이 없으면 빈 문자열 반환
+          backgroundColor: chartColor[idx],
+          borderColor: chartColor[idx],
+          data: item.data || [] // 데이터가 없으면 빈 배열을 반환
+        };
+      }) || [] // weatherInfo?.data가 없을 경우 빈 배열을 반환
   };
 
   const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
@@ -102,7 +86,7 @@ const WeatherDetail = () => {
         <div>
           <Checkbox.Group
             options={directionOptions}
-            defaultValue={['EN']}
+            defaultValue={['EN', 'WS', 'SE', 'WN']}
             onChange={handleChangeDirection}
             className="checkbox-group"
           />
