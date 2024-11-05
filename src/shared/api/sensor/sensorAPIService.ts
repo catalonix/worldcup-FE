@@ -1,5 +1,10 @@
 import { authAxiosInstance } from '../common';
-import { GetNdviInfoParams, GetSensorInfoResponseType, GetWeatherInfoParams } from './sensorAPIService.types';
+import {
+  GetNdviInfoParams,
+  GetSensorInfoResponseType,
+  GetWeatherInfoParams,
+  GetWeatherSummaryResponseType
+} from './sensorAPIService.types';
 
 const sensorAPI = {
   getNdviInfo: async (params: GetNdviInfoParams) => {
@@ -22,6 +27,10 @@ const sensorAPI = {
     const res = await authAxiosInstance.get<GetSensorInfoResponseType>(
       `/api/sensor/weather-info/?directionType=${params.directionType}&startDate=${params.startDate}&endDate=${params.endDate}&values=${params.values?.toString()}`
     );
+    return res.data;
+  },
+  getWeatherSummray: async () => {
+    const res = await authAxiosInstance.get<GetWeatherSummaryResponseType>(`/api/sensor/weather-summary/`);
     return res.data;
   }
 };
