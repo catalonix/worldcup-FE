@@ -7,7 +7,8 @@ import {
   UserOutlined,
   CopyOutlined,
   StockOutlined,
-  MoreOutlined
+  MoreOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
@@ -16,6 +17,7 @@ import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
 import './DefaultLayout.scss';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import useDate from 'hooks/useDate';
 
 const { Header, Sider, Content } = Layout;
 
@@ -23,6 +25,7 @@ const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const { dispatchIsLogin, clear } = useMyInfoStore();
+  const { getCurrentDate, getCurrentTime } = useDate();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
@@ -235,6 +238,15 @@ const DefaultLayout: React.FC = () => {
             }
           ]}
         />
+        <div className="date-box">
+          <div className="date-box-icon mr-1">
+            <ClockCircleOutlined className="mdi mdi-alarm" />
+          </div>
+          <div className="date-info ml-2">
+            <h5 className="m-0 text-white">{getCurrentDate()}</h5>
+            <span className="text-light">{getCurrentTime()}</span>
+          </div>
+        </div>
       </Sider>
       <Layout style={{ background: '#182535' }}>
         <Content

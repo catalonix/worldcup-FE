@@ -46,3 +46,50 @@
     display: flex;
   }
 }
+
+.date-box {
+  display: flex;
+  padding: 10px 15px;
+  background: #304760;
+  margin: 0 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.date-box-icon {
+  border-right: 1px solid #ddd;
+}
+
+.date-box-icon > .mdi-alarm {
+  font-size: 1.5rem;
+  color: #ffffffa6;
+  margin-right: 5px;
+}
+
+.mdi {
+  display: inline-block;
+  font: normal normal normal 20px / 1 'Material Design Icons';
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.date-info > h5 {
+  font-size: 13px;
+}
+
+.date-info > span {
+  font-size: 16px;
+  font-family: 'NanumSquareB';
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-light {
+  color: #f1f2f9 !important;
+}
