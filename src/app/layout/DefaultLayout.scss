@@ -93,3 +93,32 @@
 .text-light {
   color: #f1f2f9 !important;
 }
+
+.link-bg-1 {
+  background: #1571aa;
+}
+
+.sub-link-box {
+  display: flex;
+  padding: 10px 15px;
+  margin: 0 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.sub-link-box-icon > .ti-calendar {
+  font-size: 1rem;
+  color: #ffffffa6;
+  margin-left: 0px;
+  vertical-align: middle;
+}
+
+.sub-link-title {
+  text-align: center;
+}
+
+.sub-link-title > h5 {
+  font-size: 13px;
+  margin-bottom: 0px;
+}

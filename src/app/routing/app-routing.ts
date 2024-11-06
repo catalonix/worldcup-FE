@@ -14,6 +14,7 @@ export enum AppPaths {
   OBSERVATION = 'observation',
   REMOTE_OPERATION = 'remoteOperation',
   USER_MANAGEMENT = 'userManagement',
+  CALENDAR = 'calendar',
   ALL_PATHS = '*'
 }
 

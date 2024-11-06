@@ -14,6 +14,7 @@ const breadcrumbNameMap: Record<AppPaths, string> = {
   [AppPaths.OBSERVATION]: '관측 상세 정보',
   [AppPaths.REMOTE_OPERATION]: '원격작동 정보',
   [AppPaths.USER_MANAGEMENT]: '사용자 관리',
+  [AppPaths.CALENDAR]: '일정 관리',
   [AppPaths.ALL_PATHS]: '모든 경로'
 };
 
