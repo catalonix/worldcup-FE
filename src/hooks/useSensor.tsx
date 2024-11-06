@@ -3,6 +3,7 @@ import useNotification from './useNotification';
 import {
   GetNdviInfoParams,
   GetSensorInfoResponseType,
+  GetSoilSummaryResponseType,
   GetWeatherInfoParams,
   GetWeatherSummaryResponseType
 } from 'shared/api/sensor/sensorAPIService.types';
@@ -16,6 +17,7 @@ const useSensor = () => {
   const [ndviInfo, setNdviInfo] = useState<GetSensorInfoResponseType>();
   const [soilInfo, setSoilInfo] = useState<GetSensorInfoResponseType>();
   const [soilDates, setSoilDates] = useState<{ label: string; value: string }[]>([]);
+  const [soilSummary, setSoilSummary] = useState<GetSoilSummaryResponseType>([]);
   const [weatherInfo, setWeahterInfo] = useState<GetSensorInfoResponseType>();
   const [weatherSummary, setWeatherSummary] = useState<GetWeatherSummaryResponseType>();
 
@@ -73,6 +75,23 @@ const useSensor = () => {
     }
   };
 
+  const getSoilSummary = async (date: string) => {
+    setLoading(true);
+    try {
+      const result = await sensorAPI.getSoilSummary(date);
+      if (result) {
+        setSoilSummary(result);
+      }
+      return result;
+    } catch (error) {
+      console.error('getSoilSummary', error);
+      openNotification('error', 'getSoilSummary 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getWeatherInfo = async (params: GetWeatherInfoParams) => {
     setLoading(true);
     try {
@@ -113,9 +132,11 @@ const useSensor = () => {
     weatherInfo,
     weatherSummary,
     soilDates,
+    soilSummary,
     getNdviInfo,
     getSoilDate,
     getSoilInfo,
+    getSoilSummary,
     getWeatherInfo,
     getWeatherSummary
   };

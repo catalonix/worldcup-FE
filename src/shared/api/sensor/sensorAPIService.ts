@@ -2,6 +2,7 @@ import { authAxiosInstance } from '../common';
 import {
   GetNdviInfoParams,
   GetSensorInfoResponseType,
+  GetSoilSummaryResponseType,
   GetWeatherInfoParams,
   GetWeatherSummaryResponseType
 } from './sensorAPIService.types';
@@ -21,6 +22,10 @@ const sensorAPI = {
     const res = await authAxiosInstance.get<GetSensorInfoResponseType>(
       `/api/sensor/soil-info/?startDate=${params.startDate}&endDate=${params.endDate}`
     );
+    return res.data;
+  },
+  getSoilSummary: async (date: string) => {
+    const res = await authAxiosInstance.get<GetSoilSummaryResponseType>(`/api/sensor/soil-summary/?date=${date}`);
     return res.data;
   },
   getWeatherInfo: async (params: GetWeatherInfoParams) => {
