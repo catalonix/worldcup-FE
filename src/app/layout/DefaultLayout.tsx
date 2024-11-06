@@ -17,6 +17,7 @@ import Breadcrumb from 'components/layout/Breadcrumb';
 import { AppPaths } from '../routing/app-routing';
 import './DefaultLayout.scss';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
+import useDate from 'hooks/useDate';
 
 const { Header, Sider, Content } = Layout;
 
@@ -24,6 +25,7 @@ const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
   const { dispatchIsLogin, clear } = useMyInfoStore();
+  const { getCurrentDate, getCurrentTime } = useDate();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
@@ -241,8 +243,8 @@ const DefaultLayout: React.FC = () => {
             <ClockCircleOutlined className="mdi mdi-alarm" />
           </div>
           <div className="date-info ml-2">
-            <h5 className="m-0 text-white">2024년 11월 06일</h5>
-            <span className="text-light">14:00</span>
+            <h5 className="m-0 text-white">{getCurrentDate()}</h5>
+            <span className="text-light">{getCurrentTime()}</span>
           </div>
         </div>
       </Sider>
