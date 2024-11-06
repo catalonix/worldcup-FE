@@ -29,7 +29,8 @@ const SoilSummary = () => {
                       측정일시 : <span id="tmFc">2024-07-21 04:07:12</span>
                       <span id="ndviAvg">
                         {' '}
-                        / 날짜검색: <Select options={soilDates} style={{ width: '30%' }} />
+                        / 날짜검색:{' '}
+                        <Select options={soilDates} style={{ width: '30%' }} onChange={handleGetSoilSummary} />
                       </span>
                     </h5>
                   </label>
