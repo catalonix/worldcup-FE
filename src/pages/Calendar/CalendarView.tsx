@@ -44,7 +44,7 @@ const Calendar = () => {
   };
 
   return (
-    <div>
+    <div className="calendar-view">
       <ReactBigCalendar
         selectable
         localizer={localizer}
