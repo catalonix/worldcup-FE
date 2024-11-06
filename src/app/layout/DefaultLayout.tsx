@@ -7,7 +7,8 @@ import {
   UserOutlined,
   CopyOutlined,
   StockOutlined,
-  MoreOutlined
+  MoreOutlined,
+  ClockCircleOutlined
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
@@ -235,6 +236,15 @@ const DefaultLayout: React.FC = () => {
             }
           ]}
         />
+        <div className="date-box">
+          <div className="date-box-icon mr-1">
+            <ClockCircleOutlined className="mdi mdi-alarm" />
+          </div>
+          <div className="date-info ml-2">
+            <h5 className="m-0 text-white">2024년 11월 06일</h5>
+            <span className="text-light">14:00</span>
+          </div>
+        </div>
       </Sider>
       <Layout style={{ background: '#182535' }}>
         <Content
