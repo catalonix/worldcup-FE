@@ -16,6 +16,7 @@ import UserManagement from 'pages/UserManagement';
 import MyPage from 'pages/MyPage';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
 import ProtectedRoute from './protectedRoute';
+import Calendar from 'pages/Calendar';
 
 export function Routing() {
   const { isLogin } = useMyInfoStore();
@@ -63,6 +64,7 @@ export function Routing() {
               path={AppPaths.USER_MANAGEMENT}
               element={<ProtectedRoute element={<UserManagement />} isLoggedIn={isLogin} />}
             />
+            <Route path={AppPaths.CALENDAR} element={<ProtectedRoute element={<Calendar />} isLoggedIn={isLogin} />} />
           </Route>
         </Routes>
         {/* <SnackbarBase /> */}
