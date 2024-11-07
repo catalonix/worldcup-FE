@@ -6,6 +6,28 @@
   //     display: none;
   //   }
 
+  /* border */
+
+  .rbc-month-view {
+    border: 1px solid #475f7a;
+  }
+
+  .rbc-day-bg + .rbc-day-bg {
+    border-left: 1px solid #475f7a;
+  }
+
+  .rbc-header {
+    border-bottom: 1px solid #475f7a;
+  }
+
+  .rbc-header + .rbc-header {
+    border-left: 1px solid #475f7a;
+  }
+
+  .rbc-month-row + .rbc-month-row {
+    border-top: 1px solid #475f7a;
+  }
+
   .rbc-button-link {
     padding-top: 0.25rem;
     color: #8c9fb9;

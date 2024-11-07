@@ -134,6 +134,20 @@ h6,
   max-width: 33.33333%;
 }
 
+/* flex */
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
 .flex-top {
   display: flex;
   justify-content: space-between;
@@ -164,6 +178,8 @@ h6,
   border: 0 !important;
 }
 
+/* margin */
+
 .mr-1 {
   margin-right: 0.25rem !important;
 }
@@ -178,6 +194,11 @@ h6,
 
 .ml-1 {
   margin-left: 0.5rem !important;
+}
+
+/* width */
+.w-100 {
+  width: 100%;
 }
 
 /* LOADING */

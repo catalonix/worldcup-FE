@@ -77,6 +77,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (max-width: 991px) {
+  .date-info {
+    display: none;
+  }
+
+  .date-box-icon {
+    border-right: none;
+  }
+
+  .sub-link-title {
+    display: none;
+  }
+}
+
 .date-info > h5 {
   font-size: 13px;
 }
