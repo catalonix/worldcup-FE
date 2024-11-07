@@ -47,4 +47,23 @@
       font-weight: 500;
     }
   }
+
+  /* content */
+  .rbc-event {
+    display: flex;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 5px;
+    background: #3b76e1;
+    color: #fff;
+    text-decoration: none;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rbc-event-content {
+    font-size: 10px;
+    padding: 0.25rem;
+  }
 }
