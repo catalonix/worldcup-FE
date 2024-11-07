@@ -1,5 +1,44 @@
 .calendar-view {
-  .rbc-btn-group:last-of-type {
-    display: none;
+  padding: 1rem;
+
+  // react-big-calendar custom
+  //   .rbc-btn-group:last-of-type {
+  //     display: none;
+  //   }
+
+  .rbc-button-link {
+    color: #8c9fb9;
+  }
+
+  .rbc-month-header {
+    background: #263b57;
+  }
+
+  .rbc-off-range-bg {
+    background-color: #1c2d3f;
+  }
+
+  .rbc-header {
+    padding: 0.25rem;
+  }
+
+  .rbc-toolbar {
+    button {
+      border-radius: 5px !important;
+      background: #3b76e1;
+      border: 0;
+      color: #fff;
+    }
+
+    .rbc-btn-group {
+      display: flex;
+      gap: 0.2rem;
+    }
+
+    .rbc-toolbar-label {
+      color: white;
+      font-size: 22px;
+      font-weight: 500;
+    }
   }
 }

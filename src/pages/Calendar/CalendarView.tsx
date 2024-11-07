@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Calendar as ReactBigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import CustomToolbar from 'components/common/Calendar/Toolbar/Toolbar';
 
-moment.locale('en-GB');
-const localizer = momentLocalizer(moment);
 const Calendar = () => {
+  moment.locale('ko-KR');
+  const localizer = momentLocalizer(moment);
+
   const [eventsData, setEventsData] = useState([
     {
       title: ['주경기장 보식', '주경기장 시약'], // user가 입력한 값 X, 백엔드에서 조합한 값
@@ -44,7 +46,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calendar-view">
+    <div className="calendar-view card">
       <ReactBigCalendar
         selectable
         localizer={localizer}
@@ -54,6 +56,9 @@ const Calendar = () => {
         style={{ height: '100vh' }}
         onSelectEvent={event => alert(event.title)}
         onSelectSlot={handleSelect}
+        components={{
+          toolbar: CustomToolbar
+        }}
       />
     </div>
   );
