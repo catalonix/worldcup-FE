@@ -24,22 +24,22 @@ const Calendar = () => {
     {
       id: 0,
       title: '[오전] 주경기장 보식<br/> 주경기장 시약<br/>', // user가 입력한 값 X, 백엔드에서 조합한 값
-      start: new Date(2024, 11, 5),
-      end: new Date(2024, 11, 5),
+      start: new Date(2024, 10, 5),
+      end: new Date(2024, 10, 5),
       type: '오전' // 오전, 오후, 일정명 (am, pm, schedule)
     },
     {
       id: 1,
       title: '[오후] 주경기장 보식<br/> 주경기장 시약<br/>', // user가 입력한 값 X, 백엔드에서 조합한 값
-      start: new Date(2024, 11, 5),
-      end: new Date(2024, 11, 5),
+      start: new Date(2024, 10, 5),
+      end: new Date(2024, 10, 5),
       type: '오후' // 오전, 오후, 일정명
     },
     {
       id: 2,
       title: '주경기장 보식\n 주경기장 시약\n', // user가 입력한 값 X, 백엔드에서 조합한 값
-      start: new Date(2024, 11, 5),
-      end: new Date(2024, 11, 5),
+      start: new Date(2024, 10, 10),
+      end: new Date(2024, 10, 10),
       type: '일정명' // 오전, 오후, 일정명
     }
   ]);
@@ -102,6 +102,7 @@ const Calendar = () => {
             },
             title: event.title.replace(/\n/g, '<br />') // \n을 <br />로 변환
           })}
+          popup={false}
         />
       </div>
 

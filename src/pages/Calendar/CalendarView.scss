@@ -47,7 +47,7 @@
 
   .rbc-today {
     background-color: #1c2d3f;
-    border: 2px solid #3b76e1;
+    border: 2px solid #3b76e1 !important;
   }
 
   .rbc-toolbar {
@@ -87,5 +87,10 @@
   .rbc-event-content {
     font-size: 10px;
     padding: 0.25rem;
+  }
+
+  .rbc-events-container {
+    max-height: 50px;
+    overflow-y: auto;
   }
 }
