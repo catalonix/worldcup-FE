@@ -41,6 +41,13 @@ const Calendar = () => {
       start: new Date(2024, 10, 10),
       end: new Date(2024, 10, 10),
       type: '일정명' // 오전, 오후, 일정명
+    },
+    {
+      id: 4,
+      title: '[오후] 주경기장 보식<br/> 주경기장 시약<br/>', // user가 입력한 값 X, 백엔드에서 조합한 값
+      start: new Date(2024, 10, 5),
+      end: new Date(2024, 10, 5),
+      type: '오후' // 오전, 오후, 일정명
     }
   ]);
 
@@ -63,7 +70,7 @@ const Calendar = () => {
           id: Number(start.toString().slice(0, 10)),
           start,
           end,
-          title: '주경기장 보식\n 주경기장 시약\n',
+          title,
           type: ''
         }
       ]);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Radio } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input } from 'antd';
 import Modal from 'components/common/Modal';
 // import useNotification from 'hooks/useNotification';
 
@@ -15,8 +15,6 @@ const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
 
   const [form] = Form.useForm();
-
-  const [isCheckedId, setIsCheckedId] = useState<boolean>(false);
 
   const formItemLayout = {
     labelCol: {
@@ -47,7 +45,6 @@ const AddSchedule = (props: AddScheduleProps) => {
       userCode: '0',
       passwordCheck: ''
     });
-    setIsCheckedId(false);
   };
 
   const handleOk = async () => {
@@ -95,71 +92,20 @@ const AddSchedule = (props: AddScheduleProps) => {
         className="antd-form"
         form={form}
         initialValues={form.getFieldsValue()}>
-        <Form.Item
-          label="아이디"
-          name="userId"
-          rules={[{ whitespace: true, max: 8, required: true, message: '아이디를 8글자 미만으로 입력해주세요.' }]}>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
-            <Form.Item name="userId" noStyle>
-              <Input disabled={isCheckedId || props.isEdit} />
-            </Form.Item>
-          </div>
+        <Form.Item label="주요 일정명" name="userId">
+          <Input />
         </Form.Item>
+
         <Form.Item
-          label="비밀번호"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호를 입력해주세요.'
-            }
-          ]}>
-          <Input type="password" />
-        </Form.Item>
-        <Form.Item
-          label="비밀번호 확인"
-          name="passwordCheck"
-          rules={[
-            {
-              required: true,
-              message: '비밀번호를 한 번 더 입력해주세요.'
-            },
-            {
-              validator: (_, value) => {
-                const password = form.getFieldValue('password');
-                if (!value || password === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(new Error('비밀번호가 일치하지 않습니다.'));
-              }
-            }
-          ]}>
-          <Input type="password" />
-        </Form.Item>
-        <Form.Item
-          label="담당자"
+          label="작업일자"
           name="userName"
           rules={[
             {
               required: true,
-              message: '담당자를 입력해주세요.'
+              message: '작업일자를 입력해주세요.'
             }
           ]}>
           <Input />
-        </Form.Item>
-        <Form.Item
-          label="권한설정"
-          name="userCode"
-          rules={[
-            {
-              required: true,
-              message: '권한을 선택해주세요.'
-            }
-          ]}>
-          <Radio.Group style={{ width: '100%' }}>
-            <Radio.Button value="0">사용자</Radio.Button>
-            <Radio.Button value="1">관리자</Radio.Button>
-          </Radio.Group>
         </Form.Item>
         <Form.Item
           label="부서"
@@ -168,21 +114,6 @@ const AddSchedule = (props: AddScheduleProps) => {
             {
               required: true,
               message: '부서를 입력해주세요.'
-            }
-          ]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="연락처"
-          name="hp"
-          rules={[
-            {
-              required: true,
-              message: '연락처를 입력해주세요.'
-            },
-            {
-              pattern: /^((\+82-1[0-9]{1})|(\d{2,3})-?(\d{3,4})-?(\d{4}))$/,
-              message: '유효한 전화번호를 입력해주세요.'
             }
           ]}>
           <Input />
