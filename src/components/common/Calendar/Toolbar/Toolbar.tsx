@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import { DownloadOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { DownloadOutlined, LeftOutlined, RightOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 type CustomToolbarProps = {
   date: Date;
@@ -26,10 +26,10 @@ const CustomToolbar = ({ date, onNavigate }: CustomToolbarProps) => {
       </span>
       <span className="rbc-toolbar-label">{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</span>
       <span className="rbc-btn-group">
-        <Button icon={<DownloadOutlined />} onClick={handleDownloadCalendar}>
+        <Button icon={<PlusSquareOutlined />} onClick={handleDownloadCalendar}>
           추가
         </Button>
-        <Button icon={<DownloadOutlined />} onClick={handleDownloadCalendar}></Button>
+        <Button icon={<DownloadOutlined />} onClick={handleDownloadCalendar} style={{ background: '#374b64' }}></Button>
       </span>
     </div>
   );

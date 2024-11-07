@@ -7,6 +7,7 @@
   //   }
 
   .rbc-button-link {
+    padding-top: 0.25rem;
     color: #8c9fb9;
   }
 
@@ -20,6 +21,11 @@
 
   .rbc-header {
     padding: 0.25rem;
+  }
+
+  .rbc-today {
+    background-color: #1c2d3f;
+    border: 2px solid #3b76e1;
   }
 
   .rbc-toolbar {
