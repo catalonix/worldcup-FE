@@ -24,10 +24,10 @@ const useCalendar = () => {
   const getCalendarTaskByDate = async (params: GetCalendarListParams) => {
     setLoading(true);
     try {
-      const result = await calendarAPI.getCalendarList(params);
+      const result = await calendarAPI.getCalendarTaskByDate(params);
       return result;
     } catch (error) {
-      console.error('getCalendarList', error);
+      console.error('getCalendarTaskByDate', error);
       openNotification('error', '일정 조회에 실패하였습니다. 다시 시도해주세요.');
       return [];
     } finally {
