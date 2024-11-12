@@ -115,7 +115,8 @@ const AddSchedule = (props: AddScheduleProps) => {
         handleOk={handleOk}
         handleCancel={handleCancel}
         okText={props.isEdit ? '수정' : '등록'}
-        cancelText="취소">
+        cancelText="취소"
+        width={900}>
         <Form
           style={{ marginTop: '20px' }}
           {...formItemLayout}

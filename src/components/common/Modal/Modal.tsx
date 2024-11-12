@@ -10,6 +10,7 @@ interface ModalProps {
   children?: ReactNode;
   cancelText?: string;
   okText?: string;
+  width?: number;
 }
 const Modal = (props: ModalProps) => {
   return (
@@ -20,7 +21,8 @@ const Modal = (props: ModalProps) => {
       onOk={props.handleOk}
       onCancel={props.handleCancel}
       cancelText={props.cancelText ? props.cancelText : '닫기'}
-      okText={props.okText ? props.okText : '확인'}>
+      okText={props.okText ? props.okText : '확인'}
+      width={props.width ? props.width : 600}>
       {props.children}
     </AntdModal>
   );

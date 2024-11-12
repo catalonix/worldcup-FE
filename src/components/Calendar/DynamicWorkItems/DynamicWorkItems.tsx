@@ -51,9 +51,7 @@ const DynamicWorkItems: React.FC<DynamicWorkItemsProps> = ({
               placeholder={`${type === 'am' ? '오전' : '오후'} 작업 ${index + 1}`}
             />
           </Form.Item>
-          <Button icon={<DeleteOutlined />} onClick={() => handleRemove(index, type)}>
-            삭제
-          </Button>
+          <Button icon={<DeleteOutlined />} onClick={() => handleRemove(index, type)} type="text"></Button>
         </Space>
       ))}
       <Form.Item>

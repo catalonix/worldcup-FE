@@ -241,6 +241,10 @@ h6,
   :where(.css-dev-only-do-not-override-dvk552).ant-col-sm-16 {
     max-width: 100%;
   }
+
+  :where(.css-dev-only-do-not-override-dvk552).ant-col-sm-8 {
+    max-width: 100%;
+  }
 }
 
 :where(.css-dev-only-do-not-override-dvk552).ant-form-item .ant-form-item-label > label::after {
