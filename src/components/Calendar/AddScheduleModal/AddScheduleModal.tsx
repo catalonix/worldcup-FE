@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
-import { Form, Input } from 'antd';
+import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
+import { DatePicker, Form, Input } from 'antd';
 import Modal from 'components/common/Modal';
+import DynamicWorkItems from '../DynamicWorkItems';
 // import useNotification from 'hooks/useNotification';
 
 interface AddScheduleProps {
@@ -15,6 +18,9 @@ const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
 
   const [form] = Form.useForm();
+  const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [amWorkItems, setAmWorkItems] = useState<{ dept: string; morningWork: string }[]>([]);
+  const [pmWorkItems, setPmWorkItems] = useState<{ dept: string; morningWork: string }[]>([]);
 
   const formItemLayout = {
     labelCol: {
@@ -37,25 +43,20 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   const resetFields = () => {
     form.setFieldsValue({
-      userId: '',
-      password: '',
-      userName: '',
-      hp: '',
-      dept: '',
-      userCode: '0',
-      passwordCheck: ''
+      title: '',
+      date: ''
     });
   };
 
   const handleOk = async () => {
     try {
       await form.validateFields();
-      //   const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
-      //   if (res) {
-      //     props.handleIsModalVisible(false);
-      //     resetFields();
-      //     props.handleSearch();
-      //   }
+      // const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
+      // if (res) {
+      //   props.handleIsModalVisible(false);
+      //   resetFields();
+      //   props.handleSearch();
+      // }
     } catch (error) {
       console.error(error);
     }
@@ -71,12 +72,37 @@ const AddSchedule = (props: AddScheduleProps) => {
       if (props.selectedDate) {
         // 수정 모드
         // TODO:  해당 날짜의 상세 값 받아와서 초기 값 채우기
+        console.log(date);
+
+        // setDate(new Date(props.selectedDate));
       } else {
         // 생성 모드
         resetFields();
       }
     }
   }, [props.isModalVisible]);
+
+  // 작업 추가 함수
+  const handleAdd = (type: 'am' | 'pm') => {
+    if (type === 'am') setAmWorkItems([...amWorkItems, { dept: '', morningWork: '' }]);
+    else setPmWorkItems([...pmWorkItems, { dept: '', morningWork: '' }]);
+  };
+
+  // 작업 삭제 함수
+  const handleRemove = (index: number, type: 'am' | 'pm') => {
+    const updatedItems =
+      type === 'am' ? amWorkItems.filter((_, i) => i !== index) : pmWorkItems.filter((_, i) => i !== index);
+    if (type === 'am') setAmWorkItems(updatedItems);
+    else setPmWorkItems(updatedItems);
+  };
+
+  // 작업 변경 함수
+  const handleChange = (value: string, field: string, index: number, type: 'am' | 'pm') => {
+    const updatedItems = type === 'am' ? amWorkItems : pmWorkItems;
+    updatedItems[index] = { ...updatedItems[index], [field]: value };
+    if (type === 'am') setAmWorkItems(updatedItems);
+    else setPmWorkItems(updatedItems);
+  };
 
   return (
     <div className="add-schedule-modal">
@@ -93,32 +119,37 @@ const AddSchedule = (props: AddScheduleProps) => {
           className="antd-form"
           form={form}
           initialValues={form.getFieldsValue()}>
-          <Form.Item label="주요 일정명" name="userId">
+          <Form.Item label="주요 일정명" name="title">
             <Input />
           </Form.Item>
 
           <Form.Item
             label="작업일자"
-            name="userName"
+            name="date"
             rules={[
               {
                 required: true,
                 message: '작업일자를 입력해주세요.'
               }
             ]}>
-            <Input />
+            <DatePicker onChange={value => setDate(value)} className="w-100" />
           </Form.Item>
-          <Form.Item
-            label="부서"
-            name="dept"
-            rules={[
-              {
-                required: true,
-                message: '부서를 입력해주세요.'
-              }
-            ]}>
-            <Input />
-          </Form.Item>
+          <div className="work-items">
+            <DynamicWorkItems
+              workItems={amWorkItems} // 자식 컴포넌트에 workItems를 전달
+              handleAdd={handleAdd}
+              handleRemove={handleRemove}
+              handleChange={handleChange}
+              type="am"
+            />
+            <DynamicWorkItems
+              workItems={pmWorkItems} // 자식 컴포넌트에 workItems를 전달
+              handleAdd={handleAdd}
+              handleRemove={handleRemove}
+              handleChange={handleChange}
+              type="pm"
+            />
+          </div>
         </Form>
       </Modal>
     </div>

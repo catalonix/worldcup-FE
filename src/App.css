@@ -134,6 +134,18 @@ h6,
   max-width: 33.33333%;
 }
 
+@media (min-width: 768px) {
+  .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-md-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+}
+
 /* flex */
 
 .d-flex {
@@ -220,6 +232,10 @@ h6,
 }
 
 /* antd custom */
+
+:where(.css-dev-only-do-not-override-dvk552).ant-row {
+  flex-direction: column;
+}
 
 @media (min-width: 576px) {
   :where(.css-dev-only-do-not-override-dvk552).ant-col-sm-16 {

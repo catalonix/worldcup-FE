@@ -9,7 +9,14 @@ const localizer = momentLocalizer(moment);
 
 const CustomEvent = ({ event }: { event: { title: string } }) => {
   return (
-    <div>
+    <div
+      style={{
+        whiteSpace: 'normal', // 줄바꿈 허용
+        wordWrap: 'break-word', // 긴 단어가 넘치지 않도록 처리
+        marginBottom: '4px',
+        maxHeight: 'none', // 이벤트 높이를 제한하지 않음
+        overflowY: 'auto' // 이벤트가 넘칠 때 스크롤
+      }}>
       <span dangerouslySetInnerHTML={{ __html: event.title.replace(/\n/g, '<br />') }} />
     </div>
   );
@@ -41,6 +48,13 @@ const Calendar = () => {
       start: new Date(2024, 10, 10),
       end: new Date(2024, 10, 10),
       type: '일정명' // 오전, 오후, 일정명
+    },
+    {
+      id: 3,
+      title: '[오후] 테스틍', // user가 입력한 값 X, 백엔드에서 조합한 값
+      start: new Date(2024, 10, 5),
+      end: new Date(2024, 10, 5),
+      type: '오후' // 오전, 오후, 일정명
     },
     {
       id: 4,
@@ -92,13 +106,29 @@ const Calendar = () => {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
+          views={['month']}
           events={eventsData}
           style={{ height: '100vh' }}
+          onView={() => {
+            return 'month';
+          }}
           onSelectEvent={handleSelectEvent}
           onSelectSlot={handleSelect}
+          dayPropGetter={() => ({
+            style: {
+              overflowY: 'scroll' // 스크롤 활성화
+            }
+          })}
           components={{
             event: CustomEvent,
-            toolbar: props => <CustomToolbar {...props} handleIsModalVisible={handleIsModalVisible} />
+            toolbar: props => <CustomToolbar {...props} handleIsModalVisible={handleIsModalVisible} />,
+            month: {
+              dateHeader: ({ label }) => (
+                <div>
+                  <strong>{label}</strong>
+                </div>
+              )
+            }
           }}
           startAccessor="start"
           endAccessor="end"

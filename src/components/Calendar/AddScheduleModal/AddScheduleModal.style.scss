@@ -1,14 +1,15 @@
 .add-schedule-modal {
-  :where(.css-dev-only-do-not-override-dvk552).ant-row {
+  .modal-input-label {
+    color: #8c9fb9;
+    margin-bottom: 5px;
+  }
+
+  .work-items {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 
-  :where(.css-dev-only-do-not-override-dvk552).ant-form-item .ant-form-item-label > label::after {
-    content: '';
-  }
-
-  :where(.css-dev-only-do-not-override-dvk552).ant-form-item {
-    padding: 5px 0;
+  .work-item-container {
+    flex: 1;
   }
 }

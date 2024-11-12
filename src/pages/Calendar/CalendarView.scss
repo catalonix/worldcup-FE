@@ -1,16 +1,22 @@
+.calendar-view.card {
+  height: auto;
+  padding-bottom: 1rem;
+}
+
 .calendar-view {
   padding: 1rem;
 
-  .card {
-    height: auto;
-    padding-bottom: 1rem;
-  }
   // react-big-calendar custom
   //   .rbc-btn-group:last-of-type {
   //     display: none;
   //   }
 
   /* border */
+
+  .rbc-day-slot .rbc-event {
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    max-height: 80px; /* 각 일정 항목의 최대 높이 설정 */
+  }
 
   .rbc-month-view {
     border: 1px solid #475f7a;
