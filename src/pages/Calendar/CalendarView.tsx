@@ -143,7 +143,7 @@ const Calendar = () => {
             ),
             month: {
               dateHeader: ({ label }) => (
-                <div>
+                <div style={{ marginBottom: '5px' }}>
                   <strong>{label}</strong>
                 </div>
               )
