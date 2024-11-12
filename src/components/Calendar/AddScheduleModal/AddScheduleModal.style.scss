@@ -1,0 +1,15 @@
+.add-schedule-modal {
+  .modal-input-label {
+    color: #8c9fb9;
+    margin-bottom: 5px;
+  }
+
+  .work-items {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .work-item-container {
+    flex: 1;
+  }
+}

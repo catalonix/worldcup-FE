@@ -1,3 +1,8 @@
+.calendar-view.card {
+  height: auto;
+  padding-bottom: 1rem;
+}
+
 .calendar-view {
   padding: 1rem;
 
@@ -5,6 +10,33 @@
   //   .rbc-btn-group:last-of-type {
   //     display: none;
   //   }
+
+  /* border */
+
+  .rbc-day-slot .rbc-event {
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    max-height: 80px; /* 각 일정 항목의 최대 높이 설정 */
+  }
+
+  .rbc-month-view {
+    border: 1px solid #475f7a;
+  }
+
+  .rbc-day-bg + .rbc-day-bg {
+    border-left: 1px solid #475f7a;
+  }
+
+  .rbc-header {
+    border-bottom: 1px solid #475f7a;
+  }
+
+  .rbc-header + .rbc-header {
+    border-left: 1px solid #475f7a;
+  }
+
+  .rbc-month-row + .rbc-month-row {
+    border-top: 1px solid #475f7a;
+  }
 
   .rbc-button-link {
     padding-top: 0.25rem;
@@ -25,7 +57,7 @@
 
   .rbc-today {
     background-color: #1c2d3f;
-    border: 2px solid #3b76e1;
+    border: 2px solid #3b76e1 !important;
   }
 
   .rbc-toolbar {
@@ -62,8 +94,25 @@
     align-items: center;
   }
 
+  //   .rbc-row-content {
+  //     overflow-y: scroll;
+  //   }
+
   .rbc-event-content {
     font-size: 10px;
     padding: 0.25rem;
+  }
+
+  .rbc-events-container {
+    max-height: 50px;
+    overflow-y: auto;
+  }
+
+  .rbc-time-view {
+    border: none;
+  }
+
+  .rbc-time-slot {
+    border: none;
   }
 }

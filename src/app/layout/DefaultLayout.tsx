@@ -243,20 +243,24 @@ const DefaultLayout: React.FC = () => {
           <div className="date-box-icon mr-1">
             <ClockCircleOutlined className="mdi mdi-alarm" />
           </div>
-          <div className="date-info ml-2">
-            <h5 className="m-0 text-white">{getCurrentDate()}</h5>
-            <span className="text-light">{getCurrentTime()}</span>
-          </div>
+          {!collapsed && (
+            <div className="date-info ml-2">
+              <h5 className="m-0 text-white">{getCurrentDate()}</h5>
+              <span className="text-light">{getCurrentTime()}</span>
+            </div>
+          )}
         </div>
         <div
-          className="d-flex align-center justify-center sub-link-box link-bg-1"
+          className="d-flex align-center justify-center sub-link-box link-bg-1 cursor-pointer"
           onClick={() => handleClickMenu(AppPaths.CALENDAR)}>
           <div className="sub-link-box-icon mr-1 ">
             <CalendarOutlined className="ti-calendar" />
           </div>
-          <div className="sub-link-title ml-2">
-            <h5 className="m-0 text-white">작업정보 캘린더</h5>
-          </div>
+          {!collapsed && (
+            <div className="sub-link-title ml-2">
+              <h5 className="m-0 text-white">작업정보 캘린더</h5>
+            </div>
+          )}
         </div>
       </Sider>
       <Layout style={{ background: '#182535' }}>

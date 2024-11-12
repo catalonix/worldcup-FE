@@ -57,8 +57,13 @@
   align-items: center;
 }
 
-.date-box-icon {
-  border-right: 1px solid #ddd;
+// .date-box-icon {
+//   border-right: 1px solid #ddd;
+// }
+
+.date-info {
+  padding-left: 0.5rem;
+  border-left: 1px solid #ddd;
 }
 
 .date-box-icon > .mdi-alarm {
@@ -77,8 +82,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (max-width: 991px) {
+  .date-info {
+    display: none;
+  }
+
+  .sub-link-title {
+    display: none;
+  }
+}
+
 .date-info > h5 {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .date-info > span {

@@ -134,6 +134,32 @@ h6,
   max-width: 33.33333%;
 }
 
+@media (min-width: 768px) {
+  .col-md-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .col-md-2 {
+    flex: 0 0 16.66667%;
+    max-width: 16.66667%;
+  }
+}
+
+/* flex */
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
 .flex-top {
   display: flex;
   justify-content: space-between;
@@ -164,6 +190,8 @@ h6,
   border: 0 !important;
 }
 
+/* margin */
+
 .mr-1 {
   margin-right: 0.25rem !important;
 }
@@ -180,6 +208,15 @@ h6,
   margin-left: 0.5rem !important;
 }
 
+/* width */
+.w-100 {
+  width: 100%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* LOADING */
 
 /* styles.css */
@@ -192,4 +229,24 @@ h6,
   background: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
   padding: 20px;
   border-radius: 5px;
+}
+
+/* antd custom */
+
+:where(.css-dev-only-do-not-override-dvk552).ant-row {
+  flex-direction: column;
+}
+
+@media (min-width: 576px) {
+  :where(.css-dev-only-do-not-override-dvk552).ant-col-sm-16 {
+    max-width: 100%;
+  }
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-form-item .ant-form-item-label > label::after {
+  display: none;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-form-item {
+  margin-bottom: 36px;
 }
