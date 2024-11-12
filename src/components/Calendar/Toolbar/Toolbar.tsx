@@ -8,15 +8,24 @@ type CustomToolbarProps = {
   date: Date;
   onNavigate: (action: 'TODAY' | 'PREV' | 'NEXT') => void;
   handleIsModalVisible: (isVisible: boolean) => void;
+  selectedTypes: string[];
+  setSelectedTypes: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const CustomToolbar = ({ date, onNavigate, handleIsModalVisible }: CustomToolbarProps) => {
+const CustomToolbar = ({
+  date,
+  onNavigate,
+  handleIsModalVisible,
+  selectedTypes,
+  setSelectedTypes
+}: CustomToolbarProps) => {
   const navigate = (action: 'TODAY' | 'PREV' | 'NEXT') => {
     onNavigate(action);
   };
 
   const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     console.log('value', checkedValues);
+    setSelectedTypes(checkedValues as string[]);
   };
 
   const handleDownloadCalendar = () => {
@@ -46,7 +55,7 @@ const CustomToolbar = ({ date, onNavigate, handleIsModalVisible }: CustomToolbar
       <div style={{ marginTop: '0.5rem' }}>
         <Checkbox.Group
           options={calendarSearchOptions}
-          defaultValue={['EN', 'WS', 'SE', 'WN']}
+          defaultValue={selectedTypes}
           onChange={handleChangeDirection}
           className="checkbox-group"
         />
