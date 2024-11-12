@@ -1,0 +1,14 @@
+.add-schedule-modal {
+  :where(.css-dev-only-do-not-override-dvk552).ant-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  :where(.css-dev-only-do-not-override-dvk552).ant-form-item .ant-form-item-label > label::after {
+    content: '';
+  }
+
+  :where(.css-dev-only-do-not-override-dvk552).ant-form-item {
+    padding: 5px 0;
+  }
+}

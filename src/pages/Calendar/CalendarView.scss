@@ -1,6 +1,10 @@
 .calendar-view {
   padding: 1rem;
 
+  .card {
+    height: auto;
+    padding-bottom: 1rem;
+  }
   // react-big-calendar custom
   //   .rbc-btn-group:last-of-type {
   //     display: none;
@@ -96,5 +100,13 @@
   .rbc-events-container {
     max-height: 50px;
     overflow-y: auto;
+  }
+
+  .rbc-time-view {
+    border: none;
+  }
+
+  .rbc-time-slot {
+    border: none;
   }
 }

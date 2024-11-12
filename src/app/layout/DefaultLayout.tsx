@@ -251,7 +251,7 @@ const DefaultLayout: React.FC = () => {
           )}
         </div>
         <div
-          className="d-flex align-center justify-center sub-link-box link-bg-1"
+          className="d-flex align-center justify-center sub-link-box link-bg-1 cursor-pointer"
           onClick={() => handleClickMenu(AppPaths.CALENDAR)}>
           <div className="sub-link-box-icon mr-1 ">
             <CalendarOutlined className="ti-calendar" />

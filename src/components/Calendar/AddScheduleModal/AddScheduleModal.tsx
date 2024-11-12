@@ -79,47 +79,49 @@ const AddSchedule = (props: AddScheduleProps) => {
   }, [props.isModalVisible]);
 
   return (
-    <Modal
-      title="작업 일정 설정"
-      isModalVisible={props.isModalVisible}
-      handleOk={handleOk}
-      handleCancel={handleCancel}
-      okText={props.isEdit ? '수정' : '등록'}
-      cancelText="취소">
-      <Form
-        style={{ marginTop: '20px' }}
-        {...formItemLayout}
-        className="antd-form"
-        form={form}
-        initialValues={form.getFieldsValue()}>
-        <Form.Item label="주요 일정명" name="userId">
-          <Input />
-        </Form.Item>
+    <div className="add-schedule-modal">
+      <Modal
+        title="작업 일정 설정"
+        isModalVisible={props.isModalVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        okText={props.isEdit ? '수정' : '등록'}
+        cancelText="취소">
+        <Form
+          style={{ marginTop: '20px' }}
+          {...formItemLayout}
+          className="antd-form"
+          form={form}
+          initialValues={form.getFieldsValue()}>
+          <Form.Item label="주요 일정명" name="userId">
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          label="작업일자"
-          name="userName"
-          rules={[
-            {
-              required: true,
-              message: '작업일자를 입력해주세요.'
-            }
-          ]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="부서"
-          name="dept"
-          rules={[
-            {
-              required: true,
-              message: '부서를 입력해주세요.'
-            }
-          ]}>
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
+          <Form.Item
+            label="작업일자"
+            name="userName"
+            rules={[
+              {
+                required: true,
+                message: '작업일자를 입력해주세요.'
+              }
+            ]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="부서"
+            name="dept"
+            rules={[
+              {
+                required: true,
+                message: '부서를 입력해주세요.'
+              }
+            ]}>
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
   );
 };
 export default AddSchedule;
