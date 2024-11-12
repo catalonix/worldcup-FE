@@ -24,7 +24,6 @@ const CustomToolbar = ({
   };
 
   const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
-    console.log('value', checkedValues);
     setSelectedTypes(checkedValues as string[]);
   };
 

@@ -25,9 +25,22 @@ const useDate = () => {
     return `${formattedHours}:${formattedMinutes}`;
   }
 
+  function getCurrentMonth() {
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해줘야 합니다.
+
+    // 월과 일이 2자리로 나오도록 처리 (1자리일 경우 앞에 0을 추가)
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    return `${year}-${formattedMonth}`;
+  }
+
   return {
     getCurrentDate,
-    getCurrentTime
+    getCurrentTime,
+    getCurrentMonth
   };
 };
 export default useDate;

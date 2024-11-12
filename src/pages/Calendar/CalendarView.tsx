@@ -4,12 +4,13 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CustomToolbar, AddScheduleModal } from 'components/Calendar';
 import useCalendar from 'hooks/useCalendar';
-import { GetCalendarListResponseType } from 'shared/api/calendar/calendarAPIService.types';
+import { GetCalendarListItemType, GetCalendarListResponseType } from 'shared/api/calendar/calendarAPIService.types';
+import useDate from 'hooks/useDate';
 
 moment.locale('ko-KR');
 const localizer = momentLocalizer(moment);
 
-const CustomEvent = ({ event }: { event: { title: string } }) => {
+const CustomEvent = ({ event }: { event: GetCalendarListItemType }) => {
   return (
     <div
       style={{
@@ -26,8 +27,11 @@ const CustomEvent = ({ event }: { event: { title: string } }) => {
 
 const Calendar = () => {
   const { getCalendarList } = useCalendar();
+  const { getCurrentMonth } = useDate();
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [searchMonth, setSearchMonth] = useState<string>(getCurrentMonth());
   const [selectedDate, setSelectedDate] = useState<string>('2024-11-15');
   const [selectedTypes, setSelectedTypes] = useState<string[]>([
     '관수',
@@ -53,13 +57,24 @@ const Calendar = () => {
     setIsModalVisible(isModalVisible);
   };
 
+  const handleNavigate = (date: Date) => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월을 두 자리로 맞춤
+
+    const formattedDate = `${year}-${month}`;
+    setSearchMonth(formattedDate);
+
+    // TODO: API 호출 또는 추가적인 로직 처리 가능
+  };
+
   const handleSearch = async () => {
     // api 다시 조회
-    const res = await getCalendarList({ date: '2024-10', types: '관수' });
+    const res = await getCalendarList({ date: searchMonth, types: selectedTypes.toString() });
     const updatedRes = res.map(event => ({
       ...event,
       start: new Date(event.start),
-      end: new Date(event.end)
+      end: new Date(event.end),
+      bgColor: event.type === '일정명' ? '#48C83F' : '#3B76E1'
     }));
     setEventsData([...updatedRes]);
   };
@@ -76,7 +91,8 @@ const Calendar = () => {
           start,
           end,
           title,
-          type: '오전'
+          type: '오전',
+          bgColor: '#3B76E1'
         }
       ]);
   };
@@ -91,13 +107,14 @@ const Calendar = () => {
 
   useEffect(() => {
     handleSearch();
-  }, [selectedTypes]);
+  }, [selectedTypes, searchMonth]);
 
   return (
     <>
       <div className="calendar-view card">
         <ReactBigCalendar
           selectable
+          onNavigate={handleNavigate}
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
@@ -136,6 +153,7 @@ const Calendar = () => {
           endAccessor="end"
           eventPropGetter={event => ({
             style: {
+              backgroundColor: event.bgColor,
               whiteSpace: 'normal', // 줄바꿈 허용
               wordWrap: 'break-word' // 긴 단어가 넘치지 않도록 처리
             },

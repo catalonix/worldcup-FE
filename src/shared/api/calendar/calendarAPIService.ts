@@ -7,6 +7,12 @@ const calendarAPI = {
       `/api/task/calendar/?date=${params.date}&types=${params.types}`
     );
     return res.data;
+  },
+  getCalendarTaskByDate: async (params: GetCalendarListParams) => {
+    const res = await authAxiosInstance.get<GetCalendarListResponseType>(
+      `/api/task/calendar/?date=${params.date}&types=${params.types}`
+    );
+    return res.data;
   }
 };
 

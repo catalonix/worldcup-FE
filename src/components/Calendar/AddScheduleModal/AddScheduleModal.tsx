@@ -19,8 +19,12 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
-  const [amWorkItems, setAmWorkItems] = useState<{ dept: string; morningWork: string }[]>([]);
-  const [pmWorkItems, setPmWorkItems] = useState<{ dept: string; morningWork: string }[]>([]);
+  const [amWorkItems, setAmWorkItems] = useState<{ dept: string; morningWork: string }[]>([
+    { dept: '', morningWork: '' }
+  ]);
+  const [pmWorkItems, setPmWorkItems] = useState<{ dept: string; morningWork: string }[]>([
+    { dept: '', morningWork: '' }
+  ]);
 
   const formItemLayout = {
     labelCol: {
@@ -100,8 +104,7 @@ const AddSchedule = (props: AddScheduleProps) => {
   const handleChange = (value: string, field: string, index: number, type: 'am' | 'pm') => {
     const updatedItems = type === 'am' ? amWorkItems : pmWorkItems;
     updatedItems[index] = { ...updatedItems[index], [field]: value };
-    if (type === 'am') setAmWorkItems(updatedItems);
-    else setPmWorkItems(updatedItems);
+    setAmWorkItems(updatedItems);
   };
 
   return (
@@ -112,7 +115,8 @@ const AddSchedule = (props: AddScheduleProps) => {
         handleOk={handleOk}
         handleCancel={handleCancel}
         okText={props.isEdit ? '수정' : '등록'}
-        cancelText="취소">
+        cancelText="취소"
+        width={900}>
         <Form
           style={{ marginTop: '20px' }}
           {...formItemLayout}

@@ -3,13 +3,14 @@
     color: #8c9fb9;
     margin-bottom: 5px;
   }
+}
 
-  .work-items {
-    display: flex;
-    flex-direction: row;
-  }
+.work-items {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+}
 
-  .work-item-container {
-    flex: 1;
-  }
+.work-item-container {
+  flex: 1;
 }
