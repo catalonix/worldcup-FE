@@ -20,7 +20,7 @@ const DynamicWorkItems: React.FC<DynamicWorkItemsProps> = ({
   return (
     <div className="work-item-container">
       {workItems.map((_, index) => (
-        <Space key={index} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+        <Space key={index} style={{ display: 'flex', marginBottom: 8, alignItems: 'start' }} align="baseline">
           <Form.Item
             label={`작업장소 ${index + 1}`}
             name={`dept-${index}`}

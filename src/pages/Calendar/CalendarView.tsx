@@ -4,12 +4,12 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CustomToolbar, AddScheduleModal } from 'components/Calendar';
 import useCalendar from 'hooks/useCalendar';
-import { GetCalendarListResponseType } from 'shared/api/calendar/calendarAPIService.types';
+import { GetCalendarListItemType, GetCalendarListResponseType } from 'shared/api/calendar/calendarAPIService.types';
 
 moment.locale('ko-KR');
 const localizer = momentLocalizer(moment);
 
-const CustomEvent = ({ event }: { event: { title: string } }) => {
+const CustomEvent = ({ event }: { event: GetCalendarListItemType }) => {
   return (
     <div
       style={{
@@ -55,11 +55,12 @@ const Calendar = () => {
 
   const handleSearch = async () => {
     // api 다시 조회
-    const res = await getCalendarList({ date: '2024-10', types: '관수' });
+    const res = await getCalendarList({ date: '2024-10', types: selectedTypes.toString() });
     const updatedRes = res.map(event => ({
       ...event,
       start: new Date(event.start),
-      end: new Date(event.end)
+      end: new Date(event.end),
+      bgColor: event.type === '일정명' ? '#48C83F' : '#3B76E1'
     }));
     setEventsData([...updatedRes]);
   };
@@ -76,7 +77,8 @@ const Calendar = () => {
           start,
           end,
           title,
-          type: '오전'
+          type: '오전',
+          bgColor: '#3B76E1'
         }
       ]);
   };
@@ -136,6 +138,7 @@ const Calendar = () => {
           endAccessor="end"
           eventPropGetter={event => ({
             style: {
+              backgroundColor: event.bgColor,
               whiteSpace: 'normal', // 줄바꿈 허용
               wordWrap: 'break-word' // 긴 단어가 넘치지 않도록 처리
             },
