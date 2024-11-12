@@ -98,7 +98,7 @@ const Calendar = () => {
           onSelectSlot={handleSelect}
           components={{
             event: CustomEvent,
-            toolbar: CustomToolbar
+            toolbar: props => <CustomToolbar {...props} handleIsModalVisible={handleIsModalVisible} />
           }}
           startAccessor="start"
           endAccessor="end"

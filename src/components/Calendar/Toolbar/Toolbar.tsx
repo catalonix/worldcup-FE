@@ -7,19 +7,20 @@ import { calendarSearchOptions } from 'common/constants/\bcalendar';
 type CustomToolbarProps = {
   date: Date;
   onNavigate: (action: 'TODAY' | 'PREV' | 'NEXT') => void;
+  handleIsModalVisible: (isVisible: boolean) => void;
 };
 
-const CustomToolbar = ({ date, onNavigate }: CustomToolbarProps) => {
+const CustomToolbar = ({ date, onNavigate, handleIsModalVisible }: CustomToolbarProps) => {
   const navigate = (action: 'TODAY' | 'PREV' | 'NEXT') => {
     onNavigate(action);
   };
 
-  const handleDownloadCalendar = () => {
-    alert('download');
-  };
-
   const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     console.log('value', checkedValues);
+  };
+
+  const handleDownloadCalendar = () => {
+    alert('download');
   };
 
   return (
@@ -32,7 +33,7 @@ const CustomToolbar = ({ date, onNavigate }: CustomToolbarProps) => {
         </span>
         <span className="rbc-toolbar-label">{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</span>
         <span className="rbc-btn-group">
-          <Button icon={<PlusSquareOutlined />} onClick={handleDownloadCalendar}>
+          <Button icon={<PlusSquareOutlined />} onClick={() => handleIsModalVisible(true)}>
             추가
           </Button>
           <Button
