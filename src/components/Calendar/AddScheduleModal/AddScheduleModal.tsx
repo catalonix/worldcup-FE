@@ -50,6 +50,8 @@ const AddSchedule = (props: AddScheduleProps) => {
       title: '',
       date: ''
     });
+
+    // TODO: 작업 일정도 초기화
   };
 
   const handleOk = async () => {
