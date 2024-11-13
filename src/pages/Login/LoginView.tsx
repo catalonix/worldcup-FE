@@ -12,7 +12,7 @@ import useUserManagement from 'hooks/useUserManagement';
 // type LoginType = 'user' | 'admin';
 
 const { useBreakpoint } = Grid;
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 const LoginView = () => {
   const { token } = theme.useToken();
@@ -68,23 +68,26 @@ const LoginView = () => {
       backgroundSize: 'cover', // 이미지 크기를 섹션에 맞추기
       backgroundPosition: 'center', // 이미지 위치 조정
       display: 'flex',
-      height: screens.sm ? '100vh' : 'auto'
+      height: screens.sm ? '100vh' : '100vh'
     },
     text: {
-      color: 'white'
+      color: 'white',
+      fontSize: '1rem',
+      marginTop: '-20px'
     },
     title: {
-      fontSize: screens.md ? token.fontSizeHeading1 : token.fontSizeHeading2,
+      fontSize: screens.md ? '3.5rem' : '2.5rem',
       fontWeight: 800,
       color: 'white',
       display: 'flex',
       gap: '1px'
     },
     highlight: {
-      color: '#aed5ff'
+      color: '#aed5ff',
+      whiteSpace: 'nowrap'
     },
     loginBox: {
-      backgroundColor: '#3a587a',
+      backgroundColor: '#22364D',
       padding: '30px 20px',
       borderRadius: '10px',
       width: '70%',
@@ -93,7 +96,8 @@ const LoginView = () => {
       alignItems: 'center'
     },
     rememberDesc: {
-      color: '#8c9fb9'
+      color: '#8c9fb9',
+      marginBottom: '10px'
     },
     loginInnerBox: {
       width: '80%'
@@ -111,9 +115,9 @@ const LoginView = () => {
       <div style={styles.container}>
         <div style={styles.header}>
           <Title style={styles.title}>
-            <div style={styles.highlight}>서울</div>월드컵경기장
+            <span style={styles.highlight}>서울</span>월드컵경기장
           </Title>
-          <Text style={styles.text}>월드컵경기장 잔디 생육 관리 시스템</Text>
+          <h6 style={styles.text}>월드컵경기장 잔디 생육 관리 시스템</h6>
         </div>
         <div style={styles.loginBox}>
           <div style={styles.loginInnerBox}>
@@ -136,6 +140,9 @@ const LoginView = () => {
               onFinish={onFinish}
               layout="vertical"
               requiredMark="optional">
+              <h5 className="text-left mb-3 font-weight-bold" style={{ color: '#aed5ff' }}>
+                사용자 정보
+              </h5>
               <Form.Item
                 name="userId"
                 rules={[
@@ -143,7 +150,8 @@ const LoginView = () => {
                     required: true,
                     message: '아이디를 입력해주세요.'
                   }
-                ]}>
+                ]}
+                style={{ marginBottom: '20px' }}>
                 <Input
                   prefix={<UserOutlined />}
                   placeholder="id"
@@ -158,7 +166,8 @@ const LoginView = () => {
                     required: true,
                     message: '비밀번호를 입력해주세요.'
                   }
-                ]}>
+                ]}
+                style={{ marginBottom: '20px' }}>
                 <Input.Password
                   prefix={<LockOutlined />}
                   type="password"
