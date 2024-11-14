@@ -90,6 +90,7 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   // 작업 추가 함수
   const handleAdd = (type: 'am' | 'pm') => {
+    console.log('worItems', form);
     if (type === 'am') setAmWorkItems([...amWorkItems, { dept: '', morningWork: '' }]);
     else setPmWorkItems([...pmWorkItems, { dept: '', morningWork: '' }]);
   };
@@ -129,17 +130,10 @@ const AddSchedule = (props: AddScheduleProps) => {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            label="작업일자"
-            name="date"
-            rules={[
-              {
-                required: true,
-                message: '작업일자를 입력해주세요.'
-              }
-            ]}>
+          <Form.Item label="작업일자" name="date">
             <DatePicker onChange={value => setDate(value)} className="w-100" />
           </Form.Item>
+
           <div className="work-items">
             <DynamicWorkItems
               workItems={amWorkItems} // 자식 컴포넌트에 workItems를 전달

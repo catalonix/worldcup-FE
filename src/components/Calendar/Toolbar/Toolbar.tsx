@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Checkbox, GetProp } from 'antd';
 
 import { DownloadOutlined, LeftOutlined, RightOutlined, PlusSquareOutlined } from '@ant-design/icons';
-import { calendarSearchOptions } from 'common/constants/\bcalendar';
+import { calendarSearchOptions } from 'common/constants/calendar';
 
 type CustomToolbarProps = {
   date: Date;
