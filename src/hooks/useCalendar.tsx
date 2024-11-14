@@ -1,7 +1,7 @@
 import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import calendarAPI from 'shared/api/calendar/calendarAPIService';
-import { GetCalendarListParams } from 'shared/api/calendar/calendarAPIService.types';
+import { AddScheduleParams, GetCalendarListParams } from 'shared/api/calendar/calendarAPIService.types';
 
 const useCalendar = () => {
   const { setLoading } = useLoading();
@@ -35,9 +35,24 @@ const useCalendar = () => {
     }
   };
 
+  const addSchedule = async (params: AddScheduleParams) => {
+    setLoading(true);
+    try {
+      await calendarAPI.addSchedule(params);
+      return true;
+    } catch (error) {
+      console.error('addSchedule', error);
+      openNotification('error', '일정 생성에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getCalendarList,
-    getCalendarTaskByDate
+    getCalendarTaskByDate,
+    addSchedule
   };
 };
 export default useCalendar;

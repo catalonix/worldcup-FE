@@ -17,3 +17,9 @@ export const calendarSearchOptions = [
   { label: '장비', value: '장비' },
   { label: '기타', value: '기타' }
 ];
+
+export const calendarLocationOptions = [
+  { label: '주경기', value: '주경기' },
+  { label: '예비포지', value: '예비포지' },
+  { label: '다목적구장', value: '다목적구장' }
+];

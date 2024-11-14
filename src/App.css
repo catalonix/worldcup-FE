@@ -251,6 +251,20 @@ h6,
   display: none;
 }
 
-:where(.css-dev-only-do-not-override-dvk552).ant-form-item {
+/* :where(.css-dev-only-do-not-override-dvk552).ant-form-item {
   margin-bottom: 36px;
+} */
+
+.ant-form-item-explain {
+  margin-top: 3px;
+  margin-bottom: 8px; /* 에러 메시지와 다른 요소 사이 간격 확보 */
+}
+
+.ant-form-item-explain-error {
+  font-size: 0.7rem;
+}
+
+.antd-form .ant-form-item {
+  min-height: 65px;
+  margin-bottom: 14px; /* 에러 메시지와 다른 요소 사이 간격 확보 */
 }

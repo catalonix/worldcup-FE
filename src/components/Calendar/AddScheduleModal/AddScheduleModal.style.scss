@@ -9,8 +9,14 @@
   display: flex;
   gap: 1rem;
   flex-direction: row;
+  padding-bottom: 2rem;
 }
 
 .work-item-container {
   flex: 1;
+  margin-top: 12px;
+
+  .add-button {
+    align-self: end;
+  }
 }
