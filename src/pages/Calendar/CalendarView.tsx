@@ -131,6 +131,7 @@ const Calendar = () => {
               overflowY: 'scroll' // 스크롤 활성화
             }
           })}
+          showAllEvents
           components={{
             event: CustomEvent,
             toolbar: props => (
