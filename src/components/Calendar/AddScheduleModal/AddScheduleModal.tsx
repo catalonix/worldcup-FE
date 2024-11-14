@@ -63,6 +63,8 @@ const AddSchedule = (props: AddScheduleProps) => {
       });
       if (res) {
         form.resetFields();
+        props.handleIsModalVisible(false);
+        props.handleSearch();
       }
       console.log('res', res);
     } catch (error) {

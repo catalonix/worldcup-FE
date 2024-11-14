@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
 import { Calendar as ReactBigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -79,27 +80,29 @@ const Calendar = () => {
     setEventsData([...updatedRes]);
   };
 
-  const handleSelect = ({ start, end }: { start: Date; end: Date }) => {
-    console.log(start);
-    console.log(end);
-    const title = window.prompt('New Event name');
-    if (title)
-      setEventsData([
-        ...eventsData,
-        {
-          id: Number(start.toString().slice(0, 10)),
-          start,
-          end,
-          title,
-          type: '오전',
-          bgColor: '#3B76E1'
-        }
-      ]);
-  };
+  // const handleSelect = ({ start, end }: { start: Date; end: Date }) => {
+  //   console.log(start);
+  //   console.log(end);
+  //   const title = window.prompt('New Event name');
+  //   if (title)
+  //     setEventsData([
+  //       ...eventsData,
+  //       {
+  //         id: Number(start.toString().slice(0, 10)),
+  //         start,
+  //         end,
+  //         title,
+  //         type: '오전',
+  //         bgColor: '#3B76E1'
+  //       }
+  //     ]);
+  // };
 
-  const handleSelectEvent = ({ start, end }: { start: Date; end: Date }) => {
-    console.log(start);
-    console.log(end);
+  const handleSelectEvent = ({ start }: { start: Date }) => {
+    const selectedDate = dayjs(start).format('YYYY-MM-DD');
+    console.log('dd', selectedDate);
+
+    // TODO: 이 날짜 기준으로 해당 날짜 일정 조회
     setIsEdit(true);
     setSelectedDate(start.toString());
     handleIsModalVisible(true);
@@ -125,7 +128,7 @@ const Calendar = () => {
             return 'month';
           }}
           onSelectEvent={handleSelectEvent}
-          onSelectSlot={handleSelect}
+          onSelectSlot={handleSelectEvent}
           dayPropGetter={() => ({
             style: {
               overflowY: 'scroll' // 스크롤 활성화
