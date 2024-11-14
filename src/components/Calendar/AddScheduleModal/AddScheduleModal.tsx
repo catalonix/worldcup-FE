@@ -4,6 +4,8 @@ import type { Dayjs } from 'dayjs';
 import { DatePicker, Form, Input } from 'antd';
 import Modal from 'components/common/Modal';
 import DynamicWorkItems from '../DynamicWorkItems';
+import useCalendar from 'hooks/useCalendar';
+import { ScheduleAmPm } from 'shared/api/calendar/calendarAPIService.types';
 // import useNotification from 'hooks/useNotification';
 
 interface AddScheduleProps {
@@ -16,15 +18,11 @@ interface AddScheduleProps {
 
 const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
-
+  const { addSchedule } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
-  const [amWorkItems, setAmWorkItems] = useState<{ dept: string; morningWork: string }[]>([
-    { dept: '', morningWork: '' }
-  ]);
-  const [pmWorkItems, setPmWorkItems] = useState<{ dept: string; morningWork: string }[]>([
-    { dept: '', morningWork: '' }
-  ]);
+  const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
+  const [pmWorkItems, setPmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
 
   const formItemLayout = {
     labelCol: {
@@ -57,12 +55,13 @@ const AddSchedule = (props: AddScheduleProps) => {
   const handleOk = async () => {
     try {
       await form.validateFields();
-      // const res = props.isEdit ? await editUser(form.getFieldsValue()) : await addUser(form.getFieldsValue());
-      // if (res) {
-      //   props.handleIsModalVisible(false);
-      //   resetFields();
-      //   props.handleSearch();
-      // }
+      const res = await addSchedule({
+        title: form.getFieldValue('title'),
+        date: dayjs(form.getFieldValue('date')).format('YYYY-MM-DD'),
+        am: amWorkItems,
+        pm: pmWorkItems
+      });
+      console.log('res', res);
     } catch (error) {
       console.error(error);
     }
@@ -89,25 +88,39 @@ const AddSchedule = (props: AddScheduleProps) => {
   }, [props.isModalVisible]);
 
   // 작업 추가 함수
-  const handleAdd = (type: 'am' | 'pm') => {
+  const handleAdd = (type: 'am' | 'pm', workItems: ScheduleAmPm[]) => {
+    console.log('HERE', workItems);
     console.log('worItems', form);
-    if (type === 'am') setAmWorkItems([...amWorkItems, { dept: '', morningWork: '' }]);
-    else setPmWorkItems([...pmWorkItems, { dept: '', morningWork: '' }]);
+    if (type === 'am') {
+      setAmWorkItems([...amWorkItems, { loc: '', main: '', sub: '' }]);
+    } else {
+      setPmWorkItems([...pmWorkItems, { loc: '', main: '', sub: '' }]);
+    }
   };
 
   // 작업 삭제 함수
   const handleRemove = (index: number, type: 'am' | 'pm') => {
-    const updatedItems =
-      type === 'am' ? amWorkItems.filter((_, i) => i !== index) : pmWorkItems.filter((_, i) => i !== index);
-    if (type === 'am') setAmWorkItems(updatedItems);
-    else setPmWorkItems(updatedItems);
+    if (type === 'am') {
+      const updatedAmItems = amWorkItems.filter((_, i) => i !== index);
+      setAmWorkItems(updatedAmItems);
+    } else {
+      const updatedPmItems = pmWorkItems.filter((_, i) => i !== index);
+      setPmWorkItems(updatedPmItems);
+    }
   };
 
   // 작업 변경 함수
   const handleChange = (value: string, field: string, index: number, type: 'am' | 'pm') => {
-    const updatedItems = type === 'am' ? amWorkItems : pmWorkItems;
-    updatedItems[index] = { ...updatedItems[index], [field]: value };
-    setAmWorkItems(updatedItems);
+    console.log('type', type);
+    if (type === 'am') {
+      const updatedItems = [...amWorkItems];
+      updatedItems[index] = { ...updatedItems[index], [field]: value };
+      setAmWorkItems(updatedItems);
+    } else {
+      const updatedItems = [...pmWorkItems];
+      updatedItems[index] = { ...updatedItems[index], [field]: value };
+      setPmWorkItems(updatedItems);
+    }
   };
 
   return (
@@ -136,14 +149,14 @@ const AddSchedule = (props: AddScheduleProps) => {
 
           <div className="work-items">
             <DynamicWorkItems
-              workItems={amWorkItems} // 자식 컴포넌트에 workItems를 전달
+              workItems={amWorkItems}
               handleAdd={handleAdd}
               handleRemove={handleRemove}
               handleChange={handleChange}
               type="am"
             />
             <DynamicWorkItems
-              workItems={pmWorkItems} // 자식 컴포넌트에 workItems를 전달
+              workItems={pmWorkItems}
               handleAdd={handleAdd}
               handleRemove={handleRemove}
               handleChange={handleChange}

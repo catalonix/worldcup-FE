@@ -13,3 +13,12 @@ export type GetCalendarListItemType = {
 };
 
 export type GetCalendarListResponseType = GetCalendarListItemType[];
+
+export interface AddScheduleParams {
+  title: string;
+  date: string;
+  am: ScheduleAmPm[];
+  pm: ScheduleAmPm[];
+}
+
+export type ScheduleAmPm = { loc: string; main: string; sub: string };

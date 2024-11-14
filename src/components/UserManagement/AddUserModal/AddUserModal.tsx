@@ -50,6 +50,9 @@ const AddUserModal = (props: AddUserModalProps) => {
       userCode: '0',
       passwordCheck: ''
     });
+
+    form.resetFields();
+
     setIsCheckedId(false);
   };
 
@@ -111,7 +114,8 @@ const AddUserModal = (props: AddUserModalProps) => {
         {...formItemLayout}
         className="antd-form"
         form={form}
-        initialValues={form.getFieldsValue()}>
+        initialValues={form.getFieldsValue()}
+        validateTrigger="onSubmit">
         <Form.Item
           label="아이디"
           name="userId"
