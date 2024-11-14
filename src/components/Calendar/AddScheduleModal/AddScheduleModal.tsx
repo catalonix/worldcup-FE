@@ -61,6 +61,9 @@ const AddSchedule = (props: AddScheduleProps) => {
         am: amWorkItems,
         pm: pmWorkItems
       });
+      if (res) {
+        form.resetFields();
+      }
       console.log('res', res);
     } catch (error) {
       console.error(error);
@@ -143,7 +146,7 @@ const AddSchedule = (props: AddScheduleProps) => {
             <Input />
           </Form.Item>
 
-          <Form.Item label="작업일자" name="date">
+          <Form.Item label="작업일자" name="date" rules={[{ required: true, message: '날짜를 입력해주세요!' }]}>
             <DatePicker onChange={value => setDate(value)} className="w-100" />
           </Form.Item>
 
