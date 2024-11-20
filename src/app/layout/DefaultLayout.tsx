@@ -26,7 +26,7 @@ const { Header, Sider, Content } = Layout;
 const DefaultLayout: React.FC = () => {
   const navigate = useNavigate();
 
-  const { dispatchIsLogin, clear } = useMyInfoStore();
+  const { dispatchIsLogin, clear, myInfo } = useMyInfoStore();
   const { getCurrentDate, getCurrentTime } = useDate();
   const { getWeatherHeader, weatherHeader } = useSensor();
 
@@ -160,7 +160,7 @@ const DefaultLayout: React.FC = () => {
           <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'white' }}>
               <Avatar icon={<UserOutlined />} />
-              <div>user name</div>
+              <div>{myInfo.userId}</div>
             </div>
           </Dropdown>
         </div>
