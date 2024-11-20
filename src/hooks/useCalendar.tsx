@@ -40,9 +40,13 @@ const useCalendar = () => {
     try {
       await calendarAPI.addSchedule(params);
       return true;
-    } catch (error) {
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
+    } catch (error: any) {
       console.error('addSchedule', error);
-      openNotification('error', '일정 생성에 실패하였습니다. 다시 시도해주세요.');
+      openNotification(
+        'error',
+        `${error.status === 400 ? '해당 날짜에 이미 등록된 작업일정이 있습니다.' : '일정 생성에 실패하였습니다. 다시 시도해주세요.'}`
+      );
       return false;
     } finally {
       setLoading(false);
