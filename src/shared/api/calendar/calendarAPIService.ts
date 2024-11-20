@@ -13,10 +13,8 @@ const calendarAPI = {
     );
     return res.data;
   },
-  getCalendarTaskByDate: async (params: GetCalendarListParams) => {
-    const res = await authAxiosInstance.get<GetCalendarListResponseType>(
-      `/api/task/calendar/?date=${params.date}&types=${params.types}`
-    );
+  getCalendarTaskByDate: async (date: string) => {
+    const res = await authAxiosInstance.get<AddScheduleParams>(`/api/task/?date=${date}`);
     return res.data;
   },
   addSchedule: async (params: AddScheduleParams) => {

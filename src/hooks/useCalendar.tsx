@@ -6,9 +6,12 @@ import {
   GetCalendarListParams,
   getScheduleTypeResponseType
 } from 'shared/api/calendar/calendarAPIService.types';
+import { useState } from 'react';
 const useCalendar = () => {
   const { setLoading } = useLoading();
   const { openNotification } = useNotification();
+
+  const [task, setTask] = useState<AddScheduleParams>();
 
   const getCalendarList = async (params: GetCalendarListParams) => {
     setLoading(true);
@@ -24,10 +27,11 @@ const useCalendar = () => {
     }
   };
 
-  const getCalendarTaskByDate = async (params: GetCalendarListParams) => {
+  const getCalendarTaskByDate = async (date: string) => {
     setLoading(true);
     try {
-      const result = await calendarAPI.getCalendarTaskByDate(params);
+      const result = await calendarAPI.getCalendarTaskByDate(date);
+      setTask(result);
       return result;
     } catch (error) {
       console.error('getCalendarTaskByDate', error);
@@ -98,6 +102,6 @@ const useCalendar = () => {
     }
   };
 
-  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
+  return { task, getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
 };
 export default useCalendar;
