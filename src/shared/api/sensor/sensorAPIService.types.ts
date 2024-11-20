@@ -50,7 +50,7 @@ export type GetWeatherHeaderResponseType = {
   pm25: string;
   ws: number;
   wd: string;
-  rain_amt: number;
+  rainAmt: number;
   temp: number;
   humi: number;
 };

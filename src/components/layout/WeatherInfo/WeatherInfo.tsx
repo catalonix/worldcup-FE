@@ -14,7 +14,7 @@ const WeatherInfo = (props: WeatherInfoInterface) => {
         <span>기온: {props.weatherHeader?.temp}</span>
       </div>
       <div className="weather-box">
-        <span>강수량: 19.3</span>
+        <span>강수량: {props.weatherHeader?.rainAmt}</span>
       </div>
       <div className="weather-box">
         <span>습도: {props.weatherHeader?.humi}</span>
