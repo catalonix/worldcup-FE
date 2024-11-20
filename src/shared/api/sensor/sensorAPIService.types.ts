@@ -43,3 +43,14 @@ export type GetWeatherSummaryResponseType = {
     wd: number;
   }[];
 };
+
+export type GetWeatherHeaderResponseType = {
+  date: string;
+  pm10: string;
+  pm25: string;
+  ws: number;
+  wd: string;
+  rain_amt: number;
+  temp: number;
+  humi: number;
+};

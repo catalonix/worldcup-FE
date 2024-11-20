@@ -19,6 +19,7 @@ import { AppPaths } from '../routing/app-routing';
 import './DefaultLayout.scss';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
 import useDate from 'hooks/useDate';
+import useSensor from 'hooks/useSensor';
 
 const { Header, Sider, Content } = Layout;
 
@@ -27,6 +28,7 @@ const DefaultLayout: React.FC = () => {
 
   const { dispatchIsLogin, clear } = useMyInfoStore();
   const { getCurrentDate, getCurrentTime } = useDate();
+  const { getWeatherHeader, weatherHeader } = useSensor();
 
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [isOpenWeatherInfo, setIsOpenWeatherInfo] = useState<boolean>(false);
@@ -80,7 +82,7 @@ const DefaultLayout: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
-
+    getWeatherHeader();
     return () => {
       window.removeEventListener('resize', handleResize);
     };
@@ -127,18 +129,17 @@ const DefaultLayout: React.FC = () => {
               <div className="weather-tag">
                 미세먼지
                 <Tag color="blue" style={{ fontSize: '10px' }}>
-                  좋음
+                  {weatherHeader?.pm10}
                 </Tag>
               </div>
               <div className="weather-tag">
                 초미세먼지
                 <Tag color="blue" style={{ fontSize: '10px' }}>
-                  좋음
+                  {weatherHeader?.pm25}
                 </Tag>
               </div>
             </div>
-
-            <WeatherInfo />
+            {weatherHeader && <WeatherInfo weatherHeader={weatherHeader} />}
           </div>
         )}
 
@@ -146,16 +147,16 @@ const DefaultLayout: React.FC = () => {
           <div className="weather-tag">
             미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
-              좋음
+              {weatherHeader?.pm10}
             </Tag>
           </div>
           <div className="weather-tag">
             초미세먼지
             <Tag color="blue" style={{ fontSize: '10px' }}>
-              좋음
+              {weatherHeader?.pm10}
             </Tag>
           </div>
-          <WeatherInfo />
+          {weatherHeader && <WeatherInfo weatherHeader={weatherHeader} />}
           <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'white' }}>
               <Avatar icon={<UserOutlined />} />
