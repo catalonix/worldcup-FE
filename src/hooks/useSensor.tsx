@@ -2,6 +2,7 @@ import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import {
   GetNdviInfoParams,
+  GetObservationParams,
   GetSensorInfoResponseType,
   GetSoilSummaryResponseType,
   GetWeatherHeaderResponseType,
@@ -19,6 +20,7 @@ const useSensor = () => {
   const [soilInfo, setSoilInfo] = useState<GetSensorInfoResponseType>();
   const [soilDates, setSoilDates] = useState<{ label: string; value: string }[]>([]);
   const [soilSummary, setSoilSummary] = useState<GetSoilSummaryResponseType>([]);
+  const [observation, setObservation] = useState<GetSensorInfoResponseType>();
   const [weatherInfo, setWeahterInfo] = useState<GetSensorInfoResponseType>();
   const [weatherSummary, setWeatherSummary] = useState<GetWeatherSummaryResponseType>();
   const [weatherHeader, setWeatherHeader] = useState<GetWeatherHeaderResponseType>();
@@ -144,6 +146,39 @@ const useSensor = () => {
       setLoading(false);
     }
   };
+
+  const getObservation = async (params: GetObservationParams) => {
+    setLoading(true);
+    try {
+      let res;
+      if (params.type === 'camera') {
+        res = await sensorAPI.getNdviInfo({ startDate: params.startDate, endDate: params.endDate });
+      } else if (params.type === 'soilRobot') {
+        res = await sensorAPI.getSoilInfo({
+          startDate: params.startDate,
+          endDate: params.endDate
+        });
+      } else {
+        res = await sensorAPI.getWeatherInfo({
+          startDate: params.startDate,
+          endDate: params.endDate,
+          directionType: params.directionType,
+          values: params.values
+        });
+      }
+
+      if (res) {
+        console.log('res', res);
+        setObservation(res);
+      }
+    } catch (error) {
+      console.error('getObservation', error);
+      openNotification('error', 'observation 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -152,13 +187,15 @@ const useSensor = () => {
     soilDates,
     soilSummary,
     weatherHeader,
+    observation,
     getNdviInfo,
     getSoilDate,
     getSoilInfo,
     getSoilSummary,
     getWeatherInfo,
     getWeatherSummary,
-    getWeatherHeader
+    getWeatherHeader,
+    getObservation
   };
 };
 export default useSensor;

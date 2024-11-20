@@ -1,0 +1,12 @@
+.observation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .checkbox-group {
+    border: 1px solid #475f7a;
+    padding: 0 0.5rem;
+    margin-right: 1rem;
+    border-radius: 0.25rem;
+  }
+}

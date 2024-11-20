@@ -7,8 +7,7 @@ import { Button, DatePicker, Select } from 'antd';
 import { SearchOutlined, DownloadOutlined } from '@ant-design/icons';
 import useSensor from 'hooks/useSensor';
 import { soilSearchOptions } from 'common/constants/soilDetail';
-
-const dateFormat = 'YYYY-MM-DD';
+import { dateFormat } from 'common/types';
 
 const SoilDetail = () => {
   const { soilInfo, getSoilInfo } = useSensor();

@@ -1,12 +1,28 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import { Chart } from 'react-chartjs-2';
 import Card from 'components/common/Card';
-import { Button, DatePicker, Select } from 'antd';
+import { Button, DatePicker, Checkbox, Select } from 'antd';
+import type { GetProp } from 'antd';
 import { SearchOutlined, DownloadOutlined, BarChartOutlined } from '@ant-design/icons';
-import { soilSearchOptions } from 'common/constants/soilDetail';
+import useSensor from 'hooks/useSensor';
+import { dateFormat } from 'common/types';
+import { directionOptions, valuesOptions } from 'common/constants/weatherDetail';
+import { GetObservationType } from 'shared/api/sensor/sensorAPIService.types';
+import { observationOptions } from 'common/constants/observation';
+import useNotification from 'hooks/useNotification';
 
 const Observation = () => {
+  const { openNotification } = useNotification();
+  const { observation, getObservation } = useSensor();
+
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
+  const [directions, setDirections] = useState<string[]>(['EN', 'WS', 'SE', 'WN']);
+  const [values, setValues] = useState<string[]>(['temp']);
+  const [type, setType] = useState<GetObservationType>('camera');
+
   const options = {
     responsive: true,
     plugins: {
@@ -17,40 +33,82 @@ const Observation = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
-    datasets: [
-      {
-        label: '토양습도',
-        backgroundColor: 'rgba(0, 0, 255, 0.5)',
-        borderColor: 'blue',
-        data: [3, 5, 11] // y 값
-      },
-      {
-        label: '토양온도',
-        backgroundColor: 'rgba(255, 0, 0, 0.5)',
-        borderColor: 'red',
-        data: [5, 10, 10] // y 값
-      },
-      {
-        label: '토양양분',
-        backgroundColor: 'rgba(255, 165, 0, 0.5)',
-        borderColor: 'orange',
-        data: [15, 23, 20] // y 값
-      }
-    ]
+    labels: observation?.dates,
+    datasets: observation?.data
+      ? observation.data.map(it => {
+          return {
+            label: it.name ? it.name : '',
+            backgroundColor: 'rgba(0, 0, 255, 0.5)',
+            borderColor: 'blue',
+            data: it.data ? it.data : [] // y 값
+          };
+        })
+      : []
   };
 
+  const handleChangeDirection: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    setDirections(checkedValues as string[]);
+  };
+
+  const handleChangeValues: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    setValues(checkedValues as string[]);
+  };
+
+  const handleSearch = () => {
+    if (type === 'weatherSensor') {
+      if (!directions.length || !values.length) {
+        openNotification('warning', '요소가 선택되지 않았습니다.');
+        return;
+      }
+    }
+    getObservation({
+      startDate: startDate.format(dateFormat),
+      endDate: endDate.format(dateFormat),
+      type,
+      directionType: directions.toString(),
+      values: values.toString()
+    });
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, []);
+
   return (
-    <div className="soil-detail-container">
+    <div className="observation-container">
       <Card title="상세검색">
         <div>
           <div className="search-content">
-            <Select options={soilSearchOptions} defaultValue={'camera'} style={{ width: '20%' }} />
-            <DatePicker />
-            <DatePicker />
-            <Button icon={<SearchOutlined />}>조회하기</Button>
+            <Select
+              options={observationOptions}
+              defaultValue={'camera'}
+              style={{ width: '20%' }}
+              value={type}
+              onChange={value => setType(value as GetObservationType)}
+            />
+            <DatePicker defaultValue={startDate} onChange={value => setStartDate(value)} />
+            <DatePicker defaultValue={endDate} onChange={value => setEndDate(value)} minDate={startDate} />
+            <Button icon={<SearchOutlined />} onClick={handleSearch}>
+              조회하기
+            </Button>
           </div>
         </div>
+        {type === 'weatherSensor' && (
+          <div>
+            <Checkbox.Group
+              options={directionOptions}
+              defaultValue={['EN', 'WS', 'SE', 'WN']}
+              onChange={handleChangeDirection}
+              className="checkbox-group"
+            />
+            <Checkbox.Group
+              options={valuesOptions}
+              defaultValue={['temp']}
+              onChange={handleChangeValues}
+              className="checkbox-group"
+            />
+          </div>
+        )}
       </Card>
       <Card title="관측정보" titleButton={<Button icon={<BarChartOutlined />}>차트보기</Button>}>
         <div className="search-content d-column">
