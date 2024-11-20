@@ -7,6 +7,7 @@ import Modal from 'components/common/Modal';
 import DynamicWorkItems from '../DynamicWorkItems';
 import useCalendar from 'hooks/useCalendar';
 import { ScheduleAmPm } from 'shared/api/calendar/calendarAPIService.types';
+import { dateFormat } from 'common/types';
 // import useNotification from 'hooks/useNotification';
 
 interface AddScheduleProps {
@@ -16,10 +17,12 @@ interface AddScheduleProps {
   selectedDate: string;
   isEdit: boolean;
 }
+
 dayjs.locale('ko');
+
 const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
-  const { addSchedule, deleteSchedule, editSchedule } = useCalendar();
+  const { addSchedule, deleteSchedule, editSchedule, getCalendarTaskByDate } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
@@ -53,8 +56,6 @@ const AddSchedule = (props: AddScheduleProps) => {
     });
     setAmWorkItems([{ loc: '', main: '', sub: '' }]);
     setPmWorkItems([{ loc: '', main: '', sub: '' }]);
-
-    // TODO: 작업 일정도 초기화
   };
 
   const handleOk = async () => {
@@ -142,15 +143,21 @@ const AddSchedule = (props: AddScheduleProps) => {
     });
   };
 
+  const fillTask = async () => {
+    console.log('HERE');
+    const res = await getCalendarTaskByDate(dayjs(props.selectedDate).format(dateFormat));
+    form.setFieldValue('title', res?.title);
+    form.setFieldValue('date', dayjs(props.selectedDate));
+    setAmWorkItems(res?.am || [{ loc: '', main: '', sub: '' }]);
+    setPmWorkItems(res?.pm || [{ loc: '', main: '', sub: '' }]);
+  };
+
   useEffect(() => {
     if (props.isModalVisible) {
       if (props.selectedDate) {
         // 수정 모드
-        // TODO:  해당 날짜의 상세 값 받아와서 초기 값 채우기
         setDate(dayjs(props.selectedDate));
-        console.log(date);
-
-        // setDate(new Date(props.selectedDate));
+        fillTask();
       } else {
         // 생성 모드
         resetFields();

@@ -50,7 +50,14 @@ export type GetWeatherHeaderResponseType = {
   pm25: string;
   ws: number;
   wd: string;
-  rain_amt: number;
+  rainAmt: number;
   temp: number;
   humi: number;
 };
+
+export type GetObservationType = 'camera' | 'soilRobot' | 'weatherSensor';
+export interface GetObservationParams extends GetNdviInfoParams {
+  type: GetObservationType;
+  directionType: string;
+  values: string;
+}

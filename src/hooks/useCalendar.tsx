@@ -6,6 +6,7 @@ import {
   GetCalendarListParams,
   getScheduleTypeResponseType
 } from 'shared/api/calendar/calendarAPIService.types';
+
 const useCalendar = () => {
   const { setLoading } = useLoading();
   const { openNotification } = useNotification();
@@ -24,15 +25,15 @@ const useCalendar = () => {
     }
   };
 
-  const getCalendarTaskByDate = async (params: GetCalendarListParams) => {
+  const getCalendarTaskByDate = async (date: string) => {
     setLoading(true);
     try {
-      const result = await calendarAPI.getCalendarTaskByDate(params);
+      const result = await calendarAPI.getCalendarTaskByDate(date);
       return result;
     } catch (error) {
       console.error('getCalendarTaskByDate', error);
       openNotification('error', '일정 조회에 실패하였습니다. 다시 시도해주세요.');
-      return [];
+      return;
     } finally {
       setLoading(false);
     }
