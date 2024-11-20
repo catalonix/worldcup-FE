@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
-import { DatePicker, Form, Input } from 'antd';
+import 'dayjs/locale/ko';
+import { DatePicker, Form, Input, Button, Modal as AntdModal } from 'antd';
 import Modal from 'components/common/Modal';
 import DynamicWorkItems from '../DynamicWorkItems';
 import useCalendar from 'hooks/useCalendar';
@@ -15,10 +16,10 @@ interface AddScheduleProps {
   selectedDate: string;
   isEdit: boolean;
 }
-
+dayjs.locale('ko');
 const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
-  const { addSchedule } = useCalendar();
+  const { addSchedule, deleteSchedule } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
@@ -81,21 +82,6 @@ const AddSchedule = (props: AddScheduleProps) => {
     resetFields();
   };
 
-  useEffect(() => {
-    if (props.isModalVisible) {
-      if (props.selectedDate) {
-        // 수정 모드
-        // TODO:  해당 날짜의 상세 값 받아와서 초기 값 채우기
-        console.log(date);
-
-        // setDate(new Date(props.selectedDate));
-      } else {
-        // 생성 모드
-        resetFields();
-      }
-    }
-  }, [props.isModalVisible]);
-
   // 작업 추가 함수
   const handleAdd = (type: 'am' | 'pm', workItems: ScheduleAmPm[]) => {
     console.log('HERE', workItems);
@@ -132,6 +118,37 @@ const AddSchedule = (props: AddScheduleProps) => {
     }
   };
 
+  const handleClickDeleteButton = () => {
+    AntdModal.confirm({
+      title: '정말로 삭제하시겠어요?',
+      content: '삭제 후 복구할 수 없어요.',
+      onOk: async () => {
+        const res = await deleteSchedule(dayjs(date).format('YYYY-MM-DD'));
+        console.log('res', res);
+        if (res) {
+          props.handleSearch();
+          handleCancel();
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (props.isModalVisible) {
+      if (props.selectedDate) {
+        // 수정 모드
+        // TODO:  해당 날짜의 상세 값 받아와서 초기 값 채우기
+        setDate(dayjs(props.selectedDate));
+        console.log(date);
+
+        // setDate(new Date(props.selectedDate));
+      } else {
+        // 생성 모드
+        resetFields();
+      }
+    }
+  }, [props.isModalVisible]);
+
   return (
     <div className="add-schedule-modal">
       <Modal
@@ -142,6 +159,14 @@ const AddSchedule = (props: AddScheduleProps) => {
         okText={props.isEdit ? '수정' : '등록'}
         cancelText="취소"
         width={900}>
+        {props.isEdit && (
+          <div style={{ height: '10px' }}>
+            <Button className="delete-button" onClick={handleClickDeleteButton}>
+              삭제하기
+            </Button>
+          </div>
+        )}
+
         <Form
           style={{ marginTop: '20px' }}
           {...formItemLayout}
@@ -153,7 +178,7 @@ const AddSchedule = (props: AddScheduleProps) => {
           </Form.Item>
 
           <Form.Item label="작업일자" name="date" rules={[{ required: true, message: '날짜를 입력해주세요!' }]}>
-            <DatePicker onChange={value => setDate(value)} className="w-100" />
+            <DatePicker onChange={value => setDate(value)} value={date} className="w-100" />
           </Form.Item>
 
           <div className="work-items">

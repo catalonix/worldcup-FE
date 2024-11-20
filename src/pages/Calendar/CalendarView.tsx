@@ -108,7 +108,7 @@ const Calendar = () => {
 
     // TODO: 이 날짜 기준으로 해당 날짜 일정 조회
     setIsEdit(true);
-    setSelectedDate(start.toString());
+    setSelectedDate(selectedDate);
     handleIsModalVisible(true);
   };
 

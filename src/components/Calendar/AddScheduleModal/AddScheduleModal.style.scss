@@ -20,3 +20,11 @@
     align-self: end;
   }
 }
+
+.delete-button {
+  float: right;
+  display: block;
+  background-color: red;
+  font-weight: 800;
+  margin-top: 10px;
+}
