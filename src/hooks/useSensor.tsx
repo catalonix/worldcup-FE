@@ -4,6 +4,7 @@ import {
   GetNdviInfoParams,
   GetSensorInfoResponseType,
   GetSoilSummaryResponseType,
+  GetWeatherHeaderResponseType,
   GetWeatherInfoParams,
   GetWeatherSummaryResponseType
 } from 'shared/api/sensor/sensorAPIService.types';
@@ -20,6 +21,7 @@ const useSensor = () => {
   const [soilSummary, setSoilSummary] = useState<GetSoilSummaryResponseType>([]);
   const [weatherInfo, setWeahterInfo] = useState<GetSensorInfoResponseType>();
   const [weatherSummary, setWeatherSummary] = useState<GetWeatherSummaryResponseType>();
+  const [weatherHeader, setWeatherHeader] = useState<GetWeatherHeaderResponseType>();
 
   const getNdviInfo = async (params: GetNdviInfoParams) => {
     setLoading(true);
@@ -126,6 +128,22 @@ const useSensor = () => {
     }
   };
 
+  const getWeatherHeader = async () => {
+    setLoading(true);
+    try {
+      const result = await sensorAPI.getWeatherHeader();
+      if (result) {
+        setWeatherHeader(result);
+      }
+      return result;
+    } catch (error) {
+      console.error('getWeatherHeader', error);
+      openNotification('error', 'weather 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     ndviInfo,
     soilInfo,
@@ -133,12 +151,14 @@ const useSensor = () => {
     weatherSummary,
     soilDates,
     soilSummary,
+    weatherHeader,
     getNdviInfo,
     getSoilDate,
     getSoilInfo,
     getSoilSummary,
     getWeatherInfo,
-    getWeatherSummary
+    getWeatherSummary,
+    getWeatherHeader
   };
 };
 export default useSensor;

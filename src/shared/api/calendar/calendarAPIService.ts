@@ -32,7 +32,7 @@ const calendarAPI = {
     return res.data;
   },
   editSchedule: async (params: AddScheduleParams) => {
-    const res = await authAxiosInstance.patch('/api/task', params);
+    const res = await authAxiosInstance.patch('/api/task/', params);
     return res.data;
   }
 };
