@@ -1,5 +1,10 @@
 import { authAxiosInstance } from '../common';
-import { AddScheduleParams, GetCalendarListParams, GetCalendarListResponseType } from './calendarAPIService.types';
+import {
+  AddScheduleParams,
+  GetCalendarListParams,
+  GetCalendarListResponseType,
+  getScheduleTypeResponseType
+} from './calendarAPIService.types';
 
 const calendarAPI = {
   getCalendarList: async (params: GetCalendarListParams) => {
@@ -16,6 +21,10 @@ const calendarAPI = {
   },
   addSchedule: async (params: AddScheduleParams) => {
     const res = await authAxiosInstance.post<GetCalendarListResponseType>('/api/task/', params);
+    return res.data;
+  },
+  getScheduleType: async () => {
+    const res = await authAxiosInstance.get<getScheduleTypeResponseType>('/api/task/type/');
     return res.data;
   }
 };

@@ -1,8 +1,11 @@
 import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import calendarAPI from 'shared/api/calendar/calendarAPIService';
-import { AddScheduleParams, GetCalendarListParams } from 'shared/api/calendar/calendarAPIService.types';
-
+import {
+  AddScheduleParams,
+  GetCalendarListParams,
+  getScheduleTypeResponseType
+} from 'shared/api/calendar/calendarAPIService.types';
 const useCalendar = () => {
   const { setLoading } = useLoading();
   const { openNotification } = useNotification();
@@ -53,10 +56,20 @@ const useCalendar = () => {
     }
   };
 
-  return {
-    getCalendarList,
-    getCalendarTaskByDate,
-    addSchedule
+  const getScheduleType = async () => {
+    setLoading(true);
+    try {
+      const res = await calendarAPI.getScheduleType();
+      return res as getScheduleTypeResponseType;
+    } catch (error) {
+      console.error('getScheduleType', error);
+      openNotification('error', '스케쥴 타입 조회에 문제가 생겼습니다. 다시 시도해주세요.');
+      return [];
+    } finally {
+      setLoading(false);
+    }
   };
+
+  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType };
 };
 export default useCalendar;

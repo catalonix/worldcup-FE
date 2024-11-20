@@ -22,3 +22,9 @@ export interface AddScheduleParams {
 }
 
 export type ScheduleAmPm = { loc: string; main: string; sub: string };
+
+export type getScheduleTypeResponseType = {
+  name: string;
+  key: number | string;
+  children: { name: string; key: number }[];
+}[];
