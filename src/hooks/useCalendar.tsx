@@ -6,12 +6,10 @@ import {
   GetCalendarListParams,
   getScheduleTypeResponseType
 } from 'shared/api/calendar/calendarAPIService.types';
-import { useState } from 'react';
+
 const useCalendar = () => {
   const { setLoading } = useLoading();
   const { openNotification } = useNotification();
-
-  const [task, setTask] = useState<AddScheduleParams>();
 
   const getCalendarList = async (params: GetCalendarListParams) => {
     setLoading(true);
@@ -31,12 +29,11 @@ const useCalendar = () => {
     setLoading(true);
     try {
       const result = await calendarAPI.getCalendarTaskByDate(date);
-      setTask(result);
       return result;
     } catch (error) {
       console.error('getCalendarTaskByDate', error);
       openNotification('error', '일정 조회에 실패하였습니다. 다시 시도해주세요.');
-      return [];
+      return;
     } finally {
       setLoading(false);
     }
@@ -102,6 +99,6 @@ const useCalendar = () => {
     }
   };
 
-  return { task, getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
+  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
 };
 export default useCalendar;

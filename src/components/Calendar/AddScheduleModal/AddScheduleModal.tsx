@@ -22,7 +22,7 @@ dayjs.locale('ko');
 
 const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
-  const { addSchedule, deleteSchedule, editSchedule, getCalendarTaskByDate, task } = useCalendar();
+  const { addSchedule, deleteSchedule, editSchedule, getCalendarTaskByDate } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
@@ -144,11 +144,12 @@ const AddSchedule = (props: AddScheduleProps) => {
   };
 
   const fillTask = async () => {
-    await getCalendarTaskByDate(dayjs(props.selectedDate).format(dateFormat));
-    form.setFieldValue('title', task?.title);
+    console.log('HERE');
+    const res = await getCalendarTaskByDate(dayjs(props.selectedDate).format(dateFormat));
+    form.setFieldValue('title', res?.title);
     form.setFieldValue('date', dayjs(props.selectedDate));
-    setAmWorkItems(task?.am || [{ loc: '', main: '', sub: '' }]);
-    setPmWorkItems(task?.pm || [{ loc: '', main: '', sub: '' }]);
+    setAmWorkItems(res?.am || [{ loc: '', main: '', sub: '' }]);
+    setPmWorkItems(res?.pm || [{ loc: '', main: '', sub: '' }]);
   };
 
   useEffect(() => {
