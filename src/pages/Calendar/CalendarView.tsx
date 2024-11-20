@@ -175,6 +175,7 @@ const Calendar = () => {
                 handleIsModalVisible={handleIsModalVisible}
                 selectedTypes={selectedTypes}
                 setSelectedTypes={setSelectedTypes}
+                setIsEdit={setIsEdit}
               />
             ),
             month: {

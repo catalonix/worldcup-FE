@@ -70,6 +70,34 @@ const useCalendar = () => {
     }
   };
 
-  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType };
+  const deleteSchedule = async (date: string) => {
+    setLoading(true);
+    try {
+      await calendarAPI.deleteSchedule(date);
+      return true;
+    } catch (error) {
+      console.error('deleteSchedule', error);
+      openNotification('error', '스케쥴 삭제에 문제가 생겼습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const editTask = async (date: string) => {
+    setLoading(true);
+    try {
+      await calendarAPI.deleteSchedule(date);
+      return true;
+    } catch (error) {
+      console.error('editTask', error);
+      openNotification('error', '스케쥴 수정에 문제가 생겼습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editTask };
 };
 export default useCalendar;

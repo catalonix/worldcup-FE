@@ -26,6 +26,14 @@ const calendarAPI = {
   getScheduleType: async () => {
     const res = await authAxiosInstance.get<getScheduleTypeResponseType>('/api/task/type/');
     return res.data;
+  },
+  deleteSchedule: async (date: string) => {
+    const res = await authAxiosInstance.delete(`/api/task/type/?date=${date}`);
+    return res.data;
+  },
+  editSchedule: async (params: AddScheduleParams) => {
+    const res = await authAxiosInstance.patch('/api/task', params);
+    return res.data;
   }
 };
 
