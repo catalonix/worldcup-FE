@@ -46,8 +46,12 @@ const AddSchedule = (props: AddScheduleProps) => {
   const resetFields = () => {
     form.setFieldsValue({
       title: '',
-      date: ''
+      date: '',
+      amWorkItems: { loc: '', main: '', sub: '' },
+      pmWorkItems: { loc: '', main: '', sub: '' }
     });
+    setAmWorkItems([{ loc: '', main: '', sub: '' }]);
+    setPmWorkItems([{ loc: '', main: '', sub: '' }]);
 
     // TODO: 작업 일정도 초기화
   };
