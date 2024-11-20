@@ -7,6 +7,8 @@ import { CustomToolbar, AddScheduleModal } from 'components/Calendar';
 import useCalendar from 'hooks/useCalendar';
 import { GetCalendarListItemType, GetCalendarListResponseType } from 'shared/api/calendar/calendarAPIService.types';
 import useDate from 'hooks/useDate';
+import { useCalendarStore } from 'shared/store/calendar/calendar';
+import { SelectOptionTypes } from 'common/types';
 
 moment.locale('ko-KR');
 const localizer = momentLocalizer(moment);
@@ -27,8 +29,10 @@ const CustomEvent = ({ event }: { event: GetCalendarListItemType }) => {
 };
 
 const Calendar = () => {
-  const { getCalendarList } = useCalendar();
+  const { getCalendarList, getScheduleType } = useCalendar();
   const { getCurrentMonth } = useDate();
+
+  const { dispatchMainTypes, dispatchSubTypes } = useCalendarStore();
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -104,12 +108,40 @@ const Calendar = () => {
 
     // TODO: 이 날짜 기준으로 해당 날짜 일정 조회
     setIsEdit(true);
-    setSelectedDate(start.toString());
+    setSelectedDate(selectedDate);
     handleIsModalVisible(true);
+  };
+
+  const getScheduleTypes = async () => {
+    const items = await getScheduleType();
+
+    const mainTypes: SelectOptionTypes[] = [];
+    const subTypes: { parentValue: string; children: SelectOptionTypes[] }[] = [];
+
+    items.forEach(item => {
+      mainTypes.push({
+        label: item.name,
+        value: item.key as string
+      });
+
+      // Sub types
+      if (item.children && item.children.length > 0) {
+        subTypes.push({
+          parentValue: item.key as string, // Link to main type
+          children: item.children.map(child => ({
+            label: child.name as string,
+            value: child.key as unknown as string
+          }))
+        });
+      }
+    });
+    dispatchMainTypes(mainTypes as SelectOptionTypes[]);
+    dispatchSubTypes(subTypes);
   };
 
   useEffect(() => {
     handleSearch();
+    getScheduleTypes();
   }, [selectedTypes, searchMonth]);
 
   return (
@@ -143,6 +175,7 @@ const Calendar = () => {
                 handleIsModalVisible={handleIsModalVisible}
                 selectedTypes={selectedTypes}
                 setSelectedTypes={setSelectedTypes}
+                setIsEdit={setIsEdit}
               />
             ),
             month: {

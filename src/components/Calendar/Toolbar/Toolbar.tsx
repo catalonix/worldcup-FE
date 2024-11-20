@@ -10,6 +10,7 @@ type CustomToolbarProps = {
   handleIsModalVisible: (isVisible: boolean) => void;
   selectedTypes: string[];
   setSelectedTypes: React.Dispatch<React.SetStateAction<string[]>>;
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CustomToolbar = ({
@@ -17,7 +18,8 @@ const CustomToolbar = ({
   onNavigate,
   handleIsModalVisible,
   selectedTypes,
-  setSelectedTypes
+  setSelectedTypes,
+  setIsEdit
 }: CustomToolbarProps) => {
   const navigate = (action: 'TODAY' | 'PREV' | 'NEXT') => {
     onNavigate(action);
@@ -31,6 +33,10 @@ const CustomToolbar = ({
     alert('download');
   };
 
+  const handleAddBtnClick = () => {
+    setIsEdit(false);
+    handleIsModalVisible(true);
+  };
   return (
     <div className="rbc-toolbar">
       <div className="d-flex align-center justify-space-between w-100">
@@ -41,7 +47,7 @@ const CustomToolbar = ({
         </span>
         <span className="rbc-toolbar-label">{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</span>
         <span className="rbc-btn-group">
-          <Button icon={<PlusSquareOutlined />} onClick={() => handleIsModalVisible(true)}>
+          <Button icon={<PlusSquareOutlined />} onClick={handleAddBtnClick}>
             추가
           </Button>
           <Button
