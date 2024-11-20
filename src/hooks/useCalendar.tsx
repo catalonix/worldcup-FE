@@ -84,13 +84,13 @@ const useCalendar = () => {
     }
   };
 
-  const editTask = async (date: string) => {
+  const editSchedule = async (params: AddScheduleParams) => {
     setLoading(true);
     try {
-      await calendarAPI.deleteSchedule(date);
+      await calendarAPI.editSchedule(params);
       return true;
     } catch (error) {
-      console.error('editTask', error);
+      console.error('editSchedule', error);
       openNotification('error', '스케쥴 수정에 문제가 생겼습니다. 다시 시도해주세요.');
       return false;
     } finally {
@@ -98,6 +98,6 @@ const useCalendar = () => {
     }
   };
 
-  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editTask };
+  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
 };
 export default useCalendar;

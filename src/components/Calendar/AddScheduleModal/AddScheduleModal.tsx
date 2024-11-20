@@ -19,7 +19,7 @@ interface AddScheduleProps {
 dayjs.locale('ko');
 const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
-  const { addSchedule, deleteSchedule } = useCalendar();
+  const { addSchedule, deleteSchedule, editSchedule } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
@@ -59,13 +59,24 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   const handleOk = async () => {
     try {
+      let res = false;
       await form.validateFields();
-      const res = await addSchedule({
-        title: form.getFieldValue('title'),
-        date: dayjs(form.getFieldValue('date')).format('YYYY-MM-DD'),
-        am: amWorkItems,
-        pm: pmWorkItems
-      });
+      if (props.isEdit) {
+        res = await editSchedule({
+          title: form.getFieldValue('title'),
+          date: dayjs(form.getFieldValue('date')).format('YYYY-MM-DD'),
+          am: amWorkItems,
+          pm: pmWorkItems
+        });
+      } else {
+        res = await addSchedule({
+          title: form.getFieldValue('title'),
+          date: dayjs(form.getFieldValue('date')).format('YYYY-MM-DD'),
+          am: amWorkItems,
+          pm: pmWorkItems
+        });
+      }
+
       if (res) {
         form.resetFields();
         props.handleIsModalVisible(false);
@@ -106,7 +117,6 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   // 작업 변경 함수
   const handleChange = (value: string, field: string, index: number, type: 'am' | 'pm') => {
-    console.log('type', type);
     if (type === 'am') {
       const updatedItems = [...amWorkItems];
       updatedItems[index] = { ...updatedItems[index], [field]: value };
@@ -124,7 +134,6 @@ const AddSchedule = (props: AddScheduleProps) => {
       content: '삭제 후 복구할 수 없어요.',
       onOk: async () => {
         const res = await deleteSchedule(dayjs(date).format('YYYY-MM-DD'));
-        console.log('res', res);
         if (res) {
           props.handleSearch();
           handleCancel();
