@@ -5,6 +5,7 @@ import {
   GetObservationParams,
   GetSensorInfoResponseType,
   GetSensorStatusResponseType,
+  GetSensorSummaryResponseType,
   GetSoilSummaryResponseType,
   GetWeatherHeaderResponseType,
   GetWeatherInfoParams,
@@ -26,6 +27,7 @@ const useSensor = () => {
   const [weatherSummary, setWeatherSummary] = useState<GetWeatherSummaryResponseType>();
   const [weatherHeader, setWeatherHeader] = useState<GetWeatherHeaderResponseType>();
   const [sensorStatus, setSensorStatus] = useState<GetSensorStatusResponseType>();
+  const [sensorSummary, setSensorSummary] = useState<GetSensorSummaryResponseType>();
 
   const getNdviInfo = async (params: GetNdviInfoParams) => {
     setLoading(true);
@@ -181,6 +183,7 @@ const useSensor = () => {
     }
   };
 
+  //잔디생육 데이터
   const getSensorStatus = async () => {
     setLoading(true);
     try {
@@ -197,6 +200,25 @@ const useSensor = () => {
       setLoading(false);
     }
   };
+
+  // 대시보드용
+  const getSensorSummary = async () => {
+    setLoading(true);
+    try {
+      const result = await sensorAPI.getSensorSummary();
+      if (result) {
+        setSensorSummary(result);
+      }
+      return result;
+    } catch (error) {
+      console.error('getSensorSummary', error);
+      openNotification('error', 'sensor 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -207,6 +229,7 @@ const useSensor = () => {
     weatherHeader,
     observation,
     sensorStatus,
+    sensorSummary,
     getNdviInfo,
     getSoilDate,
     getSoilInfo,
@@ -215,7 +238,8 @@ const useSensor = () => {
     getWeatherSummary,
     getWeatherHeader,
     getObservation,
-    getSensorStatus
+    getSensorStatus,
+    getSensorSummary
   };
 };
 export default useSensor;

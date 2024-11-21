@@ -84,8 +84,8 @@ const SoilSummary = () => {
                     ))}
                   </div>
                   <div className="sensor-row">
-                    {soilSummary.slice(6, 12).map((it, index) => (
-                      <div className="sensor-info" data-loc="31" key={index}>
+                    {soilSummary.slice(6, 12).map(it => (
+                      <div className="sensor-info" data-loc={it.loc_no} key={it.loc_no}>
                         <div className="sensor-info-row mb-2">
                           <div className="sensor-humidity" style={{ backgroundColor: it.smo.backgroundColor }}>
                             <h5>습도</h5>
@@ -112,8 +112,8 @@ const SoilSummary = () => {
                 </div>
                 <div className="stadium-sensor sensor-bottom">
                   <div className="sensor-row">
-                    {soilSummary.slice(12, 18).map((it, index) => (
-                      <div className="sensor-info" data-loc="31" key={index}>
+                    {soilSummary.slice(12, 18).map(it => (
+                      <div className="sensor-info" data-loc={it.loc_no} key={it.loc_no}>
                         <div className="sensor-info-row mb-2">
                           <div className="sensor-humidity" style={{ backgroundColor: it.smo.backgroundColor }}>
                             <h5>습도</h5>
@@ -137,140 +137,6 @@ const SoilSummary = () => {
                       </div>
                     ))}
                   </div>
-                  {/* <div className="sensor-info" data-loc="14">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>23.0%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>21.4ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.15</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:17</h4>
-                        </div>
-                      </div>
-                    </div> */}
-                  {/* <div className="sensor-info" data-loc="13">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>20.4%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>21.0ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.34</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:16</h4>
-                        </div>
-                      </div>
-                    </div> */}
-                  {/* <div className="sensor-info" data-loc="12">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>18.7%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>20.7ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.42</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:15</h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="sensor-info" data-loc="15">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>18.8%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>21.2ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.37</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:17</h4>
-                        </div>
-                      </div>
-                    </div> */}
-                  {/* <div className="sensor-info" data-loc="11">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>18.8%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>20.6ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.19</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:15</h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="sensor-info" data-loc="10">
-                      <div className="sensor-info-row mb-2">
-                        <div className="sensor-humidity" style={{ backgroundColor: 'rgb(255, 202, 108)' }}>
-                          <h5>습도</h5>
-                          <h4>19.1%</h4>
-                        </div>
-                        <div className="sensor-temperature" style={{ backgroundColor: 'rgb(24, 181, 106)' }}>
-                          <h5>온도</h5>
-                          <h4>20.6ºC</h4>
-                        </div>
-                      </div>
-                      <div className="sensor-info-row">
-                        <div className="sensor-ec">
-                          <h5>EC</h5>
-                          <h4>0.33</h4>
-                        </div>
-                        <div className="sensor-ph">
-                          <h5>일시</h5>
-                          <h4>08:14</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-
                   <div className="sensor-row">
                     {soilSummary.slice(18, 24).map((it, index) => (
                       <div className="sensor-info" data-loc="31" key={index}>

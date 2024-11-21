@@ -83,3 +83,18 @@ export type GetSensorStatusResponseType = {
   camera: CameraWeatherType[];
   weather: CameraWeatherType[];
 };
+
+export type FanType = {
+  name: string;
+  state: 'off' | 'on';
+  key: string;
+};
+
+export type GetSensorSummaryResponseType = {
+  date: string;
+  ndvi: number;
+  sensor: GetSoilSummaryResponseType;
+  camera: CameraWeatherType[];
+  weather: CameraWeatherType[];
+  fan: FanType[];
+};
