@@ -6,16 +6,19 @@ import wateringIcon from 'common/assets/img/watering-icon.png';
 import stadium from 'common/assets/img/stadium.png';
 import sensorIcon from 'common/assets/img/sensor-icon.png';
 import cameraIcon from 'common/assets/img/camera-icon.png';
+import useSensor from 'hooks/useSensor';
 
 const MonitoringView = () => {
   const navigate = useNavigate();
-
+  const { sensorSummary, getSensorSummary } = useSensor();
   const handleNavigate = (to: string) => {
     navigate(to);
   };
 
-  // TODO: login 여부 확인 후 로그인 안 되어있을시  로그인 페이지로 이동 로직 추가
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getSensorSummary();
+  }, []);
+
   return (
     <div className="monitoring-view-container">
       <div className="row row-sm mt-4">
@@ -27,8 +30,8 @@ const MonitoringView = () => {
                   <label className="main-content-label my-auto pt-2 tx-16">
                     경기장 장비현황
                     <h5 className="card-data">
-                      측정일시 : <span id="tmFc">2024-07-21 04:07:12</span>
-                      <span id="ndviAvg"> / 식생지수 : 0.385</span>
+                      측정일시 : <span id="tmFc">{sensorSummary?.date.replace('T', ' ')}</span>
+                      <span id="ndviAvg"> / 식생지수 : {sensorSummary?.ndvi}</span>
                     </h5>
                   </label>
                   <div className="card-header-right">
@@ -63,191 +66,63 @@ const MonitoringView = () => {
               <div className="stadium-img stadium-map">
                 <img src={stadium} alt="stadium" />
                 <div className="equipment-location">
-                  <div className="sensor-1">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img
-                          src={sensorIcon}
-                          onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=W001`)}
-                        />
+                  {sensorSummary?.weather.map((it, idx) => {
+                    const statusClass = it.status === 'OFFLINE' ? 'condition-weird' : 'condition-normal';
+                    return (
+                      <div className={`sensor-${idx + 1}`} key={it.code}>
+                        <div className="equipment-btn-box">
+                          <div className={`condition-icon ${statusClass}`}>
+                            <img
+                              src={sensorIcon}
+                              onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=${it.code}`)}
+                            />
+                          </div>
+                          <div className="equipment-title">
+                            <a href={`weather-summary.html?sensorCode=${it.code}`} data-sensor={it.code}>
+                              {it.name}
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                      <div className="equipment-title">
-                        <a href="weather-summary.html?sensorCode=W001" data-sensor="W001">
-                          동북기상센서
-                        </a>
+                    );
+                  })}
+
+                  {sensorSummary?.camera.map((it, idx) => {
+                    const statusClass = it.status === 'OFFLINE' ? 'condition-weird' : 'condition-normal';
+                    return (
+                      <div className={`camera-${idx + 1}`} key={it.code}>
+                        <div className="equipment-btn-box">
+                          <div className={`condition-icon ${statusClass}`}>
+                            <img
+                              src={cameraIcon}
+                              onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=${it.code}`)}
+                            />
+                          </div>
+                          <div className="equipment-title">
+                            <a href={`ndvi-summary.html?sensorNo=${it.code}`} data-sensor={it.code}>
+                              {it.name}
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="sensor-2">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img
-                          src={sensorIcon}
-                          onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=W004`)}
-                        />
+                    );
+                  })}
+                  {sensorSummary?.fan.map((it, idx) => {
+                    const statusClass = it.state === 'off' ? 'condition-weird' : 'condition-normal';
+
+                    return (
+                      <div className={`fan-${idx + 1}`} key={it.key}>
+                        <div className="equipment-btn-box">
+                          <div className={`condition-icon ${statusClass}`}>
+                            <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
+                          </div>
+                          <div className="equipment-title">
+                            <a href="./remote-operation.html">{it.name}</a>
+                          </div>
+                        </div>
                       </div>
-                      <div className="equipment-title">
-                        <a href="weather-summary.html?sensorCode=W004" data-sensor="W004">
-                          서북기상센서
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="sensor-3">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img
-                          src={sensorIcon}
-                          onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=W003`)}
-                        />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="weather-summary.html?sensorCode=W003" data-sensor="W003">
-                          동남기상센서
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="sensor-4">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img
-                          src={sensorIcon}
-                          onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=W002`)}
-                        />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="weather-summary.html?sensorCode=W002" data-sensor="W002">
-                          서남기상센서
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="camera-1">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img
-                          src={cameraIcon}
-                          onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C003`)}
-                        />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="ndvi-summary.html?sensorNo=C003" data-sensor="C003">
-                          서측 카메라
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="camera-2">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img
-                          src={cameraIcon}
-                          onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C002`)}
-                        />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="ndvi-summary.html?sensorNo=C002" data-sensor="C002">
-                          남측 카메라
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="camera-3">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img
-                          src={cameraIcon}
-                          onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=C001`)}
-                        />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="ndvi-summary.html?sensorNo=C001" data-sensor="C001">
-                          동측 카메라
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-1">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬1</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-2">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬2</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-3">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬3</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-4">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬4</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-5">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬5</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-6">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="ndvi-summary.html?sensorNo=C002">쿨링팬6</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-7">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-weird">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬7</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="fan-8">
-                    <div className="equipment-btn-box">
-                      <div className="condition-icon condition-normal">
-                        <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
-                      </div>
-                      <div className="equipment-title">
-                        <a href="./remote-operation.html">쿨링팬8</a>
-                      </div>
-                    </div>
-                  </div>
+                    );
+                  })}
                 </div>
                 <div className="stadium-sensor sensor-top">
                   <div className="sensor-row">

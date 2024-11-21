@@ -3,6 +3,7 @@ import {
   GetNdviInfoParams,
   GetSensorInfoResponseType,
   GetSensorStatusResponseType,
+  GetSensorSummaryResponseType,
   GetSoilSummaryResponseType,
   GetWeatherHeaderResponseType,
   GetWeatherInfoParams,
@@ -46,6 +47,10 @@ const sensorAPI = {
   },
   getSensorStatus: async () => {
     const res = await authAxiosInstance.get<GetSensorStatusResponseType>('/api/sensor/sensor-status/');
+    return res.data;
+  },
+  getSensorSummary: async () => {
+    const res = await authAxiosInstance.get<GetSensorSummaryResponseType>('/api/sensor/sensor-summary/');
     return res.data;
   }
 };
