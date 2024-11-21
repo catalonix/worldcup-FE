@@ -4,7 +4,7 @@ const breadcrumbNameMap: Record<AppPaths, string> = {
   [AppPaths.HOME]: '통합모니터링 요약(그라운드)',
   [AppPaths.LOGIN]: '로그인',
   [AppPaths.MYPAGE]: '마이페이지',
-  [AppPaths.MONITORING_EQUIPMENT]: '모니터링 장비',
+  [AppPaths.MONITORING_EQUIPMENT]: '잔디생육환경 데이터',
   [AppPaths.NDVI_SUMMARY]: '식생지수 정보',
   [AppPaths.NDVI_DETAIL]: '식생지수 정보 상세',
   [AppPaths.SOIL_SUMMARY]: '토양관측정보',
