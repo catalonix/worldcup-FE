@@ -24,27 +24,69 @@
     font-size: 14px;
     color: #8c9fb9;
   }
+
   .card-header-right > .stadium-legend {
     display: flex;
     align-items: center;
   }
-
   .card-header-right > .stadium-legend > .legend-normal {
     display: flex;
     align-items: center;
     margin-right: 15px;
   }
-
+  .card-header-right > .stadium-legend > .legend-normal > div {
+    background: linear-gradient(to top, #89c092, #10d183);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+  .card-header-right > .stadium-legend > .legend-normal > span {
+    color: #d9e3f3;
+    font-size: 13px;
+  }
   .card-header-right > .stadium-legend > .legend-weird {
     display: flex;
     align-items: center;
     margin-right: 15px;
   }
-
+  .card-header-right > .stadium-legend > .legend-weird > div {
+    background: linear-gradient(to top, #f78a8a, #ff5163);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+  .card-header-right > .stadium-legend > .legend-weird > span {
+    color: #d9e3f3;
+    font-size: 13px;
+  }
   .card-header-right > .stadium-legend > .legend-none {
     display: flex;
     align-items: center;
     margin-right: 15px;
+  }
+  .card-header-right > .stadium-legend > .legend-none > div {
+    background: linear-gradient(to top, #b3b3b3, #999999);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+    margin-right: 5px;
+  }
+  .card-header-right > .stadium-legend > .legend-none > span {
+    color: #d9e3f3;
+    font-size: 13px;
+  }
+  .card-header-right > .legend-modal-btn > button {
+    padding: 5px 15px;
+    border: 0;
+    font-size: 13px;
+    border-radius: 5px;
+    color: #d9e3f3;
+    background: linear-gradient(to top, #5c6c80, #374b64);
+  }
+  .card-header-right > .legend-modal-btn > button > i {
+    vertical-align: middle;
   }
 
   .card-header-right > .stadium-legend > .legend-none > div {
