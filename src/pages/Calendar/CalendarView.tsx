@@ -121,16 +121,16 @@ const Calendar = () => {
     items.forEach(item => {
       mainTypes.push({
         label: item.name,
-        value: item.key as string
+        value: item.name as string
       });
 
       // Sub types
       if (item.children && item.children.length > 0) {
         subTypes.push({
-          parentValue: item.key as string, // Link to main type
+          parentValue: item.name as string, // Link to main type
           children: item.children.map(child => ({
             label: child.name as string,
-            value: child.key as unknown as string
+            value: child.name as unknown as string
           }))
         });
       }
