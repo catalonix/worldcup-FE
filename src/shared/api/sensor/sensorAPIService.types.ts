@@ -93,7 +93,7 @@ export type FanType = {
 export type GetSensorSummaryResponseType = {
   date: string;
   ndvi: number;
-  sensor: GetSoilSummaryResponseType[];
+  sensor: GetSoilSummaryResponseType;
   camera: CameraWeatherType[];
   weather: CameraWeatherType[];
   fan: FanType[];
