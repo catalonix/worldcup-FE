@@ -61,3 +61,25 @@ export interface GetObservationParams extends GetNdviInfoParams {
   directionType: string;
   values: string;
 }
+
+export type CameraWeatherType = {
+  code: string;
+  name: string;
+  status: 'OFFLINE' | 'ONLINE';
+  action: '수리중' | '작동중';
+};
+
+export type HumiTempType = {
+  value: number;
+  grade: '매우낮음' | '낮음' | '양호' | '높음' | '매우높음';
+  color: string;
+};
+
+export type GetSensorStatusResponseType = {
+  soil: {
+    humi: HumiTempType;
+    temp: HumiTempType;
+  };
+  camera: CameraWeatherType[];
+  weather: CameraWeatherType[];
+};
