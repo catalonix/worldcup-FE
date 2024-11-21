@@ -1,0 +1,548 @@
+.monitoring-equipment-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .card {
+    width: 100%;
+  }
+
+  .card-content > .card-condition-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #475f7a;
+  }
+
+  .card-content > .card-condition-list .condition-list-title {
+    width: 35%;
+    display: flex;
+    align-items: center;
+  }
+
+  .card-content > .card-condition-list .condition-list-title > span {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+  }
+
+  .card-content-list-height {
+    min-height: 300px;
+    overflow-y: scroll;
+    height: 300px;
+  }
+
+  .condition-normal {
+    background: linear-gradient(to top, #89c092, #10d183);
+  }
+  .condition-weird {
+    background: linear-gradient(to top, #f78a8a, #ff5163);
+  }
+  .condition-none {
+    background: linear-gradient(to top, #b3b3b3, #999999);
+  }
+
+  .card-content > .card-condition-list .condition-list-title > h4 {
+    color: #fff;
+    margin: 0;
+    font-size: 16px;
+    margin-left: 5px;
+  }
+
+  .card-content > .card-condition-list .progress-step {
+    margin: 0;
+    font-size: 14px;
+    color: #8c9fb9;
+  }
+
+  .card-content > .card-condition-list .condition-text-box {
+    width: 77px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+    text-wrap: nowrap;
+  }
+
+  .situation-danger {
+    color: #ef5350;
+    background-color: #ef535047;
+  }
+  .situation-success {
+    color: #25b372;
+    background-color: #25b37247;
+  }
+
+  .robot-situation {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #475f7a;
+    padding-bottom: 10px;
+  }
+  .robot-situation > h5 {
+    color: #d9e3f3;
+    font-size: 16px;
+    margin: 0;
+  }
+  .robot-situation > .robot-situation-data {
+    display: flex;
+    align-items: center;
+  }
+  .robot-situation > .robot-situation-data > span {
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    margin: 0 10px;
+  }
+  .robot-situation > .robot-situation-data > h4 {
+    color: #d9e3f3;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .robot-data > .robot-data-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title {
+    display: flex;
+    align-items: center;
+    width: 50%;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-iconbox {
+    width: 35px;
+    height: 35px;
+    background: #304760;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-iconbox > i {
+    color: #8c9fb9;
+    padding-top: 11px;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text {
+    margin-left: 10px;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text > h4 {
+    font-size: 16px;
+    margin: 0;
+    color: #d9e3f3;
+  }
+  .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text > p {
+    margin: 0;
+    font-size: 13px;
+    color: #8c9fb9;
+  }
+  .robot-data > .robot-data-type > h5 {
+    width: 80px;
+    text-align: center;
+  }
+  .robot-data > .robot-data-type > h5 > span {
+    padding: 3px 15px;
+    font-size: 12px;
+    margin: 0;
+    border-radius: 50px;
+  }
+  .robot-data > .robot-data-type > h4 {
+    margin: 0;
+    color: #fff;
+    font-family: 'NanumSquareB';
+    width: 22%;
+    text-align: right;
+    font-size: 18px;
+  }
+  .robot-data > .robot-data-type > h4 > span {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  .situation-humidity-verylow {
+    background: #ff393947;
+    color: #ff3939;
+  }
+  .situation-humidity-low {
+    background: #ffca6c47;
+    color: #ffca6c;
+  }
+  .situation-humidity-middle {
+    background: #18b56a47;
+    color: #18b56a;
+  }
+  .situation-humidity-high {
+    background: #1fd5e847;
+    color: #1fd5e8;
+  }
+  .situation-humidity-veryhigh {
+    background: #206aed47;
+    color: #77a8ff;
+  }
+
+  .situation-temperature-veryhigh {
+    background: #ff393947;
+    color: #ff3939;
+  }
+  .situation-temperature-high {
+    background: #ffca6c47;
+    color: #ffca6c;
+  }
+  .situation-temperature-middle {
+    background: #18b56a47;
+    color: #18b56a;
+  }
+  .situation-temperature-low {
+    background: #1fd5e847;
+    color: #1fd5e8;
+  }
+  .situation-temperature-verylow {
+    background: #206aed47;
+    color: #77a8ff;
+  }
+
+  @media (max-width: 991px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    .stadium-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .card-header-right {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .stadium-sensor {
+      display: none;
+    }
+    .stadium-sensor-m {
+      display: block;
+      position: absolute;
+      width: 80%;
+      height: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      z-index: 10;
+    }
+    .stadium-sensor-m > .sensor-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 20%;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location {
+      position: relative;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn {
+      width: 30px;
+      height: 30px;
+      background: #ffffff6e;
+      border: 2px solid #fff;
+      border-radius: 50px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn:hover {
+      background: #ffffffcc;
+      cursor: pointer;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box {
+      position: absolute;
+      left: 25px;
+      top: 0;
+      background: #22354e;
+      border-radius: 5px;
+      width: 110px;
+      display: none;
+      z-index: 20;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-header {
+      background: #2b4159;
+      display: flex;
+      padding: 5px 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-header > h4 {
+      color: #fff;
+      font-size: 14px;
+      margin: 0;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-header > button {
+      background: #eee0;
+      border: 0;
+      padding-right: 0;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-header > button > i {
+      color: #ffff;
+      vertical-align: middle;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-body {
+      padding: 8px 10px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-body > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-body > ul > li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-info-box > .info-body > ul > li > span {
+      color: #8c9fb9;
+      font-size: 12px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      top: 2px;
+      left: 2px;
+      display: none;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data > .sensor-humidity-data {
+      width: 26px;
+      height: 13px;
+      background: #eee;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data > .sensor-temperature-data {
+      width: 26px;
+      height: 13px;
+      background: #eee;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+    }
+    .sensor-top-m {
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11;
+    }
+    .sensor-bottom-m {
+      bottom: 0%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .stadium-watering {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 75%;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box {
+      display: flex;
+      background: #21adf4;
+      border-radius: 5px;
+      padding: 2px 3px;
+      align-items: center;
+      cursor: pointer;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box > .watering-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      background: #22354e;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box > .watering-icon > img {
+      width: 12px;
+      display: block;
+      margin: auto;
+      padding-top: 3px;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box > h4.watering-number {
+      margin: 0;
+      font-size: 10px;
+      font-weight: bold;
+      color: #fff;
+      margin-left: 5px;
+      margin-right: 2px;
+    }
+
+    .equipment-btn-box > .condition-icon {
+      width: 26.5px;
+      height: 26.5px;
+      padding: 5px;
+      z-index: 8;
+    }
+    .equipment-btn-box > .condition-icon > img {
+      width: 30px;
+      display: none;
+    }
+    .equipment-btn-box > .equipment-title {
+      padding: 2px 10px 5px 0px;
+      font-size: 13px;
+    }
+    .equipment-btn-box > .equipment-title::before {
+      height: 26.5px;
+      width: 25px;
+      left: -12px;
+    }
+    .equipment-btn-box > .equipment-title > a {
+      font-size: 12px;
+      vertical-align: bottom;
+    }
+
+    .camera-2 {
+      position: absolute;
+      top: 45%;
+      right: 10px;
+      transform: translate(0%, -50%);
+      z-index: 20;
+    }
+  }
+
+  @media (max-width: 499px) {
+    /*.stadium-img > img {width: 100%;height: 600px;}*/
+    /*.stadium-img > img {width: 100%;height: 500px;}*/
+    .stadium-img > img {
+      width: 100%;
+      height: 400px;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box > .watering-icon {
+      background: #145cad;
+    }
+    .stadium-watering > .stadium-watering-row > .watering-box > h4.watering-number {
+      display: none;
+    }
+    .equipment-btn-box > .equipment-title {
+      display: none;
+    }
+    .equipment-btn-box > .condition-icon {
+      width: 37px;
+      height: 37px;
+      padding: 5px;
+      z-index: 8;
+    }
+    .equipment-btn-box > .condition-icon > img {
+      width: auto;
+      display: block;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn {
+      width: 22px;
+      height: 22px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data > .sensor-humidity-data {
+      width: 18px;
+      height: 9px;
+    }
+    .stadium-sensor-m > .sensor-row > .sensor-location > .sensor-btn > .sensor-data > .sensor-temperature-data {
+      width: 18px;
+      height: 9px;
+    }
+    .camera-2 {
+      position: absolute;
+      top: 43%;
+      right: 0px;
+      transform: translate(0%, -50%);
+      z-index: 20;
+    }
+
+    .card-header-right {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 15px;
+      flex-direction: column;
+    }
+    .card-header-right > .stadium-legend {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card-content > .card-condition-list .condition-list-title > span {
+      width: 12px;
+      height: 12px;
+      border-radius: 20px;
+    }
+    .card-content > .card-condition-list .condition-list-title > h4 {
+      margin: 0;
+      font-size: 13px;
+      margin-left: 5px;
+    }
+    .card-content > .card-condition-list .progress-step {
+      margin: 0;
+      font-size: 12px;
+    }
+    .card-content > .card-condition-list .condition-text-box {
+      padding: 2px 12px;
+      font-size: 10px;
+    }
+
+    .robot-situation > h5 {
+      color: #d9e3f3;
+      font-size: 14px;
+      margin: 0;
+    }
+    .robot-situation > .robot-situation-data > span {
+      width: 12px;
+      height: 12px;
+      border-radius: 20px;
+      margin: 0 10px;
+    }
+    .robot-situation > .robot-situation-data > h4 {
+      color: #d9e3f3;
+      font-size: 14px;
+      margin: 0;
+    }
+    .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-iconbox {
+      width: 30px;
+      height: 30px;
+      background: #304760;
+      border-radius: 5px;
+      text-align: center;
+    }
+    .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-iconbox > i {
+      color: #8c9fb9;
+      padding-top: 8px;
+    }
+    .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text {
+      margin-left: 8px;
+    }
+    .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text > h4 {
+      font-size: 14px;
+      margin: 0;
+      color: #d9e3f3;
+    }
+    .robot-data > .robot-data-type > .robot-data-type-title > .robot-data-type-text > p {
+      margin: 0;
+      font-size: 10px;
+      color: #8c9fb9;
+    }
+    .robot-data > .robot-data-type > h5 > span {
+      padding: 2px 12px;
+      font-size: 10px;
+      margin: 0;
+      border-radius: 50px;
+    }
+    .robot-data > .robot-data-type > h4 {
+      margin: 0;
+      color: #fff;
+      font-family: 'NanumSquareB';
+      width: 26%;
+      text-align: right;
+      font-size: 16px;
+    }
+    .robot-data > .robot-data-type > h4 > span {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+  }
+}

@@ -17,6 +17,7 @@ import MyPage from 'pages/MyPage';
 import { useMyInfoStore } from 'shared/store/myInfo/myInfo';
 import ProtectedRoute from './protectedRoute';
 import Calendar from 'pages/Calendar';
+import MonitoringEquipment from 'pages/MonitoringEquipment/MonitoringEquipment';
 
 export function Routing() {
   const { isLogin } = useMyInfoStore();
@@ -28,6 +29,10 @@ export function Routing() {
           <Route element={<Layout />}>
             <Route path={AppPaths.HOME} element={<ProtectedRoute element={<Monitoring />} isLoggedIn={isLogin} />} />
             <Route path={AppPaths.MYPAGE} element={<ProtectedRoute element={<MyPage />} isLoggedIn={isLogin} />} />
+            <Route
+              path={AppPaths.MONITORING_EQUIPMENT}
+              element={<ProtectedRoute element={<MonitoringEquipment />} isLoggedIn={isLogin} />}
+            />
             <Route
               path={AppPaths.NDVI_SUMMARY}
               element={<ProtectedRoute element={<NdviSummary />} isLoggedIn={isLogin} />}

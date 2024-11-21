@@ -187,6 +187,7 @@ const DefaultLayout: React.FC = () => {
               key: AppPaths.MONITORING_EQUIPMENT,
               icon: <FileOutlined />,
               label: '잔디생육 데이터',
+              onTitleClick: () => handleClickMenu(AppPaths.MONITORING_EQUIPMENT),
               children: [
                 {
                   key: AppPaths.NDVI_SUMMARY,
