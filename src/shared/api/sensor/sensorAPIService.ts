@@ -1,5 +1,6 @@
 import { authAxiosInstance } from '../common';
 import {
+  GetGradeValueResponseType,
   GetNdviInfoParams,
   GetSensorInfoResponseType,
   GetSensorStatusResponseType,
@@ -51,6 +52,10 @@ const sensorAPI = {
   },
   getSensorSummary: async () => {
     const res = await authAxiosInstance.get<GetSensorSummaryResponseType>('/api/sensor/sensor-summary/');
+    return res.data;
+  },
+  getGradeValue: async () => {
+    const res = await authAxiosInstance.get<GetGradeValueResponseType>('/api/sensor/grade-value/');
     return res.data;
   }
 };
