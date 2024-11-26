@@ -27,7 +27,7 @@ const RemoteOperation = () => {
           <StadiumWatering />
         </Card>
         <Card title="원격작동 상세정보">
-          <RemoteInfo />
+          <RemoteInfo keyString="irrigation" />
         </Card>
       </div>
       <div className="remote-operation-box">
