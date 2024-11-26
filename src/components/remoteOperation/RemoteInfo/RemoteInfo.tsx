@@ -16,7 +16,6 @@ const RemoteInfo = (props: RemoteInfoProps) => {
   };
 
   useEffect(() => {
-    console.log('props.keyString', props.keyString);
     search();
   }, [props.keyString]);
 
@@ -30,9 +29,13 @@ const RemoteInfo = (props: RemoteInfoProps) => {
           <h2 id="remoteName">{remoteInfo.name}</h2>
         </div>
         <h4>
-          <span className="recent-time">최근 가동 : {remoteInfo.lastChanged}</span>
+          <span className="recent-time">
+            최근 가동 : {remoteInfo.lastChanged ? remoteInfo.lastChanged.slice(0, 16).replace('T', ' ') : '-'}
+          </span>
           <span>│</span>
-          <span className="reservation-time">예약 가동 : {remoteInfo.schedule ? remoteInfo.schedule : '-'}</span>
+          <span className="reservation-time">
+            예약 가동 : {remoteInfo.schedule ? remoteInfo.schedule.slice(0, 16).replace('T', ' ') : '-'}
+          </span>
         </h4>
       </div>
       <div className="remote-time">

@@ -1,3 +1,11 @@
+export type RemoteStatus = {
+  name: string;
+  state: 'on' | 'off';
+  key: FanList;
+  lastChanged: string;
+};
+export type GetRemoteStatusResponseType = RemoteStatus[];
+
 export type GetOperationDetailResponseType = {
   lastChanged: string;
   schedule: string;

@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import wateringIcon from 'common/assets/img/watering-icon.png';
 import stadiumRemote from 'common/assets/img/stadium-remote.png';
+import useOperation from 'hooks/useOperation';
+import { FanList, GetRemoteStatusResponseType } from 'shared/api/operation/operationAPIService.types';
 
-const StadiumWatering = () => {
+interface StadiumWateringProps {
+  selectedKey: FanList;
+  setSelectedKey: React.Dispatch<React.SetStateAction<FanList>>;
+}
+
+const StadiumWatering = (props: StadiumWateringProps) => {
+  const { getRemoteStatus } = useOperation();
+
+  const [remoteStatus, setRemoteStatus] = useState<GetRemoteStatusResponseType>();
+
+  const search = async () => {
+    const res = await getRemoteStatus();
+    setRemoteStatus(res);
+  };
+
+  const getStatus = (fan: FanList) => {
+    const res = remoteStatus?.find(it => it.key === fan);
+    console.log('res', res);
+    return res?.state === 'on' ? 'working' : 'stop';
+  };
+
+  const handleClick = (fan: FanList) => {
+    props.setSelectedKey(fan);
+  };
+
+  useEffect(() => {
+    search();
+  }, []);
+
   return (
     <>
       <div className="stadium-watering">
@@ -112,21 +142,29 @@ const StadiumWatering = () => {
               <span>토양로봇</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab1">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2 active" data-toggle="tab" id="FAN04">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab1" onClick={() => handleClick('binary_sensor.fan04')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan04' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN04">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan04')}`}></div>
               <span>쿨링팬 4</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab2">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p" data-toggle="tab" id="FAN08">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab2" onClick={() => handleClick('binary_sensor.fan08')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan08' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN08">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan08')}`}></div>
               <span>쿨링팬 8</span>
             </a>
           </li>
           <li className="nav-item mr-2 airblower-tab3">
             <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2" data-toggle="tab" id="FAN10">
-              <div className="remote-situation tab-stop"></div>
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan02')}`}></div>
               <span>쿨링팬 1</span>
             </a>
           </li>
