@@ -103,6 +103,8 @@ export type HumiTempValueType = {
   name: string;
   range: number[];
   color: string;
+
+  isColorPickerVisible: boolean;
 };
 export type GetGradeValueResponseType = {
   humi: HumiTempValueType[];

@@ -29,7 +29,6 @@ const useSensor = () => {
   const [weatherHeader, setWeatherHeader] = useState<GetWeatherHeaderResponseType>();
   const [sensorStatus, setSensorStatus] = useState<GetSensorStatusResponseType>();
   const [sensorSummary, setSensorSummary] = useState<GetSensorSummaryResponseType>();
-  const [gradeValue, setGradeValue] = useState<GetGradeValueResponseType>();
 
   const getNdviInfo = async (params: GetNdviInfoParams) => {
     setLoading(true);
@@ -225,13 +224,24 @@ const useSensor = () => {
     setLoading(true);
     try {
       const result = await sensorAPI.getGradeValue();
-      if (result) {
-        setGradeValue(result);
-      }
       return result;
     } catch (error) {
       console.error('getGradeValue', error);
       openNotification('error', '범례 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+      return {} as GetGradeValueResponseType;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const setGradeValue = async (params: GetGradeValueResponseType) => {
+    setLoading(true);
+    try {
+      await sensorAPI.setGradeValue(params);
+      return true;
+    } catch (error) {
+      console.error('setGradeValue', error);
+      openNotification('error', '범례 정보 수정에 실패하였습니다. 다시 시도해주세요.');
       return false;
     } finally {
       setLoading(false);
@@ -249,7 +259,6 @@ const useSensor = () => {
     observation,
     sensorStatus,
     sensorSummary,
-    gradeValue,
     getNdviInfo,
     getSoilDate,
     getSoilInfo,
@@ -260,7 +269,8 @@ const useSensor = () => {
     getObservation,
     getSensorStatus,
     getSensorSummary,
-    getGradeValue
+    getGradeValue,
+    setGradeValue
   };
 };
 export default useSensor;

@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { AppPaths } from 'app/routing/app-routing';
 import airblowerIcon from 'common/assets/img/airblower-icon.png';
 import wateringIcon from 'common/assets/img/watering-icon.png';
@@ -7,12 +8,20 @@ import stadium from 'common/assets/img/stadium.png';
 import sensorIcon from 'common/assets/img/sensor-icon.png';
 import cameraIcon from 'common/assets/img/camera-icon.png';
 import useSensor from 'hooks/useSensor';
+import LegendModal from 'components/Monitoring/LegendModal';
+import { Button } from 'antd';
 
 const MonitoringView = () => {
   const navigate = useNavigate();
   const { sensorSummary, getSensorSummary } = useSensor();
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
   const handleNavigate = (to: string) => {
     navigate(to);
+  };
+
+  const handleIsModalVisible = (isModalVisible: boolean) => {
+    setIsModalVisible(isModalVisible);
   };
 
   useEffect(() => {
@@ -48,15 +57,15 @@ const MonitoringView = () => {
                         <div></div>
                         <span>데이터없음</span>
                       </div>
-                      <button className="mobileBtn">
-                        <i className="fe fe-info mr-1"></i>범례
-                      </button>
+                      <Button className="mobileBtn" onClick={() => handleIsModalVisible(true)}>
+                        <InfoCircleOutlined /> 범례
+                      </Button>
                     </div>
 
-                    <div className="legend-modal-btn">
-                      <button className="trigger">
-                        <i className="fe fe-info mr-1"></i>측정 범례
-                      </button>
+                    <div className="legend-modal-btn" onClick={() => handleIsModalVisible(true)}>
+                      <Button className="trigger">
+                        <InfoCircleOutlined /> 측정 범례
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -1096,6 +1105,7 @@ const MonitoringView = () => {
           </div>
         </div>
       </div>
+      <LegendModal isModalVisible={isModalVisible} handleIsModalVisible={handleIsModalVisible} />
     </div>
   );
 };

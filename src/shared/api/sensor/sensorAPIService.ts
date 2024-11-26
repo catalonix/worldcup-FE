@@ -57,6 +57,10 @@ const sensorAPI = {
   getGradeValue: async () => {
     const res = await authAxiosInstance.get<GetGradeValueResponseType>('/api/sensor/grade-value/');
     return res.data;
+  },
+  setGradeValue: async (params: GetGradeValueResponseType) => {
+    const res = await authAxiosInstance.patch('/api/sensor/grade-value/', params);
+    return res.data;
   }
 };
 
