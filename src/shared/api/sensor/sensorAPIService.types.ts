@@ -98,3 +98,15 @@ export type GetSensorSummaryResponseType = {
   weather: CameraWeatherType[];
   fan: FanType[];
 };
+
+export type HumiTempValueType = {
+  name: string;
+  range: number[];
+  color: string;
+
+  isColorPickerVisible: boolean;
+};
+export type GetGradeValueResponseType = {
+  humi: HumiTempValueType[];
+  temp: HumiTempValueType[];
+};

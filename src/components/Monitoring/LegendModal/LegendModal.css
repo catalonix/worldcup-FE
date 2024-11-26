@@ -1,0 +1,27 @@
+/* 테이블 헤더 스타일 */
+.ant-table-thead > tr > th {
+  background-color: #8c9fb9;
+  color: #ffffff;
+  text-align: center;
+  border: none;
+}
+
+/* 테이블 행 스타일 */
+.ant-table-tbody > tr > td {
+  background-color: #192a3a;
+  color: #ffffff;
+  border: none;
+}
+
+/* 인풋 스타일 */
+.ant-input {
+  background-color: #243744;
+  color: #ffffff;
+  border-radius: 4px;
+}
+
+.modal-info {
+  color: #8c9fb9;
+  font-size: 14px;
+  margin: 15px 0;
+}

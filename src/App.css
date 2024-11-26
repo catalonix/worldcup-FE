@@ -273,3 +273,15 @@ h6,
   min-height: 65px;
   margin-bottom: 14px; /* 에러 메시지와 다른 요소 사이 간격 확보 */
 }
+
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > td {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8c9fb9;
+  padding: 5px;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-cell-row-hover {
+  background: #203042 !important;
+}

@@ -1,6 +1,7 @@
 import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import {
+  GetGradeValueResponseType,
   GetNdviInfoParams,
   GetObservationParams,
   GetSensorInfoResponseType,
@@ -219,6 +220,34 @@ const useSensor = () => {
     }
   };
 
+  const getGradeValue = async () => {
+    setLoading(true);
+    try {
+      const result = await sensorAPI.getGradeValue();
+      return result;
+    } catch (error) {
+      console.error('getGradeValue', error);
+      openNotification('error', '범례 정보 조회에 실패하였습니다. 다시 시도해주세요.');
+      return {} as GetGradeValueResponseType;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const setGradeValue = async (params: GetGradeValueResponseType) => {
+    setLoading(true);
+    try {
+      await sensorAPI.setGradeValue(params);
+      return true;
+    } catch (error) {
+      console.error('setGradeValue', error);
+      openNotification('error', '범례 정보 수정에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -239,7 +268,9 @@ const useSensor = () => {
     getWeatherHeader,
     getObservation,
     getSensorStatus,
-    getSensorSummary
+    getSensorSummary,
+    getGradeValue,
+    setGradeValue
   };
 };
 export default useSensor;
