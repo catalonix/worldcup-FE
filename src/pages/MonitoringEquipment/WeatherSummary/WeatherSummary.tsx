@@ -45,15 +45,6 @@ const WeatherSummary = () => {
                         <div></div>
                         <span>데이터없음</span>
                       </div>
-                      <button className="mobileBtn">
-                        <i className="fe fe-info mr-1"></i>범례
-                      </button>
-                    </div>
-
-                    <div className="legend-modal-btn">
-                      <button className="trigger">
-                        <i className="fe fe-info mr-1"></i>측정 범례
-                      </button>
                     </div>
                   </div>
                 </div>

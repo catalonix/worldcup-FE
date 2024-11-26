@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import airblowerIcon from 'common/assets/img/airblower-icon.png';
+import useOperation from 'hooks/useOperation';
+import { FanList, GetOperationDetailResponseType } from 'shared/api/operation/operationAPIService.types';
 
-const RemoteInfo = () => {
+interface RemoteInfoProps {
+  keyString: FanList;
+}
+const RemoteInfo = (props: RemoteInfoProps) => {
+  const { getRemoteDetail } = useOperation();
+  const [remoteInfo, setRemoteInfo] = useState<GetOperationDetailResponseType>({} as GetOperationDetailResponseType);
+
+  const search = async () => {
+    const res = await getRemoteDetail(props.keyString);
+    setRemoteInfo(res);
+  };
+
+  useEffect(() => {
+    search();
+  }, [props.keyString]);
+
   return (
     <>
       <div className="remote-info">
@@ -9,27 +26,27 @@ const RemoteInfo = () => {
           <div className="title-icon-box mr-2">
             <img src={airblowerIcon} />
           </div>
-          <h2 id="remoteName">쿨링팬 5</h2>
-          <div className="remote-situation-data">
-            <span className="condition-normal"></span>
-            <h4>작동중</h4>
-          </div>
+          <h2 id="remoteName">{remoteInfo.name}</h2>
         </div>
         <h4>
-          <span className="recent-time">최근 가동 : 2024-10-15 12:59:05</span>
+          <span className="recent-time">
+            최근 가동 : {remoteInfo.lastChanged ? remoteInfo.lastChanged.slice(0, 16).replace('T', ' ') : '-'}
+          </span>
           <span>│</span>
-          <span className="reservation-time">예약 가동 : </span>
+          <span className="reservation-time">
+            예약 가동 : {remoteInfo.schedule ? remoteInfo.schedule.slice(0, 16).replace('T', ' ') : '-'}
+          </span>
         </h4>
       </div>
       <div className="remote-time">
         <div className="remote-time-info">
           <span>작동시간</span>
-          <h4 id="time">-분</h4>
+          <h4 id="time">{remoteInfo.operationTime ? remoteInfo.operationTime : '-'}분</h4>
         </div>
         <div className="remote-time-info">
           <span>작동현황</span>
-          <h4 id="state" className="off">
-            정지
+          <h4 id="state" className={remoteInfo.state}>
+            {remoteInfo.state === 'on' ? '작동중' : '정지'}
           </h4>
         </div>
       </div>

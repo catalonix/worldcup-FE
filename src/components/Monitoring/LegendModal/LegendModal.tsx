@@ -66,6 +66,7 @@ const LegendModal = (props: LegendModalProps) => {
           title: grade,
           key: grade,
           align: 'center' as const,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           render: (text: string, record: any) => {
             const dataKey = record.key; // 'humi' or 'temp'
             const data = measurementData[dataKey as keyof MeasurementDataType];

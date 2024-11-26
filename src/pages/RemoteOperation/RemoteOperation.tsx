@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from 'components/common/Card';
 import RemoteInfo from 'components/remoteOperation/RemoteInfo';
 import StadiumWatering from 'components/remoteOperation/StadiumWatering';
 import FanTable from 'components/remoteOperation/FanTable';
 import { Button } from 'antd';
 import FanControl from 'components/remoteOperation/FanControl';
+import { FanList } from 'shared/api/operation/operationAPIService.types';
 
 const RemoteOperation = () => {
+  const [selectedKey, setSelectedKey] = useState<FanList>('binary_sensor.fan04');
+  useEffect(() => {
+    console.log('se', selectedKey);
+  }, [selectedKey]);
+
   return (
     <div className="remote-operation-container">
       <div className="remote-operation-box">
@@ -24,10 +30,10 @@ const RemoteOperation = () => {
               </div>
             </div>
           }>
-          <StadiumWatering />
+          <StadiumWatering selectedKey={selectedKey} setSelectedKey={setSelectedKey} />
         </Card>
         <Card title="원격작동 상세정보">
-          <RemoteInfo />
+          <RemoteInfo keyString={selectedKey} />
         </Card>
       </div>
       <div className="remote-operation-box">
