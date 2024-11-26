@@ -136,9 +136,13 @@ const StadiumWatering = (props: StadiumWateringProps) => {
       <div className="stadium-remote-map position-relative">
         <img src={stadiumRemote} />
         <ul className="nav nav-tabs nav-tabs-solid nav-justified border-0">
-          <li className="nav-item mr-2 robot-tab">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p" data-toggle="tab" id="robot">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 robot-tab" onClick={() => handleClick('person.robot')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'person.robot' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="robot">
+              <div className={`remote-situation tab-${getStatus('person.robot')}`}></div>
               <span>토양로봇</span>
             </a>
           </li>
@@ -162,45 +166,73 @@ const StadiumWatering = (props: StadiumWateringProps) => {
               <span>쿨링팬 8</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab3">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2" data-toggle="tab" id="FAN10">
-              <div className={`remote-situation tab-${getStatus('binary_sensor.fan02')}`}></div>
+          <li className="nav-item mr-2 airblower-tab3" onClick={() => handleClick('binary_sensor.fan10')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan10' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN10">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan10')}`}></div>
               <span>쿨링팬 1</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab4">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2" data-toggle="tab" id="FAN05">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab4" onClick={() => handleClick('binary_sensor.fan05')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan05' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN05">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan05')}`}></div>
               <span>쿨링팬 5</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab5">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2" data-toggle="tab" id="FAN03">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab5" onClick={() => handleClick('binary_sensor.fan03')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan03' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN03">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan03')}`}></div>
               <span>쿨링팬 3</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab6">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p" data-toggle="tab" id="FAN02">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab6" onClick={() => handleClick('binary_sensor.fan02')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan02' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN02">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan02')}`}></div>
               <span>쿨링팬 2</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab7">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p mr-2" data-toggle="tab" id="FAN06">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab7" onClick={() => handleClick('binary_sensor.fan06')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan06' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN06">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan06')}`}></div>
               <span>쿨링팬 6</span>
             </a>
           </li>
-          <li className="nav-item mr-2 airblower-tab8">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p" data-toggle="tab" id="FAN07">
-              <div className="remote-situation tab-stop"></div>
+          <li className="nav-item mr-2 airblower-tab8" onClick={() => handleClick('binary_sensor.fan07')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'binary_sensor.fan07' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN07">
+              <div className={`remote-situation tab-${getStatus('binary_sensor.fan07')}`}></div>
               <span>쿨링팬 7</span>
             </a>
           </li>
-          <li className="nav-item mr-2 irrigation-tab">
-            <a href="#airblower-tab-1" className="remote-tab-link wd-100p" data-toggle="tab" id="FAN091">
-              <div className="remote-situation tab-working"></div>
+          <li className="nav-item mr-2 irrigation-tab" onClick={() => handleClick('irrigation')}>
+            <a
+              href="#airblower-tab-1"
+              className={`remote-tab-link wd-100p ${props.selectedKey === 'irrigation' ? 'active' : ''}`}
+              data-toggle="tab"
+              id="FAN091">
+              <div className={`remote-situation tab-${getStatus('irrigation')}`}></div>
               <span>관수</span>
             </a>
           </li>
