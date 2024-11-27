@@ -1,0 +1,41 @@
+.fan-control-container {
+  .progress-step {
+    font-size: 14px;
+    color: #8c9fb9;
+  }
+
+  .condition-text-box {
+    width: 77px;
+    padding: 2px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .situation-success {
+    color: #25b372;
+    background-color: #25b37247;
+    white-space: nowrap;
+  }
+
+  .situation-danger {
+    color: #ef5350;
+    background-color: #ef535047;
+    white-space: nowrap;
+  }
+
+  .condition-info-circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+  }
+  .condition-normal {
+    background: linear-gradient(to top, #89c092, #10d183);
+  }
+  .condition-weird {
+    background: linear-gradient(to top, #f78a8a, #ff5163);
+  }
+  .condition-none {
+    background: linear-gradient(to top, #b3b3b3, #999999);
+  }
+}
