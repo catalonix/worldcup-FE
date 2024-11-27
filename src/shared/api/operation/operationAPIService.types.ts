@@ -15,12 +15,27 @@ export type GetOperationDetailResponseType = {
   operationTime: number;
 };
 
-export type Program = { programId: string; schedule: string[]; name: string; active: boolean };
+export type Program = { programId: string; schedule: string[]; name: string; active: boolean; time?: string };
 
 export type GetIrrigationResponseType = {
   program: Program[];
   unit: Program[];
 };
+
+export type UpdateIrrigationParams = {
+  key: string;
+  active: boolean;
+  time: string;
+};
+
+export type FanType = {
+  name: string;
+  key: FanList;
+  lastChanged: string;
+  active: boolean;
+};
+
+export type GetFanControlResponseType = FanType[];
 
 export type FanList =
   | 'binary_sensor.fan02'

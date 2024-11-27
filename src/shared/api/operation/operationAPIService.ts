@@ -3,7 +3,9 @@ import {
   FanList,
   GetOperationDetailResponseType,
   GetRemoteStatusResponseType,
-  GetIrrigationResponseType
+  GetIrrigationResponseType,
+  UpdateIrrigationParams,
+  GetFanControlResponseType
 } from './operationAPIService.types';
 
 const operationAPI = {
@@ -17,6 +19,14 @@ const operationAPI = {
   },
   getIrrigation: async () => {
     const res = await authAxiosInstance.get<GetIrrigationResponseType>('/api/remote/irrigation/');
+    return res.data;
+  },
+  updateIrrigation: async (params: UpdateIrrigationParams) => {
+    const res = await authAxiosInstance.post('/api/remote/irrigation/', params);
+    return res.data;
+  },
+  getFanControl: async () => {
+    const res = await authAxiosInstance.get<GetFanControlResponseType>('/api/remote/fan-control/');
     return res.data;
   }
 };
