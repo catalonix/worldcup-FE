@@ -16,6 +16,7 @@ const useAuth = () => {
       const result = await authAPI.login(params);
       if (result) {
         localStorage.setItem('accessToken', result.access);
+        localStorage.setItem('refreshToken', result.refresh);
         // 메시지 호출
         openNotification('success', '로그인에 성공하였습니다.');
         navigate('/monitoring');
