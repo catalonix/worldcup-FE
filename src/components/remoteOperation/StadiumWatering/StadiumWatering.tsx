@@ -21,7 +21,6 @@ const StadiumWatering = (props: StadiumWateringProps) => {
 
   const getStatus = (fan: FanList) => {
     const res = remoteStatus?.find(it => it.key === fan);
-    console.log('res', res);
     return res?.state === 'on' ? 'working' : 'stop';
   };
 
