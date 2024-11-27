@@ -25,12 +25,16 @@ const SoilSummary = () => {
                 <div className="stadium-header">
                   <label className="main-content-label my-auto pt-2 tx-16">
                     경기장 장비현황
-                    <h5 className="card-data" style={{ width: '400px' }}>
+                    <h5 className="card-data">
                       측정일시 : <span id="tmFc">2024-07-21 04:07:12</span>
                       <span id="ndviAvg">
                         {' '}
                         / 날짜검색:{' '}
-                        <Select options={soilDates} style={{ width: '30%' }} onChange={handleGetSoilSummary} />
+                        <Select
+                          options={soilDates}
+                          onChange={handleGetSoilSummary}
+                          value={soilDates.length ? soilDates[0].value : '-'}
+                        />
                       </span>
                     </h5>
                   </label>

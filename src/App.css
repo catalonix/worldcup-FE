@@ -236,6 +236,13 @@ h6,
   border-radius: 5px;
 }
 
+.comments,
+.comments2,
+.comments3 {
+  color: white;
+  padding-right: 10px;
+}
+
 /* antd custom */
 
 :where(.css-dev-only-do-not-override-dvk552).ant-row {
@@ -274,6 +281,8 @@ h6,
   margin-bottom: 14px; /* 에러 메시지와 다른 요소 사이 간격 확보 */
 }
 
+/* table */
+
 :where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > th,
 :where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > td {
   font-size: 14px;
@@ -282,6 +291,62 @@ h6,
   padding: 5px;
 }
 
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > td {
+  text-align: center;
+}
+
 :where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-cell-row-hover {
   background: #203042 !important;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-dvk552).ant-table-wrapper .ant-table-thead > tr > td {
+  background: #2a415e;
+}
+
+/* sidebar */
+
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark > .ant-menu .ant-menu-item-selected {
+  background-color: #172535;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-layout-sider {
+  background: rgb(34, 53, 78);
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark,
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark > .ant-menu {
+  background: rgb(34, 53, 78);
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline,
+:where(.css-dev-only-do-not-override-dvk552).ant-menu-dark > .ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline {
+  background: rgb(34, 53, 78);
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-picker-outlined {
+  background-color: #16293a;
+  border-color: #16293a;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-input-outlined {
+  background-color: #16293a;
+  border-color: #16293a;
+}
+
+.danger-button {
+  background-color: #ff5163;
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: #ff5163 !important;
+  color: white !important;
+  border: none !important;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: none;
 }

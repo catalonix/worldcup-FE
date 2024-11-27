@@ -5,12 +5,15 @@ import { ReactNode } from 'react';
 interface ModalProps {
   isModalVisible: boolean;
   title: string;
-  handleOk: () => void;
+  handleOk?: () => void;
   handleCancel: () => void;
   children?: ReactNode;
   cancelText?: string;
   okText?: string;
   width?: number;
+  footer?: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  style?: any;
 }
 const Modal = (props: ModalProps) => {
   return (
@@ -22,7 +25,9 @@ const Modal = (props: ModalProps) => {
       onCancel={props.handleCancel}
       cancelText={props.cancelText ? props.cancelText : '닫기'}
       okText={props.okText ? props.okText : '확인'}
-      width={props.width ? props.width : 600}>
+      width={props.width ? props.width : 600}
+      footer={props.footer}
+      style={props.style}>
       {props.children}
     </AntdModal>
   );
