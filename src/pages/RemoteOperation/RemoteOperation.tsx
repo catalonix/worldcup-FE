@@ -5,20 +5,38 @@ import StadiumWatering from 'components/remoteOperation/StadiumWatering';
 import FanTable from 'components/remoteOperation/FanTable';
 import { Button } from 'antd';
 import FanControl from 'components/remoteOperation/FanControl';
-import { FanList } from 'shared/api/operation/operationAPIService.types';
+import { FanList, GetIrrigationResponseType } from 'shared/api/operation/operationAPIService.types';
 import RemoteScheduleModal from 'components/remoteOperation/RemoteScheduleModal';
+import useOperation from 'hooks/useOperation';
 
 const RemoteOperation = () => {
+  const { getIrrigation } = useOperation();
   const [selectedKey, setSelectedKey] = useState<FanList>('binary_sensor.fan04');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [mode, setMode] = useState<'program' | 'unit'>('program');
+  const [irrigation, setIrrigation] = useState<GetIrrigationResponseType>();
 
   const handleIsModalVisible = (isModalVisible: boolean) => {
     setIsModalVisible(isModalVisible);
   };
 
+  const search = async () => {
+    const res = await getIrrigation();
+    setIrrigation(res);
+  };
+
+  const handleChangeMode = (mode: 'unit' | 'program') => {
+    setMode(mode);
+    search();
+  };
+
   useEffect(() => {
     console.log('se', selectedKey);
   }, [selectedKey]);
+
+  useEffect(() => {
+    search();
+  }, []);
 
   return (
     <div className="remote-operation-container">
@@ -45,14 +63,26 @@ const RemoteOperation = () => {
       </div>
       <div className="remote-operation-box">
         <Card
-          title="관수제어"
+          title={
+            <div className="d-flex ga-1 align-center">
+              <div>관수제어</div>
+              <div className="d-flex ga-1">
+                <Button onClick={() => handleChangeMode('program')} type={mode === 'program' ? 'primary' : 'default'}>
+                  프로그램
+                </Button>
+                <Button onClick={() => handleChangeMode('unit')} type={mode === 'unit' ? 'primary' : 'default'}>
+                  개별제어
+                </Button>
+              </div>
+            </div>
+          }
           titleButton={
             <div>
-              <Button>프로그램</Button>
+              <Button>원격제어</Button>
               <Button>개별제어</Button>
             </div>
           }>
-          <FanTable type="program" />
+          <FanTable type={mode} data={irrigation} />
         </Card>
         <Card
           title="쿨링팬제어"

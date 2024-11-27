@@ -218,6 +218,10 @@ h6,
   width: 100%;
 }
 
+.ga-1 {
+  gap: 0.5rem !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

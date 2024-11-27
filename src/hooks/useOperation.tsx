@@ -3,6 +3,7 @@ import useNotification from './useNotification';
 import operationAPI from 'shared/api/operation/operationAPIService';
 import {
   FanList,
+  GetIrrigationResponseType,
   GetOperationDetailResponseType,
   GetRemoteStatusResponseType
 } from 'shared/api/operation/operationAPIService.types';
@@ -39,9 +40,24 @@ const useOperation = () => {
     }
   };
 
+  const getIrrigation = async () => {
+    setLoading(true);
+    try {
+      const res = await operationAPI.getIrrigation();
+      return res;
+    } catch (error) {
+      console.error('getIrrigation', error);
+      openNotification('error', '관수제어 조회에 실패했어요. 다시 시도해주세요.');
+      return {} as GetIrrigationResponseType;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
-    getRemoteDetail
+    getRemoteDetail,
+    getIrrigation
   };
 };
 export default useOperation;

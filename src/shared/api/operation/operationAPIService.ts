@@ -1,5 +1,10 @@
 import { authAxiosInstance } from '../common';
-import { FanList, GetOperationDetailResponseType, GetRemoteStatusResponseType } from './operationAPIService.types';
+import {
+  FanList,
+  GetOperationDetailResponseType,
+  GetRemoteStatusResponseType,
+  GetIrrigationResponseType
+} from './operationAPIService.types';
 
 const operationAPI = {
   getRemoteStatus: async () => {
@@ -8,6 +13,10 @@ const operationAPI = {
   },
   getRemoteDetail: async (key: FanList) => {
     const res = await authAxiosInstance.get<GetOperationDetailResponseType>(`/api/remote/remote-detail/?key=${key}`);
+    return res.data;
+  },
+  getIrrigation: async () => {
+    const res = await authAxiosInstance.get<GetIrrigationResponseType>('/api/remote/irrigation/');
     return res.data;
   }
 };
