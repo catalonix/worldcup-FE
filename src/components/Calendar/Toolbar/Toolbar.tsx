@@ -47,8 +47,8 @@ const CustomToolbar = ({
         </span>
         <span className="rbc-toolbar-label">{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</span>
         <span className="rbc-btn-group">
-          <Button icon={<PlusSquareOutlined />} onClick={handleAddBtnClick}>
-            추가
+          <Button onClick={handleAddBtnClick}>
+            <PlusSquareOutlined className="mr-1" /> 추가
           </Button>
           <Button
             icon={<DownloadOutlined />}

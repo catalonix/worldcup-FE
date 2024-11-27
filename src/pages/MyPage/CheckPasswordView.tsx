@@ -33,7 +33,7 @@ const CheckPasswordView = () => {
           onPressEnter={handleCheckPassword}
           style={{ marginTop: '1rem' }}
         />
-        <Button onClick={handleCheckPassword} style={{ width: '100%', marginTop: '2rem' }}>
+        <Button type="primary" onClick={handleCheckPassword} style={{ width: '100%', marginTop: '2rem' }}>
           확인
         </Button>
       </div>

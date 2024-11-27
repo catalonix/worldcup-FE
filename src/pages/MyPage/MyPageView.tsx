@@ -141,7 +141,7 @@ const MyPage = () => {
           <Input />
         </Form.Item>
         <div className="mypage-form__button">
-          <Button type="primary" onClick={handleCancel} style={{ marginTop: '1rem' }}>
+          <Button onClick={handleCancel} style={{ marginTop: '1rem' }}>
             취소
           </Button>
           <Button type="primary" onClick={handleEdit} style={{ marginTop: '1rem' }}>

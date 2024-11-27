@@ -18,6 +18,8 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
+
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
   };
@@ -34,6 +36,8 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const handleChangeSelectDate = (value: Dayjs) => {
     console.log('value', value);
     setSelectedDate(value);
+
+    setIsDetailModalOpen(true);
   };
 
   useEffect(() => {
@@ -94,9 +98,19 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             name="timeList[]"
             maxLength={5}
           />
-          <Button>추가</Button>
+          <Button type="primary">추가</Button>
         </div>
       </Modal>
+      <Modal
+        title=""
+        isModalVisible={isDetailModalOpen}
+        handleCancel={() => setIsDetailModalOpen(false)}
+        footer={
+          <Button color="danger" className="danger-button">
+            삭제
+          </Button>
+        }
+        style={{ top: '30%', padding: '0 20px' }}></Modal>
     </div>
   );
 };

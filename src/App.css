@@ -335,3 +335,18 @@ h6,
   background-color: #16293a;
   border-color: #16293a;
 }
+
+.danger-button {
+  background-color: #ff5163;
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: #ff5163 !important;
+  color: white !important;
+  border: none !important;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover {
+  background-color: none;
+}

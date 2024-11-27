@@ -58,8 +58,13 @@ const RemoteOperation = () => {
           title="쿨링팬제어"
           titleButton={
             <div>
-              <Button color="danger">모두 정지</Button>
-              <Button onClick={() => handleIsModalVisible(true)}> 원격작동 일정 관리</Button>
+              <Button color="danger" className="danger-button mr-1">
+                모두 정지
+              </Button>
+              <Button onClick={() => handleIsModalVisible(true)} type="primary">
+                {' '}
+                원격작동 일정 관리
+              </Button>
             </div>
           }>
           <FanControl />
