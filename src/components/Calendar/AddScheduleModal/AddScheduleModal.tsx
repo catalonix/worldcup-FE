@@ -24,7 +24,7 @@ const AddSchedule = (props: AddScheduleProps) => {
   //   const { openNotification } = useNotification();
   const { addSchedule, deleteSchedule, editSchedule, getCalendarTaskByDate } = useCalendar();
   const [form] = Form.useForm();
-  const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
+  const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
   const [pmWorkItems, setPmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
 

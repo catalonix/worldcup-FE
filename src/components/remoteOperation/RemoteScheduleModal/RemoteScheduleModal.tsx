@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'components/common/Modal';
-import { Checkbox, GetProp } from 'antd';
+import { Button, Calendar, Checkbox, DatePicker, GetProp, Input } from 'antd';
 import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 
@@ -14,6 +15,9 @@ dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [selectedFans, setSelectedFans] = useState<string[]>();
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
+  const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
+  const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
   };
@@ -24,6 +28,12 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
 
   const search = () => {
     // TODO: 원격작동 일정 조회
+  };
+
+  // TODO: 해당 날에 일정이 있으면 모달 오픈
+  const handleChangeSelectDate = (value: Dayjs) => {
+    console.log('value', value);
+    setSelectedDate(value);
   };
 
   useEffect(() => {
@@ -47,6 +57,45 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             className="checkbox-group"
           />
         </h5>
+        <Calendar fullscreen={false} value={selectedDate} onChange={handleChangeSelectDate} />
+        <div className="range-select-box">
+          <span className="comments">날짜 범위 </span>
+          <DatePicker
+            onChange={value => setStartDate(value)}
+            value={startDate}
+            className="w-100"
+            placeholder="시작일"
+            minDate={dayjs(new Date().setDate(new Date().getDate()))}
+          />
+          ~
+          <DatePicker
+            onChange={value => setEndDate(value)}
+            value={endDate}
+            className="w-100"
+            placeholder="종료일"
+            minDate={startDate}
+          />
+        </div>
+        <div className="schedule-boxes">
+          <span className="comments2">작동 일정(시:분)</span>
+          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+        </div>
+        <div className="schedule-boxes">
+          <span className="comments3">시간 및 설명</span>
+          <Input className="form-control" placeholder="작동(분)" type="text" name="timeList[]" maxLength={5} />
+          <Input
+            className="form-control"
+            placeholder="설명을 입력하세요."
+            type="text"
+            name="timeList[]"
+            maxLength={5}
+          />
+          <Button>추가</Button>
+        </div>
       </Modal>
     </div>
   );

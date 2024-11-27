@@ -236,6 +236,13 @@ h6,
   border-radius: 5px;
 }
 
+.comments,
+.comments2,
+.comments3 {
+  color: white;
+  padding-right: 10px;
+}
+
 /* antd custom */
 
 :where(.css-dev-only-do-not-override-dvk552).ant-row {
@@ -317,4 +324,14 @@ h6,
 :where(.css-dev-only-do-not-override-dvk552).ant-menu-dark.ant-menu-inline .ant-menu-sub.ant-menu-inline,
 :where(.css-dev-only-do-not-override-dvk552).ant-menu-dark > .ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline {
   background: rgb(34, 53, 78);
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-picker-outlined {
+  background-color: #16293a;
+  border-color: #16293a;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-input-outlined {
+  background-color: #16293a;
+  border-color: #16293a;
 }
