@@ -6,9 +6,16 @@ import FanTable from 'components/remoteOperation/FanTable';
 import { Button } from 'antd';
 import FanControl from 'components/remoteOperation/FanControl';
 import { FanList } from 'shared/api/operation/operationAPIService.types';
+import RemoteScheduleModal from 'components/remoteOperation/RemoteScheduleModal';
 
 const RemoteOperation = () => {
   const [selectedKey, setSelectedKey] = useState<FanList>('binary_sensor.fan04');
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const handleIsModalVisible = (isModalVisible: boolean) => {
+    setIsModalVisible(isModalVisible);
+  };
+
   useEffect(() => {
     console.log('se', selectedKey);
   }, [selectedKey]);
@@ -52,12 +59,13 @@ const RemoteOperation = () => {
           titleButton={
             <div>
               <Button color="danger">모두 정지</Button>
-              <Button>원격작동 일정 관리</Button>
+              <Button onClick={() => handleIsModalVisible(true)}> 원격작동 일정 관리</Button>
             </div>
           }>
           <FanControl />
         </Card>
       </div>
+      <RemoteScheduleModal isModalVisible={isModalVisible} handleIsModalVisible={handleIsModalVisible} />
     </div>
   );
 };
