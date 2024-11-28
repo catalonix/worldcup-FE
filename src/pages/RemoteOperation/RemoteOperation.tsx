@@ -4,6 +4,7 @@ import RemoteInfo from 'components/remoteOperation/RemoteInfo';
 import StadiumWatering from 'components/remoteOperation/StadiumWatering';
 import FanTable from 'components/remoteOperation/FanTable';
 import { Button } from 'antd';
+import { DownloadOutlined } from '@ant-design/icons';
 import FanControl from 'components/remoteOperation/FanControl';
 import { FanList } from 'shared/api/operation/operationAPIService.types';
 import RemoteScheduleModal from 'components/remoteOperation/RemoteScheduleModal';
@@ -17,15 +18,9 @@ const RemoteOperation = () => {
   const [isReloadFanTable, setIsReloadFanTable] = useState<boolean>(false);
 
   const handleStopAllFan = async () => {
-    try {
-      const res = await stopAllFan();
-      if (res) {
-        setIsReloadFanTable(true);
-      }
-    } catch (err) {
-      console.error('error', err);
-    } finally {
-      setIsReloadFanTable(false);
+    const res = await stopAllFan();
+    if (res) {
+      setIsReloadFanTable(!isReloadFanTable);
     }
   };
 
@@ -71,7 +66,7 @@ const RemoteOperation = () => {
           title={
             <div className="d-flex ga-1 align-center">
               <div>관수제어</div>
-              <div className="d-flex ga-1">
+              <div className="d-flex ga-1 align-center">
                 <Button onClick={() => handleChangeMode('program')} type={mode === 'program' ? 'primary' : 'default'}>
                   프로그램
                 </Button>
@@ -82,9 +77,11 @@ const RemoteOperation = () => {
             </div>
           }
           titleButton={
-            <div>
+            <div className="d-flex ga-1 align-center">
               <Button>원격제어</Button>
-              <Button>개별제어</Button>
+              <Button>
+                <DownloadOutlined />
+              </Button>
             </div>
           }>
           <FanTable type={mode} />

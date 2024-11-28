@@ -22,7 +22,7 @@ const FanTable = (props: FanTableProps) => {
     console.log('item', item);
     const res = await operationAPI.updateIrrigation({ key: item.programId, active: value, time: '2' });
     if (res) {
-      console.log('update');
+      console.log('update', res);
     }
   };
 
