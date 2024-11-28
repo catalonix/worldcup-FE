@@ -89,12 +89,27 @@ const useOperation = () => {
     }
   };
 
+  const stopAllFan = async () => {
+    setLoading(true);
+    try {
+      await operationAPI.stopAllFan();
+      return true;
+    } catch (error) {
+      console.error('stopAllFan', error);
+      openNotification('error', '쿨링팬제어 모두 정지에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
     getIrrigation,
     updateIrrigation,
-    getFanControl
+    getFanControl,
+    stopAllFan
   };
 };
 export default useOperation;
