@@ -28,6 +28,10 @@ const operationAPI = {
   getFanControl: async () => {
     const res = await authAxiosInstance.get<GetFanControlResponseType>('/api/remote/fan-control/');
     return res.data;
+  },
+  stopAllFan: async () => {
+    const res = await authAxiosInstance.post('/api/remote/fan-stop-all/');
+    return res.data;
   }
 };
 

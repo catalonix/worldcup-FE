@@ -6,7 +6,7 @@ import { FanType, GetFanControlResponseType } from 'shared/api/operation/operati
 
 type ColumnsType<T extends object> = GetProp<TableProps<T>, 'columns'>;
 
-const FanControl = () => {
+const FanControl = ({ isReloadFanTable }: { isReloadFanTable: boolean }) => {
   const { getFanControl } = useOperation();
   const [fans, setFans] = useState<GetFanControlResponseType>();
   const columns: ColumnsType<FanType> = [
@@ -48,7 +48,7 @@ const FanControl = () => {
 
   useEffect(() => {
     search();
-  }, []);
+  }, [isReloadFanTable]);
   return (
     <div className="fan-control-container">
       <Table columns={columns} showHeader={false} dataSource={fans} pagination={false} />

@@ -7,11 +7,27 @@ import { Button } from 'antd';
 import FanControl from 'components/remoteOperation/FanControl';
 import { FanList } from 'shared/api/operation/operationAPIService.types';
 import RemoteScheduleModal from 'components/remoteOperation/RemoteScheduleModal';
+import useOperation from 'hooks/useOperation';
 
 const RemoteOperation = () => {
+  const { stopAllFan } = useOperation();
   const [selectedKey, setSelectedKey] = useState<FanList>('binary_sensor.fan04');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [mode, setMode] = useState<'program' | 'unit'>('program');
+  const [isReloadFanTable, setIsReloadFanTable] = useState<boolean>(false);
+
+  const handleStopAllFan = async () => {
+    try {
+      const res = await stopAllFan();
+      if (res) {
+        setIsReloadFanTable(true);
+      }
+    } catch (err) {
+      console.error('error', err);
+    } finally {
+      setIsReloadFanTable(false);
+    }
+  };
 
   const handleIsModalVisible = (isModalVisible: boolean) => {
     setIsModalVisible(isModalVisible);
@@ -77,7 +93,7 @@ const RemoteOperation = () => {
           title="쿨링팬제어"
           titleButton={
             <div>
-              <Button color="danger" className="danger-button mr-1">
+              <Button color="danger" className="danger-button mr-1" onClick={handleStopAllFan}>
                 모두 정지
               </Button>
               <Button onClick={() => handleIsModalVisible(true)} type="primary">
@@ -86,7 +102,7 @@ const RemoteOperation = () => {
               </Button>
             </div>
           }>
-          <FanControl />
+          <FanControl isReloadFanTable={isReloadFanTable} />
         </Card>
       </div>
       <RemoteScheduleModal isModalVisible={isModalVisible} handleIsModalVisible={handleIsModalVisible} />
