@@ -11,17 +11,12 @@ const FanControl = ({ isReloadFanTable }: { isReloadFanTable: boolean }) => {
   const [fans, setFans] = useState<GetFanControlResponseType>();
 
   const handleUpdateActive = async (item: FanType, active: boolean, index: number) => {
-    // TODO : update fan state
     const res = await updateFanActive(item.key, active);
     if (res) {
-      console.log('res', res);
-
       if (!fans) return;
       const updatedFans = [...fans];
       updatedFans[index] = { ...updatedFans[index], ...res };
       setFans(updatedFans);
-      // fans 중 index인 애를 찾아서 res로 업데이트1
-      // TODO :  해당 팬 state change
     }
   };
 
