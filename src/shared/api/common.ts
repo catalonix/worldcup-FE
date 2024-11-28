@@ -72,12 +72,12 @@ authAxiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await unAuthAxiosInstance.post('/refresh', {
-          refreshToken: localStorage.getItem('refreshToken')
+        const { data } = await unAuthAxiosInstance.post('/api/user/refresh/', {
+          refresh: localStorage.getItem('refreshToken')
         });
 
         // 갱신된 토큰 저장
-        const newAccessToken = data.accessToken;
+        const newAccessToken = data.access;
         localStorage.setItem('accessToken', newAccessToken);
 
         // 대기 중인 요청 처리
