@@ -93,11 +93,27 @@ const useOperation = () => {
     setLoading(true);
     try {
       await operationAPI.stopAllFan();
+      openNotification('success', '쿨링팬이 모두 정지되었어요.');
       return true;
     } catch (error) {
       console.error('stopAllFan', error);
       openNotification('error', '쿨링팬제어 모두 정지에 실패했어요. 다시 시도해주세요.');
       return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateFanActive = async (key: FanList, active: boolean) => {
+    setLoading(true);
+    try {
+      const res = await operationAPI.updateFanActive(key, active);
+      openNotification('success', '쿨링팬 상태가 변경되었어요.');
+      return res;
+    } catch (error) {
+      console.error('updateFanActive', error);
+      openNotification('error', '쿨링팬 상태 변경에 실패했어요. 다시 시도해주세요.');
+      return {};
     } finally {
       setLoading(false);
     }
@@ -109,7 +125,8 @@ const useOperation = () => {
     getIrrigation,
     updateIrrigation,
     getFanControl,
-    stopAllFan
+    stopAllFan,
+    updateFanActive
   };
 };
 export default useOperation;

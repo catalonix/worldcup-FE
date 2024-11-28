@@ -7,8 +7,24 @@ import { FanType, GetFanControlResponseType } from 'shared/api/operation/operati
 type ColumnsType<T extends object> = GetProp<TableProps<T>, 'columns'>;
 
 const FanControl = ({ isReloadFanTable }: { isReloadFanTable: boolean }) => {
-  const { getFanControl } = useOperation();
+  const { getFanControl, updateFanActive } = useOperation();
   const [fans, setFans] = useState<GetFanControlResponseType>();
+
+  const handleUpdateActive = async (item: FanType, active: boolean, index: number) => {
+    // TODO : update fan state
+    const res = await updateFanActive(item.key, active);
+    if (res) {
+      console.log('res', res);
+
+      if (!fans) return;
+      const updatedFans = [...fans];
+      updatedFans[index] = { ...updatedFans[index], ...res };
+      setFans(updatedFans);
+      // fans 중 index인 애를 찾아서 res로 업데이트1
+      // TODO :  해당 팬 state change
+    }
+  };
+
   const columns: ColumnsType<FanType> = [
     {
       title: '프로그램명',
@@ -16,14 +32,21 @@ const FanControl = ({ isReloadFanTable }: { isReloadFanTable: boolean }) => {
       render: item => (
         <div className="d-flex align-center ga-1">
           <div className={`condition-info-circle condition-${item.active ? 'normal' : 'weird'}`}></div>
-          <div>{item.name}</div>
+          <div style={{ whiteSpace: 'nowrap' }}>{item.name}</div>
         </div>
       )
     },
     {
       title: '작동 현황',
       key: 'action',
-      render: item => <Switch checkedChildren="ON" unCheckedChildren="OFF" value={item.active} />
+      render: (value, item, index) => (
+        <Switch
+          checkedChildren="ON"
+          unCheckedChildren="OFF"
+          value={item.active}
+          onChange={value => handleUpdateActive(item, value, index)}
+        />
+      )
     },
     {
       title: '',
@@ -48,7 +71,9 @@ const FanControl = ({ isReloadFanTable }: { isReloadFanTable: boolean }) => {
 
   useEffect(() => {
     search();
+    console.log('search');
   }, [isReloadFanTable]);
+
   return (
     <div className="fan-control-container">
       <Table columns={columns} showHeader={false} dataSource={fans} pagination={false} />
