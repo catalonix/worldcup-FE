@@ -32,8 +32,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   };
 
   const search = async () => {
-    // TODO: 원격작동 일정 조회
-    const res = await getFanSchedule(selectedDate.get('month'), selectedDate.get('year'), selectedFans);
+    const res = await getFanSchedule(selectedDate.get('month') + 1, selectedDate.get('year'), selectedFans);
     setEvents(res);
   };
 
@@ -45,9 +44,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   };
 
   const handleChangeDate = (value: Dayjs) => {
-    console.log('handleChangeDate', value);
     setSelectedDate(value);
-    search();
   };
 
   // const getListData = value => {
@@ -70,8 +67,6 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   const dateCellRender = useMemo(() => {
-    console.log('events', events);
-    alert('rerender');
     // eslint-disable-next-line react/display-name
     return (value: Dayjs) => {
       const isEventDay = events.includes(value.format('YYYY-MM-DD')); // 이벤트 날짜인지 확인
@@ -89,7 +84,8 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     if (props.isModalVisible) {
       search();
     }
-  }, [props.isModalVisible]);
+  }, [props.isModalVisible, selectedDate]);
+
   return (
     <div className="remote-schedule-modal">
       <Modal title="원격작동 일정관리" isModalVisible={props.isModalVisible} handleCancel={handleCancel} footer={null}>
