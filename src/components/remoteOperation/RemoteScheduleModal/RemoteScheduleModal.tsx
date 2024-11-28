@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Modal from 'components/common/Modal';
-import { Button, Calendar, Checkbox, DatePicker, GetProp, Input } from 'antd';
+import { Badge, Button, Calendar, Checkbox, DatePicker, GetProp, Input } from 'antd';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
+import useOperation from 'hooks/useOperation';
 
 interface RemoteScheduleModalProps {
   isModalVisible: boolean;
@@ -14,11 +15,13 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
-  const [selectedFans, setSelectedFans] = useState<string[]>();
+  const { getFanSchedule } = useOperation();
+  const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
+  const [events, setEvents] = useState<string[]>([]);
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
@@ -28,23 +31,61 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     props.handleIsModalVisible(false);
   };
 
-  const search = () => {
-    // TODO: 원격작동 일정 조회
+  const search = async () => {
+    const res = await getFanSchedule(selectedDate.get('month') + 1, selectedDate.get('year'), selectedFans);
+    setEvents(res);
   };
 
   // TODO: 해당 날에 일정이 있으면 모달 오픈
   const handleChangeSelectDate = (value: Dayjs) => {
-    console.log('value', value);
+    console.log('handleChangeSelectDate', value);
     setSelectedDate(value);
-
     setIsDetailModalOpen(true);
   };
+
+  const handleChangeDate = (value: Dayjs) => {
+    setSelectedDate(value);
+  };
+
+  // const getListData = value => {
+  //   let listData = []; // Specify the type of listData
+  //   switch (value.date()) {
+  //     case 8:
+  //       listData = [
+  //         {
+  //           type: 'warning'
+  //         },
+  //         {
+  //           type: 'success',
+  //           content: 'This is usual event.'
+  //         }
+  //       ];
+  //       break;
+  //   }
+  //   return listData || [];
+  // };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+  const dateCellRender = useMemo(() => {
+    // eslint-disable-next-line react/display-name
+    return (value: Dayjs) => {
+      const isEventDay = events.includes(value.format('YYYY-MM-DD')); // 이벤트 날짜인지 확인
+      return isEventDay ? (
+        <ul className="events">
+          <li key={value.format('YYYY-MM-DD')} style={{ color: 'blue' }}>
+            <Badge status="warning" style={{ display: 'none' }} />
+          </li>
+        </ul>
+      ) : null;
+    };
+  }, [events]);
 
   useEffect(() => {
     if (props.isModalVisible) {
       search();
     }
-  }, [props.isModalVisible]);
+  }, [props.isModalVisible, selectedDate]);
+
   return (
     <div className="remote-schedule-modal">
       <Modal title="원격작동 일정관리" isModalVisible={props.isModalVisible} handleCancel={handleCancel} footer={null}>
@@ -57,11 +98,23 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
           <Checkbox.Group
             options={remoteOperationFanOptions}
             defaultValue={selectedFans}
+            value={selectedFans}
             onChange={handleChangeSelectedFans}
             className="checkbox-group"
           />
         </h5>
-        <Calendar fullscreen={false} value={selectedDate} onChange={handleChangeSelectDate} />
+        <Calendar
+          cellRender={dateCellRender}
+          fullscreen={false}
+          value={selectedDate}
+          onSelect={(date, { source }) => {
+            if (source === 'date') {
+              console.log('Panel Select:', source);
+              handleChangeSelectDate(date);
+            }
+          }}
+          onPanelChange={handleChangeDate}
+        />
         <div className="range-select-box">
           <span className="comments">날짜 범위 </span>
           <DatePicker

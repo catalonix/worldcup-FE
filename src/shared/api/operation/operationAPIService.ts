@@ -40,6 +40,10 @@ const operationAPI = {
       fanState: active ? 'on' : 'off'
     });
     return res.data;
+  },
+  getFanSchedule: async (month: number, year: number, fans: string[]) => {
+    const res = await authAxiosInstance.get(`/api/remote/fan-schedule/?month=${month}&year=${year}&fans=${fans}`);
+    return res.data;
   }
 };
 

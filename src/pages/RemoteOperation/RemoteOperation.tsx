@@ -32,9 +32,7 @@ const RemoteOperation = () => {
     setMode(mode);
   };
 
-  useEffect(() => {
-    console.log('se', selectedKey);
-  }, [selectedKey]);
+  useEffect(() => {}, [selectedKey]);
 
   useEffect(() => {}, []);
 
