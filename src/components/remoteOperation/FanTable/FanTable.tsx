@@ -84,7 +84,7 @@ const FanTable = (props: FanTableProps) => {
 
   return (
     <div className="fan-table-container">
-      <Table columns={programColumns} dataSource={data} style={{ overflowX: 'scroll' }} />
+      <Table columns={programColumns} dataSource={data} style={{ overflowX: 'scroll' }} pagination={false} />
     </div>
   );
 };

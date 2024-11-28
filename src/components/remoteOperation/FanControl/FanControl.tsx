@@ -51,7 +51,7 @@ const FanControl = () => {
   }, []);
   return (
     <div className="fan-control-container">
-      <Table columns={columns} showHeader={false} dataSource={fans} />
+      <Table columns={columns} showHeader={false} dataSource={fans} pagination={false} />
     </div>
   );
 };
