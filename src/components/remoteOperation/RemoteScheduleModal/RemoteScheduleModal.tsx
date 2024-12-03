@@ -7,6 +7,7 @@ import 'dayjs/locale/ko';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 import useOperation from 'hooks/useOperation';
 import { DetailFan } from 'shared/api/operation/operationAPIService.types';
+import { dateFormat } from 'common/types';
 
 interface RemoteScheduleModalProps {
   isModalVisible: boolean;
@@ -16,15 +17,19 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
-  const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule } = useOperation();
-  const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2']);
+  const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule, addFanSchedule } = useOperation();
+  const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2', '3', '4', '5', '6']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
+  const [comment, setComment] = useState<string>('');
+  const [runTime, setRunTime] = useState<string>('');
+  const [times, setTimes] = useState<string[]>(['', '', '', '', '']);
+
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
   const [detailEvent, setDetailEvent] = useState<DetailFan[]>([]);
-  const [isCheckedList, setIsCheckedList] = useState<number[]>([]); // 선택된 항목 번호 배열
+  const [isCheckedList, setIsCheckedList] = useState<number[]>([]);
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
@@ -33,6 +38,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const handleCancel = () => {
     setIsCheckedList([]);
     props.handleIsModalVisible(false);
+    resetAddScheduleForm();
   };
 
   const handleCancelDetailModal = () => {
@@ -96,6 +102,33 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     }
   };
 
+  const handleChangeTime = (index: number, value: string) => {
+    const updatedTimes = [...times];
+    updatedTimes[index] = value;
+    setTimes(updatedTimes);
+  };
+
+  const resetAddScheduleForm = () => {
+    setComment('');
+    setTimes(['', '', '', '', '']);
+    setRunTime('');
+    setSelectedFans(['1', '2', '3', '4', '5', '6', '테스트']);
+  };
+
+  const handleAddSchedule = async () => {
+    const res = await addFanSchedule({
+      startDate: startDate.format(dateFormat),
+      endDate: endDate.format(dateFormat),
+      fans: selectedFans.toString(),
+      comment,
+      runTime: Number(runTime),
+      times: times.toString()
+    });
+    if (res) {
+      resetAddScheduleForm();
+    }
+  };
+
   useEffect(() => {
     if (props.isModalVisible) {
       search();
@@ -131,7 +164,6 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
           value={selectedDate}
           onSelect={(date, { source }) => {
             if (source === 'date') {
-              console.log('Panel Select:', source);
               handleChangeSelectDate(date);
             }
           }}
@@ -157,23 +189,38 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         </div>
         <div className="schedule-boxes">
           <span className="comments2">작동 일정(시:분)</span>
-          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
-          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
-          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
-          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
-          <Input className="form-control" placeholder="" type="text" name="timeList[]" maxLength={5} />
+          {times.map((time, index) => (
+            <Input
+              key={index}
+              className="form-control"
+              placeholder=""
+              type="text"
+              value={time}
+              maxLength={7}
+              onChange={e => handleChangeTime(index, e.target.value)}
+            />
+          ))}
         </div>
         <div className="schedule-boxes">
           <span className="comments3">시간 및 설명</span>
-          <Input className="form-control" placeholder="작동(분)" type="text" name="timeList[]" maxLength={5} />
+          <Input
+            className="form-control"
+            placeholder="작동(분)"
+            type="text"
+            maxLength={5}
+            value={runTime}
+            onChange={e => setRunTime(e.target.value)}
+          />
           <Input
             className="form-control"
             placeholder="설명을 입력하세요."
             type="text"
-            name="timeList[]"
-            maxLength={5}
+            value={comment}
+            onChange={e => setComment(e.target.value)}
           />
-          <Button type="primary">추가</Button>
+          <Button type="primary" onClick={handleAddSchedule}>
+            추가
+          </Button>
         </div>
       </Modal>
       <Modal

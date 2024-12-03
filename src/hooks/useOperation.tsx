@@ -2,6 +2,7 @@ import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import operationAPI from 'shared/api/operation/operationAPIService';
 import {
+  AddFanParams,
   FanList,
   GetFanControlResponseType,
   GetIrrigationResponseType,
@@ -162,6 +163,21 @@ const useOperation = () => {
     }
   };
 
+  const addFanSchedule = async (params: AddFanParams) => {
+    setLoading(true);
+    try {
+      await operationAPI.addFanSchedule(params);
+      openNotification('success', '원격작동 일정이 생성되었어요.');
+      return true;
+    } catch (error) {
+      console.error('addFanSchedule', error);
+      openNotification('error', '원격작동 일정 생성에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
@@ -172,7 +188,8 @@ const useOperation = () => {
     updateFanActive,
     getFanSchedule,
     getDetailFanSchedule,
-    deleteDetailFanSchedule
+    deleteDetailFanSchedule,
+    addFanSchedule
   };
 };
 export default useOperation;
