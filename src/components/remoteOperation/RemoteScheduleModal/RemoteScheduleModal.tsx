@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Modal from 'components/common/Modal';
-import { Badge, Button, Calendar, Checkbox, DatePicker, GetProp, Input } from 'antd';
+import { Badge, Button, Calendar, Checkbox, ConfigProvider, DatePicker, GetProp, Input } from 'antd';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
+import koKR from 'antd/lib/locale/ko_KR';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 import useOperation from 'hooks/useOperation';
 import { DetailFan } from 'shared/api/operation/operationAPIService.types';
@@ -23,7 +24,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [comment, setComment] = useState<string>('');
-  const [runTime, setRunTime] = useState<string>('');
+  const [runTime, setRunTime] = useState<string>('30');
   const [times, setTimes] = useState<string[]>(['', '', '', '', '']);
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
@@ -111,7 +112,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const resetAddScheduleForm = () => {
     setComment('');
     setTimes(['', '', '', '', '']);
-    setRunTime('');
+    setRunTime('30');
     setSelectedFans(['1', '2', '3', '4', '5', '6', '테스트']);
   };
 
@@ -158,17 +159,19 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             className="checkbox-group"
           />
         </h5>
-        <Calendar
-          cellRender={dateCellRender}
-          fullscreen={false}
-          value={selectedDate}
-          onSelect={(date, { source }) => {
-            if (source === 'date') {
-              handleChangeSelectDate(date);
-            }
-          }}
-          onPanelChange={handleChangeDate}
-        />
+        <ConfigProvider locale={koKR}>
+          <Calendar
+            cellRender={dateCellRender}
+            fullscreen={false}
+            value={selectedDate}
+            onSelect={(date, { source }) => {
+              if (source === 'date') {
+                handleChangeSelectDate(date);
+              }
+            }}
+            onPanelChange={handleChangeDate}
+          />
+        </ConfigProvider>
         <div className="range-select-box">
           <span className="comments">날짜 범위 </span>
           <DatePicker
@@ -193,7 +196,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             <Input
               key={index}
               className="form-control"
-              placeholder=""
+              placeholder="%H:%M"
               type="text"
               value={time}
               maxLength={7}

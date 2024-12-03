@@ -354,3 +354,11 @@ h6,
 :where(.css-dev-only-do-not-override-dvk552).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover {
   background-color: none;
 }
+
+:where(.css-dev-only-do-not-override-dvk552).ant-picker-calendar {
+  background: none;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-picker-calendar .ant-picker-panel {
+  background: none;
+}
