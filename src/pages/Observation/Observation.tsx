@@ -12,6 +12,7 @@ import { directionOptions, valuesOptions } from 'common/constants/weatherDetail'
 import { GetObservationType } from 'shared/api/sensor/sensorAPIService.types';
 import { observationOptions } from 'common/constants/observation';
 import useNotification from 'hooks/useNotification';
+import { chartDataOptions } from 'common/constants/userManagement';
 
 const Observation = () => {
   const { openNotification } = useNotification();
@@ -35,11 +36,11 @@ const Observation = () => {
   const data = {
     labels: observation?.dates,
     datasets: observation?.data
-      ? observation.data.map(it => {
+      ? observation.data.map((it, index) => {
           return {
             label: it.name ? it.name : '',
-            backgroundColor: 'rgba(0, 0, 255, 0.5)',
-            borderColor: 'blue',
+            backgroundColor: chartDataOptions[index],
+            borderColor: chartDataOptions[index],
             data: it.data ? it.data : [] // y 값
           };
         })

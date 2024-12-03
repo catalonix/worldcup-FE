@@ -24,4 +24,33 @@ export const valuesOptions = [
   { label: '광량', value: 'light' }
 ];
 
-export const chartColor = ['#FFE3E3', '#FFC9C9', '#FFA8A8', '#FF8787'];
+export const chartColor = [
+  '#FFE3E3',
+  '#FFC9C9',
+  '#FFA8A8',
+  '#FF8787', // 기존 핑크 계열
+  '#FFD6A5',
+  '#FFAB76',
+  '#FF8E72',
+  '#FF6F61', // 주황 계열
+  '#FFEBA1',
+  '#FFDC76',
+  '#FFD333',
+  '#FFC300', // 노랑 계열
+  '#D4E157',
+  '#AED581',
+  '#81C784',
+  '#4CAF50', // 연두/초록 계열
+  '#64B5F6',
+  '#42A5F5',
+  '#2196F3',
+  '#1E88E5', // 파랑 계열
+  '#BA68C8',
+  '#9C27B0',
+  '#7B1FA2',
+  '#6A1B9A', // 보라 계열
+  '#FF80AB',
+  '#FF4081',
+  '#F50057',
+  '#C51162' // 핫핑크/강렬한 계열
+];
