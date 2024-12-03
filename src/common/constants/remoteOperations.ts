@@ -7,7 +7,7 @@ export const remoteOperationFanOptions = [
   { label: '6', value: '6' },
   { label: '7', value: '7' },
   { label: '8', value: '8' },
-  { label: '테스트', value: '쿨링팬' }
+  { label: '테스트', value: 'test' }
 ];
 
 export const timeOptions = [

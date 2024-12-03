@@ -7,7 +7,8 @@ import {
   UpdateIrrigationParams,
   GetFanControlResponseType,
   FanType,
-  GetDetailFanScheduleResponseType
+  GetDetailFanScheduleResponseType,
+  AddFanParams
 } from './operationAPIService.types';
 
 const operationAPI = {
@@ -54,6 +55,10 @@ const operationAPI = {
   },
   deleteFanSchedule: async (selectedSchedules: string) => {
     const res = await authAxiosInstance.delete(`/api/remote/fan-schedule-detail/?no=${selectedSchedules}`);
+    return res.data;
+  },
+  addFanSchedule: async (addFanParams: AddFanParams) => {
+    const res = await authAxiosInstance.post('/api/remote/fan-schedule/', addFanParams);
     return res.data;
   }
 };

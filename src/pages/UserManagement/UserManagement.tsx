@@ -73,7 +73,7 @@ const UserManagement = () => {
             />
             <DatePicker defaultValue={startDate} onChange={value => setStartDate(value)} />
             <DatePicker defaultValue={endDate} onChange={value => setEndDate(value)} minDate={startDate} />
-            <Button icon={<SearchOutlined />} onClick={handleSearch}>
+            <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
               조회하기
             </Button>
           </div>
@@ -82,7 +82,7 @@ const UserManagement = () => {
       <Card
         title="회원정보"
         titleButton={
-          <Button icon={<UserAddOutlined />} onClick={handleClickUserAddBtn}>
+          <Button icon={<UserAddOutlined />} type="primary" onClick={handleClickUserAddBtn}>
             회원 추가
           </Button>
         }>
