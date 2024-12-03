@@ -384,3 +384,9 @@ h6,
   color: white;
   background: #1668dc;
 }
+
+:where(.css-dev-only-do-not-override-dvk552).ant-btn-variant-outlined,
+:where(.css-dev-only-do-not-override-dvk552).ant-btn-variant-dashed {
+  border-color: #16293a;
+  background: #16293a;
+}
