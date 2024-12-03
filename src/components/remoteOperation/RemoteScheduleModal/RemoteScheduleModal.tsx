@@ -21,7 +21,7 @@ dayjs.locale('ko');
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const { openNotification } = useNotification();
   const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule, addFanSchedule } = useOperation();
-  const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2', '3', '4', '5', '6']);
+  const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2', '3', '4', '5', '6', '7']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));

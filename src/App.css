@@ -362,3 +362,25 @@ h6,
 :where(.css-dev-only-do-not-override-dvk552).ant-picker-calendar .ant-picker-panel {
   background: none;
 }
+
+:where(.css-dev-only-do-not-override-dvk552).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  border: 1px solid #16293a;
+  background: #16293a;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-radio-button-wrapper {
+  background: #16293a;
+  border: 1px solid #16293a;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-radio-button-wrapper-checked:not(
+    .ant-radio-button-wrapper-disabled
+  ):hover {
+  color: white;
+  background: #1668dc;
+}
+
+:where(.css-dev-only-do-not-override-dvk552).ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+  color: white;
+  background: #1668dc;
+}
