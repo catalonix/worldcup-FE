@@ -16,7 +16,7 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
-  const { getFanSchedule, getDetailFanSchedule } = useOperation();
+  const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule } = useOperation();
   const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -24,6 +24,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
   const [detailEvent, setDetailEvent] = useState<DetailFan[]>([]);
+  const [isCheckedList, setIsCheckedList] = useState<number[]>([]); // 선택된 항목 번호 배열
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
@@ -59,24 +60,6 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     setSelectedDate(value);
   };
 
-  // const getListData = value => {
-  //   let listData = []; // Specify the type of listData
-  //   switch (value.date()) {
-  //     case 8:
-  //       listData = [
-  //         {
-  //           type: 'warning'
-  //         },
-  //         {
-  //           type: 'success',
-  //           content: 'This is usual event.'
-  //         }
-  //       ];
-  //       break;
-  //   }
-  //   return listData || [];
-  // };
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   const dateCellRender = useMemo(() => {
     // eslint-disable-next-line react/display-name
@@ -91,6 +74,21 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       ) : null;
     };
   }, [events]);
+
+  const handleCheckbox = (isChecked: boolean, value: number) => {
+    if (isChecked) {
+      setIsCheckedList(prev => [...prev, value]);
+    } else {
+      setIsCheckedList(prev => prev.filter(item => item !== value));
+    }
+  };
+
+  const handleClickDeleteDetailSchedule = async () => {
+    const res = await deleteDetailFanSchedule(isCheckedList.toString());
+    if (res) {
+      searchDetail();
+    }
+  };
 
   useEffect(() => {
     if (props.isModalVisible) {
@@ -177,7 +175,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         isModalVisible={isDetailModalOpen}
         handleCancel={() => setIsDetailModalOpen(false)}
         footer={
-          <Button color="danger" className="danger-button">
+          <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
             삭제
           </Button>
         }
@@ -185,12 +183,21 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         <div className="event-wrapper">
           {detailEvent.map(it => (
             <div key={it.no} className="detail-event-box">
-              <div className="event-hour">
-                <Checkbox className="mr-1"></Checkbox>
-                {it.time}
-              </div>
-              <div className="event-date">{it.fans} </div>
-              <div className="event-summary">{it.comment}</div>
+              <Checkbox
+                id={`checkbox-${it.no}`}
+                className="mr-1 d-flex"
+                value={it.no}
+                checked={isCheckedList.includes(it.no)}
+                onChange={e => {
+                  handleCheckbox(e.target.checked, it.no);
+                }}></Checkbox>
+              <label htmlFor={`checkbox-${it.no}`} className="w-100 cursor-pointer">
+                <div className="d-flex align-center justify-space-between w-100">
+                  <div className="event-hour">{it.time}</div>
+                  <div className="event-date">{it.fans} </div>
+                  <div className="event-summary">{it.comment}</div>
+                </div>
+              </label>
             </div>
           ))}
         </div>

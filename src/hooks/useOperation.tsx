@@ -147,6 +147,21 @@ const useOperation = () => {
     }
   };
 
+  const deleteDetailFanSchedule = async (no: string) => {
+    setLoading(true);
+    try {
+      await operationAPI.deleteFanSchedule(no);
+      openNotification('success', '원격작동 일정이 삭제되었어요.');
+      return true;
+    } catch (error) {
+      console.error('deleteDetailFanSchedule', error);
+      openNotification('error', '원격작동 일정 삭제에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
@@ -156,7 +171,8 @@ const useOperation = () => {
     stopAllFan,
     updateFanActive,
     getFanSchedule,
-    getDetailFanSchedule
+    getDetailFanSchedule,
+    deleteDetailFanSchedule
   };
 };
 export default useOperation;

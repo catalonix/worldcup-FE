@@ -51,6 +51,10 @@ const operationAPI = {
       `/api/remote/fan-schedule-detail/?month=${month}&year=${year}&day=${day}&fans=${fans}`
     );
     return res.data;
+  },
+  deleteFanSchedule: async (selectedSchedules: string) => {
+    const res = await authAxiosInstance.delete(`/api/remote/fan-schedule-detail/?no=${selectedSchedules}`);
+    return res.data;
   }
 };
 
