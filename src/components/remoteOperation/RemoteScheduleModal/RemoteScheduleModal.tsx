@@ -31,7 +31,13 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   };
 
   const handleCancel = () => {
+    setIsCheckedList([]);
     props.handleIsModalVisible(false);
+  };
+
+  const handleCancelDetailModal = () => {
+    setIsCheckedList([]);
+    setIsDetailModalOpen(false);
   };
 
   const search = async () => {
@@ -43,7 +49,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     const res = await getDetailFanSchedule(
       selectedDate.get('month') + 1,
       selectedDate.get('year'),
-      selectedDate.get('day'),
+      selectedDate.get('date'),
       selectedFans
     );
     setDetailEvent(res);
@@ -173,7 +179,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       <Modal
         title=""
         isModalVisible={isDetailModalOpen}
-        handleCancel={() => setIsDetailModalOpen(false)}
+        handleCancel={handleCancelDetailModal}
         footer={
           <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
             삭제
@@ -181,25 +187,29 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         }
         style={{ top: '30%', padding: '0 20px' }}>
         <div className="event-wrapper">
-          {detailEvent.map(it => (
-            <div key={it.no} className="detail-event-box">
-              <Checkbox
-                id={`checkbox-${it.no}`}
-                className="mr-1 d-flex"
-                value={it.no}
-                checked={isCheckedList.includes(it.no)}
-                onChange={e => {
-                  handleCheckbox(e.target.checked, it.no);
-                }}></Checkbox>
-              <label htmlFor={`checkbox-${it.no}`} className="w-100 cursor-pointer">
-                <div className="d-flex align-center justify-space-between w-100">
-                  <div className="event-hour">{it.time}</div>
-                  <div className="event-date">{it.fans} </div>
-                  <div className="event-summary">{it.comment}</div>
-                </div>
-              </label>
-            </div>
-          ))}
+          {detailEvent.length ? (
+            detailEvent.map(it => (
+              <div key={it.no} className="detail-event-box">
+                <Checkbox
+                  id={`checkbox-${it.no}`}
+                  className="mr-1 d-flex"
+                  value={it.no}
+                  checked={isCheckedList.includes(it.no)}
+                  onChange={e => {
+                    handleCheckbox(e.target.checked, it.no);
+                  }}></Checkbox>
+                <label htmlFor={`checkbox-${it.no}`} className="w-100 cursor-pointer">
+                  <div className="d-flex align-center justify-space-between w-100">
+                    <div className="event-hour">{it.time}</div>
+                    <div className="event-date">{it.fans} </div>
+                    <div className="event-summary">{it.comment}</div>
+                  </div>
+                </label>
+              </div>
+            ))
+          ) : (
+            <div>해당 날짜에 원격 일정이 없어요.</div>
+          )}
         </div>
       </Modal>
     </div>
