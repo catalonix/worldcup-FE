@@ -133,6 +133,20 @@ const useOperation = () => {
     }
   };
 
+  const getDetailFanSchedule = async (month: number, year: number, day: number, fans: string[]) => {
+    setLoading(true);
+    try {
+      const res = await operationAPI.getDetailFanSchedule(month, year, day, fans);
+      return res;
+    } catch (error) {
+      console.error('getDetailFanSchedule', error);
+      openNotification('error', '원격작동 상세 조회에 실패했어요. 다시 시도해주세요.');
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
@@ -141,7 +155,8 @@ const useOperation = () => {
     getFanControl,
     stopAllFan,
     updateFanActive,
-    getFanSchedule
+    getFanSchedule,
+    getDetailFanSchedule
   };
 };
 export default useOperation;

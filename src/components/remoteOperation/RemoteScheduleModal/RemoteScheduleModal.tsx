@@ -6,6 +6,7 @@ import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 import useOperation from 'hooks/useOperation';
+import { DetailFan } from 'shared/api/operation/operationAPIService.types';
 
 interface RemoteScheduleModalProps {
   isModalVisible: boolean;
@@ -15,13 +16,14 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
-  const { getFanSchedule } = useOperation();
+  const { getFanSchedule, getDetailFanSchedule } = useOperation();
   const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
+  const [detailEvent, setDetailEvent] = useState<DetailFan[]>([]);
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
@@ -34,6 +36,16 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const search = async () => {
     const res = await getFanSchedule(selectedDate.get('month') + 1, selectedDate.get('year'), selectedFans);
     setEvents(res);
+  };
+
+  const searchDetail = async () => {
+    const res = await getDetailFanSchedule(
+      selectedDate.get('month') + 1,
+      selectedDate.get('year'),
+      selectedDate.get('day'),
+      selectedFans
+    );
+    setDetailEvent(res);
   };
 
   // TODO: 해당 날에 일정이 있으면 모달 오픈
@@ -85,6 +97,12 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       search();
     }
   }, [props.isModalVisible, selectedDate]);
+
+  useEffect(() => {
+    if (isDetailModalOpen) {
+      searchDetail();
+    }
+  }, [isDetailModalOpen]);
 
   return (
     <div className="remote-schedule-modal">
@@ -163,7 +181,20 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             삭제
           </Button>
         }
-        style={{ top: '30%', padding: '0 20px' }}></Modal>
+        style={{ top: '30%', padding: '0 20px' }}>
+        <div className="event-wrapper">
+          {detailEvent.map(it => (
+            <div key={it.no} className="detail-event-box">
+              <div className="event-hour">
+                <Checkbox className="mr-1"></Checkbox>
+                {it.time}
+              </div>
+              <div className="event-date">{it.fans} </div>
+              <div className="event-summary">{it.comment}</div>
+            </div>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 };

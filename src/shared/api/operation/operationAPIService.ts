@@ -6,7 +6,8 @@ import {
   GetIrrigationResponseType,
   UpdateIrrigationParams,
   GetFanControlResponseType,
-  FanType
+  FanType,
+  GetDetailFanScheduleResponseType
 } from './operationAPIService.types';
 
 const operationAPI = {
@@ -43,6 +44,12 @@ const operationAPI = {
   },
   getFanSchedule: async (month: number, year: number, fans: string[]) => {
     const res = await authAxiosInstance.get(`/api/remote/fan-schedule/?month=${month}&year=${year}&fans=${fans}`);
+    return res.data;
+  },
+  getDetailFanSchedule: async (month: number, year: number, day: number, fans: string[]) => {
+    const res = await authAxiosInstance.get<GetDetailFanScheduleResponseType>(
+      `/api/remote/fan-schedule-detail/?month=${month}&year=${year}&day=${day}&fans=${fans}`
+    );
     return res.data;
   }
 };
