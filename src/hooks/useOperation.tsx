@@ -133,6 +133,35 @@ const useOperation = () => {
     }
   };
 
+  const getDetailFanSchedule = async (month: number, year: number, day: number, fans: string[]) => {
+    setLoading(true);
+    try {
+      const res = await operationAPI.getDetailFanSchedule(month, year, day, fans);
+      return res;
+    } catch (error) {
+      console.error('getDetailFanSchedule', error);
+      openNotification('error', '원격작동 상세 조회에 실패했어요. 다시 시도해주세요.');
+      return [];
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteDetailFanSchedule = async (no: string) => {
+    setLoading(true);
+    try {
+      await operationAPI.deleteFanSchedule(no);
+      openNotification('success', '원격작동 일정이 삭제되었어요.');
+      return true;
+    } catch (error) {
+      console.error('deleteDetailFanSchedule', error);
+      openNotification('error', '원격작동 일정 삭제에 실패했어요. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
@@ -141,7 +170,9 @@ const useOperation = () => {
     getFanControl,
     stopAllFan,
     updateFanActive,
-    getFanSchedule
+    getFanSchedule,
+    getDetailFanSchedule,
+    deleteDetailFanSchedule
   };
 };
 export default useOperation;

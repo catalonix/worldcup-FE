@@ -6,6 +6,7 @@ import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
 import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 import useOperation from 'hooks/useOperation';
+import { DetailFan } from 'shared/api/operation/operationAPIService.types';
 
 interface RemoteScheduleModalProps {
   isModalVisible: boolean;
@@ -15,25 +16,43 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
-  const { getFanSchedule } = useOperation();
+  const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule } = useOperation();
   const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
+  const [detailEvent, setDetailEvent] = useState<DetailFan[]>([]);
+  const [isCheckedList, setIsCheckedList] = useState<number[]>([]); // 선택된 항목 번호 배열
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
   };
 
   const handleCancel = () => {
+    setIsCheckedList([]);
     props.handleIsModalVisible(false);
+  };
+
+  const handleCancelDetailModal = () => {
+    setIsCheckedList([]);
+    setIsDetailModalOpen(false);
   };
 
   const search = async () => {
     const res = await getFanSchedule(selectedDate.get('month') + 1, selectedDate.get('year'), selectedFans);
     setEvents(res);
+  };
+
+  const searchDetail = async () => {
+    const res = await getDetailFanSchedule(
+      selectedDate.get('month') + 1,
+      selectedDate.get('year'),
+      selectedDate.get('date'),
+      selectedFans
+    );
+    setDetailEvent(res);
   };
 
   // TODO: 해당 날에 일정이 있으면 모달 오픈
@@ -46,24 +65,6 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const handleChangeDate = (value: Dayjs) => {
     setSelectedDate(value);
   };
-
-  // const getListData = value => {
-  //   let listData = []; // Specify the type of listData
-  //   switch (value.date()) {
-  //     case 8:
-  //       listData = [
-  //         {
-  //           type: 'warning'
-  //         },
-  //         {
-  //           type: 'success',
-  //           content: 'This is usual event.'
-  //         }
-  //       ];
-  //       break;
-  //   }
-  //   return listData || [];
-  // };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
   const dateCellRender = useMemo(() => {
@@ -80,11 +81,32 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
     };
   }, [events]);
 
+  const handleCheckbox = (isChecked: boolean, value: number) => {
+    if (isChecked) {
+      setIsCheckedList(prev => [...prev, value]);
+    } else {
+      setIsCheckedList(prev => prev.filter(item => item !== value));
+    }
+  };
+
+  const handleClickDeleteDetailSchedule = async () => {
+    const res = await deleteDetailFanSchedule(isCheckedList.toString());
+    if (res) {
+      searchDetail();
+    }
+  };
+
   useEffect(() => {
     if (props.isModalVisible) {
       search();
     }
   }, [props.isModalVisible, selectedDate]);
+
+  useEffect(() => {
+    if (isDetailModalOpen) {
+      searchDetail();
+    }
+  }, [isDetailModalOpen]);
 
   return (
     <div className="remote-schedule-modal">
@@ -157,13 +179,39 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       <Modal
         title=""
         isModalVisible={isDetailModalOpen}
-        handleCancel={() => setIsDetailModalOpen(false)}
+        handleCancel={handleCancelDetailModal}
         footer={
-          <Button color="danger" className="danger-button">
+          <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
             삭제
           </Button>
         }
-        style={{ top: '30%', padding: '0 20px' }}></Modal>
+        style={{ top: '30%', padding: '0 20px' }}>
+        <div className="event-wrapper">
+          {detailEvent.length ? (
+            detailEvent.map(it => (
+              <div key={it.no} className="detail-event-box">
+                <Checkbox
+                  id={`checkbox-${it.no}`}
+                  className="mr-1 d-flex"
+                  value={it.no}
+                  checked={isCheckedList.includes(it.no)}
+                  onChange={e => {
+                    handleCheckbox(e.target.checked, it.no);
+                  }}></Checkbox>
+                <label htmlFor={`checkbox-${it.no}`} className="w-100 cursor-pointer">
+                  <div className="d-flex align-center justify-space-between w-100">
+                    <div className="event-hour">{it.time}</div>
+                    <div className="event-date">{it.fans} </div>
+                    <div className="event-summary">{it.comment}</div>
+                  </div>
+                </label>
+              </div>
+            ))
+          ) : (
+            <div>해당 날짜에 원격 일정이 없어요.</div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };

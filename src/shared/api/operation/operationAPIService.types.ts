@@ -37,6 +37,15 @@ export type FanType = {
 
 export type GetFanControlResponseType = FanType[];
 
+export type DetailFan = {
+  comment: string;
+  fans: string;
+  no: number;
+  time: string;
+};
+
+export type GetDetailFanScheduleResponseType = DetailFan[];
+
 export type FanList =
   | 'binary_sensor.fan02'
   | 'binary_sensor.fan03'
