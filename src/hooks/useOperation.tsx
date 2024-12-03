@@ -169,9 +169,12 @@ const useOperation = () => {
       await operationAPI.addFanSchedule(params);
       openNotification('success', '원격작동 일정이 생성되었어요.');
       return true;
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       console.error('addFanSchedule', error);
-      openNotification('error', '원격작동 일정 생성에 실패했어요. 다시 시도해주세요.');
+      if (error.response.status === 409) {
+        openNotification('error', '이미 존재하는 예약이에요. 다시 시도해주세요.');
+      } else openNotification('error', '원격작동 일정 생성에 실패했어요. 다시 시도해주세요.');
       return false;
     } finally {
       setLoading(false);
