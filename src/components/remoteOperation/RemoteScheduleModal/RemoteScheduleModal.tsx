@@ -9,6 +9,7 @@ import { remoteOperationFanOptions } from 'common/constants/remoteOperations';
 import useOperation from 'hooks/useOperation';
 import { DetailFan } from 'shared/api/operation/operationAPIService.types';
 import { dateFormat } from 'common/types';
+import useNotification from 'hooks/useNotification';
 
 interface RemoteScheduleModalProps {
   isModalVisible: boolean;
@@ -18,14 +19,15 @@ interface RemoteScheduleModalProps {
 dayjs.locale('ko');
 
 const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
+  const { openNotification } = useNotification();
   const { getFanSchedule, getDetailFanSchedule, deleteDetailFanSchedule, addFanSchedule } = useOperation();
   const [selectedFans, setSelectedFans] = useState<string[]>(['1', '2', '3', '4', '5', '6']);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [comment, setComment] = useState<string>('');
-  const [runTime, setRunTime] = useState<string>('30');
-  const [times, setTimes] = useState<string[]>(['', '', '', '', '']);
+  const [runTime, setRunTime] = useState<number>(30);
+  const [times, setTimes] = useState<string[]>(['', '', '', '', '', '', '', '']);
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
@@ -34,6 +36,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
     setSelectedFans(checkedValues as string[]);
+    search();
   };
 
   const handleCancel = () => {
@@ -112,11 +115,44 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const resetAddScheduleForm = () => {
     setComment('');
     setTimes(['', '', '', '', '']);
-    setRunTime('30');
-    setSelectedFans(['1', '2', '3', '4', '5', '6', '테스트']);
+    setRunTime(30);
+    setSelectedFans(['1', '2', '3', '4', '5', '6', 'test']);
+  };
+
+  const validateForm = () => {
+    // startDate와 endDate는 필수값
+    if (!startDate || !endDate) {
+      return '시작일과 종료일을 선택해주세요.';
+    }
+
+    // selectedFans는 필수값이어야 함
+    if (!selectedFans || selectedFans.length === 0) {
+      return '쿨링팬은 하나라도 선택되어야해요.';
+    }
+
+    // runTime은 숫자여야 하며 필수값임
+    if (!runTime || isNaN(runTime) || runTime <= 0) {
+      return '작동시간을 확인해주세요.';
+    }
+
+    // times는 배열이고, 하나 이상의 값이 있어야 함
+    if (!times || times.every(time => !time.trim())) {
+      return '작동 일정을 확인해주세요';
+    }
+
+    // 모든 조건이 통과되면 null 반환 (valid)
+    return null;
   };
 
   const handleAddSchedule = async () => {
+    const validationError = validateForm();
+
+    if (validationError) {
+      // validation 실패 시 에러 메시지 처리
+      openNotification('warning', validationError);
+      return;
+    }
+
     const res = await addFanSchedule({
       startDate: startDate.format(dateFormat),
       endDate: endDate.format(dateFormat),
@@ -126,6 +162,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       times: times.toString()
     });
     if (res) {
+      search();
       resetAddScheduleForm();
     }
   };
@@ -192,17 +229,20 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         </div>
         <div className="schedule-boxes">
           <span className="comments2">작동 일정(시:분)</span>
-          {times.map((time, index) => (
-            <Input
-              key={index}
-              className="form-control"
-              placeholder="%H:%M"
-              type="text"
-              value={time}
-              maxLength={7}
-              onChange={e => handleChangeTime(index, e.target.value)}
-            />
-          ))}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
+            {times.map((time, index) => (
+              <Input
+                key={index}
+                className="form-control"
+                placeholder="%H:%M"
+                type="text"
+                value={time}
+                maxLength={7}
+                onChange={e => handleChangeTime(index, e.target.value)}
+                style={{ padding: '10px', textAlign: 'center' }}
+              />
+            ))}
+          </div>
         </div>
         <div className="schedule-boxes">
           <span className="comments3">시간 및 설명</span>
@@ -212,7 +252,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
             type="text"
             maxLength={5}
             value={runTime}
-            onChange={e => setRunTime(e.target.value)}
+            onChange={e => setRunTime(Number(e.target.value))}
           />
           <Input
             className="form-control"
