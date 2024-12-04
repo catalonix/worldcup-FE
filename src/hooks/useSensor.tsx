@@ -248,6 +248,19 @@ const useSensor = () => {
     }
   };
 
+  const getNdviImage = async (startDate: string, endDate: string) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getNdviImage(startDate, endDate);
+      return res;
+    } catch (error) {
+      console.error('getNdviImage', error);
+      openNotification('error', 'NDVI 이미지 조회에 실패하였습니다. 다시 시도해주세요.');
+      return { west: [], east: [], south: [] };
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     ndviInfo,
     soilInfo,
@@ -270,7 +283,8 @@ const useSensor = () => {
     getSensorStatus,
     getSensorSummary,
     getGradeValue,
-    setGradeValue
+    setGradeValue,
+    getNdviImage
   };
 };
 export default useSensor;

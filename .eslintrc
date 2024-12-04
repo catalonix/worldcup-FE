@@ -11,7 +11,7 @@
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".ts", ".tsx"]
       },
-      "typescript": {}
+      "typescript": { "alwaysTryTypes": true }
     },
     "import/extensions": [
       "error",
