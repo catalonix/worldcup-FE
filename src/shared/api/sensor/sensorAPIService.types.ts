@@ -110,3 +110,17 @@ export type GetGradeValueResponseType = {
   humi: HumiTempValueType[];
   temp: HumiTempValueType[];
 };
+
+export type NdviImageType = {
+  tm: string;
+  now: string;
+  predict: string;
+};
+
+export type GetNdviImageResponseType = {
+  east: NdviImageType[];
+  west: NdviImageType[];
+  south: NdviImageType[];
+};
+
+export type DirectionType = 'west' | 'south' | 'east';

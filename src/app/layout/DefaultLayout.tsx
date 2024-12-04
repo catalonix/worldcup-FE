@@ -166,6 +166,7 @@ const DefaultLayout: React.FC = () => {
         </div>
       </Header>
       <Sider
+        className="side-bar"
         trigger={null}
         collapsible
         collapsed={collapsed}

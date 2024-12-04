@@ -1,6 +1,7 @@
 import { authAxiosInstance } from '../common';
 import {
   GetGradeValueResponseType,
+  GetNdviImageResponseType,
   GetNdviInfoParams,
   GetSensorInfoResponseType,
   GetSensorStatusResponseType,
@@ -60,6 +61,12 @@ const sensorAPI = {
   },
   setGradeValue: async (params: GetGradeValueResponseType) => {
     const res = await authAxiosInstance.patch('/api/sensor/grade-value/', params);
+    return res.data;
+  },
+  getNdviImage: async (startDate: string, endDate: string) => {
+    const res = await authAxiosInstance.get<GetNdviImageResponseType>(
+      `/api/sensor/ndvi-image/?startDate=${startDate}&endDate=${endDate}`
+    );
     return res.data;
   }
 };
