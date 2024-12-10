@@ -10,7 +10,8 @@ import {
   GetSoilSummaryResponseType,
   GetWeatherHeaderResponseType,
   GetWeatherInfoParams,
-  GetWeatherSummaryResponseType
+  GetWeatherSummaryResponseType,
+  NdviCameraType
 } from 'shared/api/sensor/sensorAPIService.types';
 import sensorAPI from 'shared/api/sensor/sensorAPIService';
 import { useState } from 'react';
@@ -248,6 +249,20 @@ const useSensor = () => {
     }
   };
 
+  const getNdviCamera = async () => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getNdviCamera();
+      return res;
+    } catch (error) {
+      console.error('getNdviCamera', error);
+      openNotification('error', 'NDVI 카메라 조회에 실패하였습니다. 다시 시도해주세요.');
+      return { west: {} as NdviCameraType, east: {} as NdviCameraType, south: {} as NdviCameraType };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getNdviImage = async (startDate: string, endDate: string) => {
     setLoading(true);
     try {
@@ -284,6 +299,7 @@ const useSensor = () => {
     getSensorSummary,
     getGradeValue,
     setGradeValue,
+    getNdviCamera,
     getNdviImage
   };
 };

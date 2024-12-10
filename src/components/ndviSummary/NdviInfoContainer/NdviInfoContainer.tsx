@@ -69,10 +69,8 @@ const NdviInfoContainer = () => {
     console.log('res', res);
 
     if (res && res.east) {
-      // Set the state re the extracted image data
       setEastImage(res.east);
 
-      // Repeat similarly for `west` and `south` if applicable
       if (res.west) {
         setWestImage(res.west);
       }
@@ -142,7 +140,7 @@ const NdviInfoContainer = () => {
             </div>
           </div>
           <div className="card-body ndvi-swiper">
-            <Swiper
+            {/* <Swiper
               onSlideChange={handleSlideChange}
               spaceBetween={50}
               slidesPerView={1}
@@ -157,7 +155,7 @@ const NdviInfoContainer = () => {
                   <ReactCompareImage leftImage={image.now} rightImage={image.predict} sliderPositionPercentage={0.5} />
                 </SwiperSlide>
               ))}
-            </Swiper>
+            </Swiper> */}
 
             <ReactCompareImage
               leftImage={

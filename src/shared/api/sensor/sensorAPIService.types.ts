@@ -111,6 +111,18 @@ export type GetGradeValueResponseType = {
   temp: HumiTempValueType[];
 };
 
+export type NdviCameraType = {
+  date: string;
+  ndviDaily: number;
+  ndviMa5: number;
+  dailyUrl: string;
+  ma5Url: string;
+};
+export type GetNdviCameraResponseType = {
+  east: NdviCameraType;
+  west: NdviCameraType;
+  south: NdviCameraType;
+};
 export type NdviImageType = {
   tm: string;
   now: string;
