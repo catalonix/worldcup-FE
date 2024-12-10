@@ -4,15 +4,18 @@ import { PauseOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { Chart } from 'react-chartjs-2';
 import useSensor from 'hooks/useSensor';
 import { dateFormat } from 'common/types';
-import { DirectionType, NdviImageType } from 'shared/api/sensor/sensorAPIService.types';
+import { DirectionType, GetNdviChartResponseType, NdviImageType } from 'shared/api/sensor/sensorAPIService.types';
 import ReactCompareImage from 'react-compare-image';
 import { directions } from 'common/constants/ndviSummary';
 
 const NdviInfoContainer = () => {
-  const { getNdviImage } = useSensor();
+  const { getNdviImage, getNdviChart } = useSensor();
+
+  const [chart, setChart] = useState<GetNdviChartResponseType>();
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
 
@@ -38,25 +41,25 @@ const NdviInfoContainer = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
+    labels: chart?.dates || [],
     datasets: [
       {
         label: '토양습도',
         backgroundColor: 'rgba(0, 0, 255, 0.5)',
         borderColor: 'blue',
-        data: [3, 5, 11] // y 값
+        data: chart?.c001 || []
       },
       {
         label: '토양온도',
         backgroundColor: 'rgba(255, 0, 0, 0.5)',
         borderColor: 'red',
-        data: [5, 10, 10] // y 값
+        data: chart?.c002 || []
       },
       {
         label: '토양양분',
         backgroundColor: 'rgba(255, 165, 0, 0.5)',
         borderColor: 'orange',
-        data: [15, 23, 20] // y 값
+        data: chart?.c003 || []
       }
     ]
   };
@@ -64,15 +67,19 @@ const NdviInfoContainer = () => {
   const handleClickDirection = (direction: DirectionType) => {
     setSelectedDirection(direction);
   };
-  const search = async () => {
+
+  const fetchNdviChart = async () => {
+    const res = await getNdviChart();
+    setChart(res);
+  };
+
+  const fetchNdviImage = async () => {
     const res = await getNdviImage(startDate.format(dateFormat), endDate.format(dateFormat));
     console.log('res', res);
 
     if (res && res.east) {
-      // Set the state re the extracted image data
       setEastImage(res.east);
 
-      // Repeat similarly for `west` and `south` if applicable
       if (res.west) {
         setWestImage(res.west);
       }
@@ -90,7 +97,8 @@ const NdviInfoContainer = () => {
   };
 
   useEffect(() => {
-    search();
+    fetchNdviImage();
+    fetchNdviChart();
   }, []);
 
   return (
@@ -122,7 +130,7 @@ const NdviInfoContainer = () => {
                 minDate={startDate}
               />
 
-              <Button id="searchNDVI" className="tab-link" onClick={search}>
+              <Button id="searchNDVI" className="tab-link" onClick={fetchNdviImage}>
                 검색
               </Button>
               <Button>
@@ -142,40 +150,32 @@ const NdviInfoContainer = () => {
             </div>
           </div>
           <div className="card-body ndvi-swiper">
-            <Swiper
-              onSlideChange={handleSlideChange}
-              spaceBetween={50}
-              slidesPerView={1}
-              style={{ width: '100%' }}
-              loop={true}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false
-              }}>
-              {imageMap[selectedDirection]?.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <ReactCompareImage leftImage={image.now} rightImage={image.predict} sliderPositionPercentage={0.5} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <ReactCompareImage
-              leftImage={
-                selectedDirection === 'east'
-                  ? eastImage[0]?.now || ''
-                  : selectedDirection === 'south'
-                    ? southImage[0]?.now || ''
-                    : westImage[0]?.now || ''
-              }
-              rightImage={
-                selectedDirection === 'east'
-                  ? eastImage[0]?.predict || ''
-                  : selectedDirection === 'south'
-                    ? southImage[0]?.predict || ''
-                    : westImage[0]?.predict || ''
-              }
-              sliderPositionPercentage={0.5}
-            />
+            {imageMap[selectedDirection]?.length ? (
+              <Swiper
+                onSlideChange={handleSlideChange}
+                spaceBetween={50}
+                slidesPerView={1}
+                style={{ width: '400px', height: '400px' }}
+                loop={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false
+                }}>
+                {imageMap[selectedDirection].map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <ReactCompareImage
+                      leftImage={image.now}
+                      rightImage={image.predict}
+                      sliderPositionPercentage={0.5}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
+                이미지가 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </div>

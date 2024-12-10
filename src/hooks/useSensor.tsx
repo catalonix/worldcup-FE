@@ -1,7 +1,9 @@
 import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import {
+  DirectionType,
   GetGradeValueResponseType,
+  GetNdviChartResponseType,
   GetNdviInfoParams,
   GetObservationParams,
   GetSensorInfoResponseType,
@@ -10,7 +12,8 @@ import {
   GetSoilSummaryResponseType,
   GetWeatherHeaderResponseType,
   GetWeatherInfoParams,
-  GetWeatherSummaryResponseType
+  GetWeatherSummaryResponseType,
+  NdviCameraType
 } from 'shared/api/sensor/sensorAPIService.types';
 import sensorAPI from 'shared/api/sensor/sensorAPIService';
 import { useState } from 'react';
@@ -248,6 +251,20 @@ const useSensor = () => {
     }
   };
 
+  const getNdviCamera = async () => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getNdviCamera();
+      return res;
+    } catch (error) {
+      console.error('getNdviCamera', error);
+      openNotification('error', 'NDVI 카메라 조회에 실패하였습니다. 다시 시도해주세요.');
+      return { west: {} as NdviCameraType, east: {} as NdviCameraType, south: {} as NdviCameraType };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getNdviImage = async (startDate: string, endDate: string) => {
     setLoading(true);
     try {
@@ -261,6 +278,63 @@ const useSensor = () => {
       setLoading(false);
     }
   };
+
+  const getFieldImage = async (startDate: string, endDate: string) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getFieldImage(startDate, endDate);
+      return res;
+    } catch (error) {
+      console.error('getFieldImage', error);
+      openNotification('error', '경기장 이미지 조회에 실패하였습니다. 다시 시도해주세요.');
+      return { west: [], east: [], south: [], captureDate: '' };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const captureCamera = async () => {
+    setLoading(true);
+    try {
+      await sensorAPI.captureCamera();
+      return true;
+    } catch (error) {
+      console.error('captureCamera', error);
+      openNotification('error', '실시간 촬영에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getNdviChart = async () => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getNdviChart();
+      return res;
+    } catch (error) {
+      console.error('getNdviChart', error);
+      openNotification('error', 'Ndvi 차트 조회에 실패하였습니다. 다시 시도해주세요.');
+      return {} as GetNdviChartResponseType;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getLiveUrl = async (direction: DirectionType) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getLiveUrl(direction);
+      return res;
+    } catch (error) {
+      console.error('getLiveUrl', error);
+      openNotification('error', '실시간 카메라 조회에 실패하였습니다. 다시 시도해주세요.');
+      return '';
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -284,7 +358,12 @@ const useSensor = () => {
     getSensorSummary,
     getGradeValue,
     setGradeValue,
-    getNdviImage
+    getNdviCamera,
+    getFieldImage,
+    getNdviImage,
+    captureCamera,
+    getNdviChart,
+    getLiveUrl
   };
 };
 export default useSensor;

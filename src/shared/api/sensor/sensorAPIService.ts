@@ -1,6 +1,10 @@
 import { authAxiosInstance } from '../common';
 import {
+  DirectionType,
+  GetFieldImageResponseType,
   GetGradeValueResponseType,
+  GetNdviCameraResponseType,
+  GetNdviChartResponseType,
   GetNdviImageResponseType,
   GetNdviInfoParams,
   GetSensorInfoResponseType,
@@ -63,10 +67,32 @@ const sensorAPI = {
     const res = await authAxiosInstance.patch('/api/sensor/grade-value/', params);
     return res.data;
   },
+  getNdviCamera: async () => {
+    const res = await authAxiosInstance.get<GetNdviCameraResponseType>('/api/sensor/ndvi-camera/');
+    return res.data;
+  },
   getNdviImage: async (startDate: string, endDate: string) => {
     const res = await authAxiosInstance.get<GetNdviImageResponseType>(
       `/api/sensor/ndvi-image/?startDate=${startDate}&endDate=${endDate}`
     );
+    return res.data;
+  },
+  getFieldImage: async (startDate: string, endDate: string) => {
+    const res = await authAxiosInstance.get<GetFieldImageResponseType>(
+      `/api/sensor/field-image/?startDate=${startDate}&endDate=${endDate}`
+    );
+    return res.data;
+  },
+  captureCamera: async () => {
+    const res = await authAxiosInstance.post('/api/sensor/field-capture/');
+    return res.data;
+  },
+  getNdviChart: async () => {
+    const res = await authAxiosInstance.get<GetNdviChartResponseType>('/api/sensor/ndvi-chart/');
+    return res.data;
+  },
+  getLiveUrl: async (direction: DirectionType) => {
+    const res = await authAxiosInstance.get<{ url: string }>(`/api/sensor/field-live/?direction=${direction}`);
     return res.data;
   }
 };

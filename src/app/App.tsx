@@ -13,6 +13,8 @@ import {
   Legend,
   LineController
 } from 'chart.js';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 function App() {
   ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, LineController);

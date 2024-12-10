@@ -9,18 +9,10 @@
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"],
-        "extensions": [".ts", ".tsx"]
+        "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
       },
       "typescript": { "alwaysTryTypes": true }
-    },
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never",
-        "tsx": "never"
-      }
-    ]
+    }
   },
   "rules": {
     "react/jsx-filename-extension": 1,
@@ -77,10 +69,12 @@
       "error",
       "ignorePackages",
       {
+        "": "never",
         "ts": "never",
         "tsx": "never",
         "mjs": "never",
-        "": "never"
+        "js": "never",
+        "jsx": "never"
       }
     ],
     "quotes": ["error", "single"] // single으로 유지

@@ -21,6 +21,32 @@
     background-color: #22354e;
     background-clip: border-box;
     margin-bottom: 20px;
+
+    .compare-wrapper {
+      position: relative;
+    }
+
+    .compare-wrapper.hovered {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .label {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .label.left {
+      top: 50%;
+      left: 10%;
+    }
+    .label.right {
+      top: 50%;
+      right: 10%;
+    }
   }
 
   .card-header {
