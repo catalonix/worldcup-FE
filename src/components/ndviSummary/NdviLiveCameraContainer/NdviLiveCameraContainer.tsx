@@ -8,7 +8,15 @@ import { dateFormat } from 'common/types';
 import { DirectionType } from 'shared/api/sensor/sensorAPIService.types';
 import useSensor from 'hooks/useSensor';
 import useNotification from 'hooks/useNotification';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import Slider from 'react-slick';
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1
+};
 
 const NdviLiveCameraContainer = () => {
   const { getFieldImage, captureCamera, getLiveUrl } = useSensor();
@@ -124,19 +132,21 @@ const NdviLiveCameraContainer = () => {
           </div>
         </div>
         <div className="card-body">
-          {imageMap[selectedDirection]?.length ? (
-            <Swiper spaceBetween={50} speed={1000}>
-              {imageMap[selectedDirection].map(img => (
-                <SwiperSlide key={img}>
-                  <img src={img} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
-              이미지가 없습니다.
-            </div>
-          )}
+          <div className="slider-container">
+            {imageMap[selectedDirection]?.length ? (
+              <Slider {...settings} key={imageMap[selectedDirection]?.length}>
+                {imageMap[selectedDirection].map(img => (
+                  <div key={img}>
+                    <img src={img} alt="실시간 사진" />
+                  </div>
+                ))}
+              </Slider>
+            ) : (
+              <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
+                이미지가 없습니다.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
