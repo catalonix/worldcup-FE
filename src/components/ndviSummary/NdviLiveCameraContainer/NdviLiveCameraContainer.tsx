@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, DatePicker, Modal } from 'antd';
-import { PauseOutlined, CameraOutlined } from '@ant-design/icons';
+import { PauseOutlined, CameraOutlined, CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { directions } from 'common/constants/ndviSummary';
@@ -10,17 +10,50 @@ import useSensor from 'hooks/useSensor';
 import useNotification from 'hooks/useNotification';
 import Slider from 'react-slick';
 
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1
+const CustomPrevArrow = (props: { onClick?: () => void }) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="right"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 1000,
+        cursor: 'pointer'
+      }}>
+      <CaretLeftOutlined />
+    </div>
+  );
+};
+
+const CustomNextArrow = (props: { onClick?: () => void }) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="left"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        right: '0px',
+        transform: 'translateY(-50%)',
+        zIndex: 1000,
+        cursor: 'pointer'
+      }}>
+      <CaretRightOutlined />
+    </div>
+  );
 };
 
 const NdviLiveCameraContainer = () => {
   const { getFieldImage, captureCamera, getLiveUrl } = useSensor();
   const { openNotification } = useNotification();
+
+  const sliderRef = useRef<Slider | null>(null);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const [capturedDate, setCapturedDate] = useState<string>('');
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -37,11 +70,26 @@ const NdviLiveCameraContainer = () => {
     west: westImage
   };
 
+  const settings = {
+    dots: false,
+    arrow: false,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    infinite: false,
+    autoPlay: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 2,
+    adaptiveHeight: true
+  };
+
   const handleClickDirection = (direction: DirectionType) => {
     setSelectedDirection(direction);
   };
 
   const fetchFieldImage = async () => {
+    setIsLoading(true);
     const res = await getFieldImage(startDate.format(dateFormat), endDate.format(dateFormat));
     console.log('res', res);
     setCapturedDate(res.captureDate.replace('T', ' ').slice(0, 19));
@@ -83,8 +131,16 @@ const NdviLiveCameraContainer = () => {
   }, []);
 
   useEffect(() => {
+    if (sliderRef.current && imageMap[selectedDirection]?.length > 0) {
+      sliderRef.current.slickGoTo(0); // 슬라이더 초기화
+    }
+
+    if (imageMap[selectedDirection]?.length) {
+      setIsLoading(false);
+    }
+
     console.log('imageMap[selectedDirection]', imageMap[selectedDirection]);
-  }, [selectedDirection]);
+  }, [imageMap, selectedDirection]);
 
   return (
     <div className="camera-container">
@@ -133,14 +189,20 @@ const NdviLiveCameraContainer = () => {
         </div>
         <div className="card-body">
           <div className="slider-container">
-            {imageMap[selectedDirection]?.length ? (
-              <Slider {...settings} key={imageMap[selectedDirection]?.length}>
+            {isLoading ? (
+              <div style={{ textAlign: 'center', padding: '20px' }}>이미지를 불러오는 중입니다...</div>
+            ) : imageMap[selectedDirection]?.length > 1 ? (
+              <Slider ref={sliderRef} {...settings} key={imageMap[selectedDirection]?.length}>
                 {imageMap[selectedDirection].map(img => (
                   <div key={img}>
-                    <img src={img} alt="실시간 사진" />
+                    <img src={img} alt="실시간 사진" width="100%" />
                   </div>
                 ))}
               </Slider>
+            ) : imageMap[selectedDirection]?.length === 1 ? (
+              <div>
+                <img src={imageMap[selectedDirection][0]} alt="실시간 사진" width="100%" />
+              </div>
             ) : (
               <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
                 이미지가 없습니다.

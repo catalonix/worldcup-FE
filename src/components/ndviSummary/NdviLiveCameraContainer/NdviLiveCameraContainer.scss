@@ -44,34 +44,50 @@
   position: relative;
   width: 100%;
   max-width: 100%; /* 부모 요소의 너비를 100%로 설정 */
+  height: 500px;
+  max-height: 500px;
   margin: 0 auto;
-  overflow: hidden; /* 이미지가 밖으로 나가지 않도록 설정 */
-}
-
-.slider-container img {
-  width: 100%; /* 이미지를 슬라이더의 크기에 맞게 조정 */
-  height: auto;
+  overflow: hidden;
 }
 
 .slick-track {
   display: flex !important; /* Flexbox로 강제 조정 */
   align-items: center;
-  width: 100%;
+  height: 100%;
+  max-height: 500px !important;
 }
 
 .slick-slide {
-  display: flex !important; /* 각 슬라이드를 개별적으로 보여주도록 설정 */
-  justify-content: center; /* 슬라이드를 가운데 정렬 */
-}
-
-.slick-slide {
-  width: 100% !important; /* 한 번에 하나의 슬라이드만 보이도록 */
   padding: 0 !important;
+  height: 100%;
+}
+
+.slick-list {
+  display: block;
+  overflow: hidden;
+  max-height: 500px !important;
+  margin: 0;
+  padding: 0;
 }
 
 .slick-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  height: auto;
+  width: 80%; /* 이미지의 너비를 부모에 맞추기 */
+  height: 80%; /* 부모 요소의 높이에 맞추기 */
+  object-fit: cover; /* 이미지를 부모 요소 크기에 맞게 채우기 */
+  margin: auto;
+}
+
+.slick-prev,
+.slick-next {
+  z-index: 1000;
+  font-size: 24px; /* 버튼 크기 */
+  color: white; /* 버튼 색상 */
+}
+
+.slick-prev {
+  left: -40px; /* 왼쪽 버튼 위치 */
+}
+
+.slick-next {
+  right: -40px; /* 오른쪽 버튼 위치 */
 }
