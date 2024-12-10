@@ -136,3 +136,10 @@ export type GetNdviImageResponseType = {
 };
 
 export type DirectionType = 'west' | 'south' | 'east';
+
+export type GetNdviChartResponseType = {
+  dates: string[];
+  c001: number[];
+  c002: number[];
+  c003: number[];
+};

@@ -2,6 +2,7 @@ import { useLoading } from 'contexts/LoadingContext';
 import useNotification from './useNotification';
 import {
   GetGradeValueResponseType,
+  GetNdviChartResponseType,
   GetNdviInfoParams,
   GetObservationParams,
   GetSensorInfoResponseType,
@@ -290,6 +291,20 @@ const useSensor = () => {
       setLoading(false);
     }
   };
+
+  const getNdviChart = async () => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.getNdviChart();
+      return res;
+    } catch (error) {
+      console.error('getNdviChart', error);
+      openNotification('error', 'Ndvi 차트 조회에 실패하였습니다. 다시 시도해주세요.');
+      return {} as GetNdviChartResponseType;
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     ndviInfo,
     soilInfo,
@@ -315,7 +330,8 @@ const useSensor = () => {
     setGradeValue,
     getNdviCamera,
     getNdviImage,
-    captureCamera
+    captureCamera,
+    getNdviChart
   };
 };
 export default useSensor;

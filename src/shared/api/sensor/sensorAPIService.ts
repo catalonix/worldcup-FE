@@ -2,6 +2,7 @@ import { authAxiosInstance } from '../common';
 import {
   GetGradeValueResponseType,
   GetNdviCameraResponseType,
+  GetNdviChartResponseType,
   GetNdviImageResponseType,
   GetNdviInfoParams,
   GetSensorInfoResponseType,
@@ -75,7 +76,11 @@ const sensorAPI = {
     return res.data;
   },
   captureCamera: async () => {
-    const res = await authAxiosInstance.post('/api/sensor/field-capture');
+    const res = await authAxiosInstance.post('/api/sensor/field-capture/');
+    return res.data;
+  },
+  getNdviChart: async () => {
+    const res = await authAxiosInstance.get<GetNdviChartResponseType>('/api/sensor/ndvi-chart/');
     return res.data;
   }
 };

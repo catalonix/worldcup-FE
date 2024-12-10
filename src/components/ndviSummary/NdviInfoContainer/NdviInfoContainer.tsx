@@ -7,12 +7,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Chart } from 'react-chartjs-2';
 import useSensor from 'hooks/useSensor';
 import { dateFormat } from 'common/types';
-import { DirectionType, NdviImageType } from 'shared/api/sensor/sensorAPIService.types';
+import { DirectionType, GetNdviChartResponseType, NdviImageType } from 'shared/api/sensor/sensorAPIService.types';
 import ReactCompareImage from 'react-compare-image';
 import { directions } from 'common/constants/ndviSummary';
 
 const NdviInfoContainer = () => {
-  const { getNdviImage } = useSensor();
+  const { getNdviImage, getNdviChart } = useSensor();
+
+  const [chart, setChart] = useState<GetNdviChartResponseType>();
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
 
@@ -38,25 +40,25 @@ const NdviInfoContainer = () => {
   };
 
   const data = {
-    labels: ['1', '2', '3'], // x축을 나타내는 가상의 레이블
+    labels: chart?.dates || [],
     datasets: [
       {
         label: '토양습도',
         backgroundColor: 'rgba(0, 0, 255, 0.5)',
         borderColor: 'blue',
-        data: [3, 5, 11] // y 값
+        data: chart?.c001 || []
       },
       {
         label: '토양온도',
         backgroundColor: 'rgba(255, 0, 0, 0.5)',
         borderColor: 'red',
-        data: [5, 10, 10] // y 값
+        data: chart?.c002 || []
       },
       {
         label: '토양양분',
         backgroundColor: 'rgba(255, 165, 0, 0.5)',
         borderColor: 'orange',
-        data: [15, 23, 20] // y 값
+        data: chart?.c003 || []
       }
     ]
   };
@@ -64,7 +66,13 @@ const NdviInfoContainer = () => {
   const handleClickDirection = (direction: DirectionType) => {
     setSelectedDirection(direction);
   };
-  const search = async () => {
+
+  const fetchNdviChart = async () => {
+    const res = await getNdviChart();
+    setChart(res);
+  };
+
+  const fetchNdviImage = async () => {
     const res = await getNdviImage(startDate.format(dateFormat), endDate.format(dateFormat));
     console.log('res', res);
 
@@ -88,7 +96,8 @@ const NdviInfoContainer = () => {
   };
 
   useEffect(() => {
-    search();
+    fetchNdviImage();
+    fetchNdviChart();
   }, []);
 
   return (
@@ -120,7 +129,7 @@ const NdviInfoContainer = () => {
                 minDate={startDate}
               />
 
-              <Button id="searchNDVI" className="tab-link" onClick={search}>
+              <Button id="searchNDVI" className="tab-link" onClick={fetchNdviImage}>
                 검색
               </Button>
               <Button>
