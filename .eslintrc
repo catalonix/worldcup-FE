@@ -4,14 +4,19 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["prettier", "import", "@typescript-eslint", "react"],
-  "extends": ["prettier", "plugin:prettier/recommended", "plugin:import/typescript"],
+  "extends": [
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "settings": {
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"],
         "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
       },
-      "typescript": { "alwaysTryTypes": true }
+      "typescript": {}
     }
   },
   "rules": {
@@ -46,6 +51,12 @@
     "jsx-a11y/control-has-associated-label": 0,
     "import/no-extraneous-dependencies": 0,
     "object-curly-spacing": [1, "always"],
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": ["^swiper/"]
+      }
+    ],
     "@typescript-eslint/no-unused-vars": [
       1,
       {
