@@ -4,6 +4,7 @@ import { PauseOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import { Chart } from 'react-chartjs-2';
 import useSensor from 'hooks/useSensor';
 import { dateFormat } from 'common/types';
@@ -149,40 +150,32 @@ const NdviInfoContainer = () => {
             </div>
           </div>
           <div className="card-body ndvi-swiper">
-            {/* <Swiper
-              onSlideChange={handleSlideChange}
-              spaceBetween={50}
-              slidesPerView={1}
-              style={{ width: '100%' }}
-              loop={true}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false
-              }}>
-              {imageMap[selectedDirection]?.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <ReactCompareImage leftImage={image.now} rightImage={image.predict} sliderPositionPercentage={0.5} />
-                </SwiperSlide>
-              ))}
-            </Swiper> */}
-
-            <ReactCompareImage
-              leftImage={
-                selectedDirection === 'east'
-                  ? eastImage[0]?.now || ''
-                  : selectedDirection === 'south'
-                    ? southImage[0]?.now || ''
-                    : westImage[0]?.now || ''
-              }
-              rightImage={
-                selectedDirection === 'east'
-                  ? eastImage[0]?.predict || ''
-                  : selectedDirection === 'south'
-                    ? southImage[0]?.predict || ''
-                    : westImage[0]?.predict || ''
-              }
-              sliderPositionPercentage={0.5}
-            />
+            {imageMap[selectedDirection]?.length ? (
+              <Swiper
+                onSlideChange={handleSlideChange}
+                spaceBetween={50}
+                slidesPerView={1}
+                style={{ width: '400px', height: '400px' }}
+                loop={true}
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false
+                }}>
+                {imageMap[selectedDirection].map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <ReactCompareImage
+                      leftImage={image.now}
+                      rightImage={image.predict}
+                      sliderPositionPercentage={0.5}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
+                이미지가 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </div>

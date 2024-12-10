@@ -129,6 +129,13 @@ export type NdviImageType = {
   predict: string;
 };
 
+export type GetFieldImageResponseType = {
+  captureDate: string;
+  east: string[];
+  west: string[];
+  south: string[];
+};
+
 export type GetNdviImageResponseType = {
   east: NdviImageType[];
   west: NdviImageType[];
