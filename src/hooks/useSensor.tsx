@@ -276,6 +276,20 @@ const useSensor = () => {
       setLoading(false);
     }
   };
+
+  const captureCamera = async () => {
+    setLoading(true);
+    try {
+      await sensorAPI.captureCamera();
+      return true;
+    } catch (error) {
+      console.error('captureCamera', error);
+      openNotification('error', '카메라 촬영에 실패하였습니다. 다시 시도해주세요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
   return {
     ndviInfo,
     soilInfo,
@@ -300,7 +314,8 @@ const useSensor = () => {
     getGradeValue,
     setGradeValue,
     getNdviCamera,
-    getNdviImage
+    getNdviImage,
+    captureCamera
   };
 };
 export default useSensor;

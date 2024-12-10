@@ -73,6 +73,10 @@ const sensorAPI = {
       `/api/sensor/ndvi-image/?startDate=${startDate}&endDate=${endDate}`
     );
     return res.data;
+  },
+  captureCamera: async () => {
+    const res = await authAxiosInstance.post('/api/sensor/field-capture');
+    return res.data;
   }
 };
 

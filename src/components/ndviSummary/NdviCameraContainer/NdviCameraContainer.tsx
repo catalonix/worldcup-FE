@@ -6,11 +6,12 @@ import ReactCompareImage from 'react-compare-image';
 const NdviCameraContainer = () => {
   const { getNdviCamera } = useSensor();
   const [cameras, setCameras] = useState<GetNdviCameraResponseType>();
+  const [hoveredCamera, setHoveredCamera] = useState<string | null>(null);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const formattedDate = date.toISOString().slice(0, 10); // 'YYYY-MM-DD' 형식
-    const formattedTime = date.toTimeString().slice(0, 5); // 'HH:MM' 형식
+    const formattedDate = date.toISOString().slice(0, 10);
+    const formattedTime = date.toTimeString().slice(0, 5);
     return { formattedDate, formattedTime };
   };
 
@@ -67,8 +68,17 @@ const NdviCameraContainer = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div
+            className={`compare-wrapper ${hoveredCamera === key ? 'hovered' : ''}`}
+            onMouseEnter={() => setHoveredCamera(key)}
+            onMouseLeave={() => setHoveredCamera(null)}>
             <ReactCompareImage leftImage={data.dailyUrl} rightImage={data.ma5Url} sliderPositionPercentage={0.5} />
+            {hoveredCamera === key && (
+              <>
+                <div className="label left">현재</div>
+                <div className="label right">예측</div>
+              </>
+            )}
           </div>
         </div>
       </div>
