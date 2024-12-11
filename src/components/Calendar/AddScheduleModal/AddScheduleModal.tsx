@@ -25,8 +25,8 @@ const AddSchedule = (props: AddScheduleProps) => {
   const { addSchedule, deleteSchedule, editSchedule, getCalendarTaskByDate } = useCalendar();
   const [form] = Form.useForm();
   const [date, setDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
-  const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
-  const [pmWorkItems, setPmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '', main: '', sub: '' }]);
+  const [amWorkItems, setAmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '주경기', main: '관수', sub: '전면관수' }]);
+  const [pmWorkItems, setPmWorkItems] = useState<ScheduleAmPm[]>([{ loc: '주경기', main: '관수', sub: '전면관수' }]);
 
   const formItemLayout = {
     labelCol: {
@@ -51,11 +51,11 @@ const AddSchedule = (props: AddScheduleProps) => {
     form.setFieldsValue({
       title: '',
       date: '',
-      amWorkItems: { loc: '', main: '', sub: '' },
-      pmWorkItems: { loc: '', main: '', sub: '' }
+      amWorkItems: { loc: '주경기', main: '관수', sub: '전면관수' },
+      pmWorkItems: { loc: '주경기', main: '관수', sub: '전면관수' }
     });
-    setAmWorkItems([{ loc: '', main: '', sub: '' }]);
-    setPmWorkItems([{ loc: '', main: '', sub: '' }]);
+    setAmWorkItems([{ loc: '주경기', main: '관수', sub: '전면관수' }]);
+    setPmWorkItems([{ loc: '주경기', main: '관수', sub: '전면관수' }]);
   };
 
   const handleOk = async () => {
@@ -96,12 +96,12 @@ const AddSchedule = (props: AddScheduleProps) => {
 
   // 작업 추가 함수
   const handleAdd = (type: 'am' | 'pm', workItems: ScheduleAmPm[]) => {
-    console.log('HERE', workItems);
+    console.log('handleAdd', workItems);
     console.log('worItems', form);
     if (type === 'am') {
-      setAmWorkItems([...amWorkItems, { loc: '', main: '', sub: '' }]);
+      setAmWorkItems([...amWorkItems, { loc: '주경기', main: '관수', sub: '전면관수' }]);
     } else {
-      setPmWorkItems([...pmWorkItems, { loc: '', main: '', sub: '' }]);
+      setPmWorkItems([...pmWorkItems, { loc: '주경기', main: '관수', sub: '전면관수' }]);
     }
   };
 
@@ -121,6 +121,7 @@ const AddSchedule = (props: AddScheduleProps) => {
     if (type === 'am') {
       const updatedItems = [...amWorkItems];
       updatedItems[index] = { ...updatedItems[index], [field]: value };
+      console.log('am', value, field, updatedItems);
       setAmWorkItems(updatedItems);
     } else {
       const updatedItems = [...pmWorkItems];
