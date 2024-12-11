@@ -1,10 +1,37 @@
 .info-container {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 
   gap: 0.5rem; /* 요소 간 간격 */
   margin-bottom: 10px;
+
+  .compare-wrapper {
+    position: relative;
+  }
+
+  .compare-wrapper.hovered {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .label {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .left {
+    top: 50%;
+    left: 0%;
+  }
+  .label.right {
+    top: 50%;
+    right: 10%;
+  }
 }
 
 .info-box {
@@ -28,6 +55,29 @@
     flex-direction: row;
     gap: 0.5rem;
   }
+
+  .card-body {
+    height: 500px;
+  }
+
+  .slick-list {
+    width: 100%;
+    max-width: 40vw;
+    height: 500px !important;
+  }
+
+  .slick-slide {
+    height: 100%;
+  }
+
+  .slick-slider {
+    display: flex;
+    justify-content: center;
+  }
+
+  .slick-current {
+    height: 100%;
+  }
 }
 
 .info-box:first-of-type {
@@ -49,33 +99,15 @@
   }
 }
 
-.card {
-  border: 1px solid #22354e;
-  color: #aed5ff;
-  display: flex; /* card를 flex 컨테이너로 설정 */
-  flex-direction: column; /* 내부 요소 세로 정렬 */
-}
+@media (max-width: 600px) {
+  .card-body {
+    height: 300px;
+  }
 
-.ndvi-swiper {
-  width: 100%;
-  height: 400px;
-}
-
-.ndvi-swiper .swiper-wrapper {
-  height: 100%; /* Swiper 내부의 wrapper가 부모 높이를 채우도록 설정 */
-}
-
-.ndvi-swiper .swiper-slide {
-  display: flex; /* 가운데 정렬을 위해 flex 사용 */
-  justify-content: center;
-  align-items: center;
-  height: 100%; /* 부모 높이를 채우도록 설정 */
-}
-
-.ndvi-swiper .swiper-slide img {
-  max-height: 100%; /* 이미지가 슬라이드 높이를 초과하지 않도록 설정 */
-  max-width: 100%; /* 이미지가 슬라이드 폭을 초과하지 않도록 설정 */
-  object-fit: contain; /* 이미지가 비율을 유지하면서 컨테이너에 맞게 조정 */
+  .slick-list {
+    max-width: 80vw;
+    height: 100%;
+  }
 }
 
 .no-image-message {

@@ -53,8 +53,7 @@ const NdviLiveCameraContainer = () => {
 
   const sliderRef = useRef<Slider | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [isStop, setIsStop] = useState<boolean>(false);
   const [capturedDate, setCapturedDate] = useState<string>('');
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -72,15 +71,14 @@ const NdviLiveCameraContainer = () => {
 
   const settings = {
     dots: false,
-    arrow: false,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    infinite: false,
-    autoPlay: false,
+    infinite: true,
+    autoplay: true,
     speed: 500,
+    autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 2,
     adaptiveHeight: true
   };
 
@@ -89,7 +87,6 @@ const NdviLiveCameraContainer = () => {
   };
 
   const fetchFieldImage = async () => {
-    setIsLoading(true);
     const res = await getFieldImage(startDate.format(dateFormat), endDate.format(dateFormat));
     console.log('res', res);
     setCapturedDate(res.captureDate.replace('T', ' ').slice(0, 19));
@@ -126,6 +123,18 @@ const NdviLiveCameraContainer = () => {
     });
   };
 
+  const handleClickPause = () => {
+    setIsStop(prev => {
+      const newIsStop = !prev;
+      if (newIsStop) {
+        sliderRef.current?.slickPause();
+      } else {
+        sliderRef.current?.slickPlay();
+      }
+      return newIsStop;
+    });
+  };
+
   useEffect(() => {
     fetchFieldImage();
   }, []);
@@ -134,13 +143,7 @@ const NdviLiveCameraContainer = () => {
     if (sliderRef.current && imageMap[selectedDirection]?.length > 0) {
       sliderRef.current.slickGoTo(0); // 슬라이더 초기화
     }
-
-    if (imageMap[selectedDirection]?.length) {
-      setIsLoading(false);
-    }
-
-    console.log('imageMap[selectedDirection]', imageMap[selectedDirection]);
-  }, [imageMap, selectedDirection]);
+  }, [selectedDirection]);
 
   return (
     <div className="camera-container">
@@ -166,9 +169,7 @@ const NdviLiveCameraContainer = () => {
             <Button id="searchNDVI" className="tab-link" onClick={fetchFieldImage}>
               검색
             </Button>
-            <Button>
-              <PauseOutlined />
-            </Button>
+            <Button onClick={handleClickPause}>{isStop ? <CaretRightOutlined /> : <PauseOutlined />}</Button>
 
             <Button type="primary" onClick={handleClickLive}>
               LIVE
@@ -189,10 +190,8 @@ const NdviLiveCameraContainer = () => {
         </div>
         <div className="card-body">
           <div className="slider-container">
-            {isLoading ? (
-              <div style={{ textAlign: 'center', padding: '20px' }}>이미지를 불러오는 중입니다...</div>
-            ) : imageMap[selectedDirection]?.length > 1 ? (
-              <Slider ref={sliderRef} {...settings} key={imageMap[selectedDirection]?.length}>
+            {imageMap[selectedDirection]?.length > 1 ? (
+              <Slider ref={sliderRef} {...settings}>
                 {imageMap[selectedDirection].map(img => (
                   <div key={img}>
                     <img src={img} alt="실시간 사진" width="100%" />
