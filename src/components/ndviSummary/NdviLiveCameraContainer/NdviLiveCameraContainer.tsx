@@ -53,8 +53,6 @@ const NdviLiveCameraContainer = () => {
 
   const sliderRef = useRef<Slider | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
-
   const [capturedDate, setCapturedDate] = useState<string>('');
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -89,7 +87,6 @@ const NdviLiveCameraContainer = () => {
   };
 
   const fetchFieldImage = async () => {
-    setIsLoading(true);
     const res = await getFieldImage(startDate.format(dateFormat), endDate.format(dateFormat));
     console.log('res', res);
     setCapturedDate(res.captureDate.replace('T', ' ').slice(0, 19));
@@ -134,12 +131,6 @@ const NdviLiveCameraContainer = () => {
     if (sliderRef.current && imageMap[selectedDirection]?.length > 0) {
       sliderRef.current.slickGoTo(0); // 슬라이더 초기화
     }
-
-    if (imageMap[selectedDirection]?.length) {
-      setIsLoading(false);
-    }
-
-    console.log('imageMap[selectedDirection]', imageMap[selectedDirection]);
   }, [imageMap, selectedDirection]);
 
   return (
@@ -189,9 +180,7 @@ const NdviLiveCameraContainer = () => {
         </div>
         <div className="card-body">
           <div className="slider-container">
-            {isLoading ? (
-              <div style={{ textAlign: 'center', padding: '20px' }}>이미지를 불러오는 중입니다...</div>
-            ) : imageMap[selectedDirection]?.length > 1 ? (
+            {imageMap[selectedDirection]?.length > 1 ? (
               <Slider ref={sliderRef} {...settings} key={imageMap[selectedDirection]?.length}>
                 {imageMap[selectedDirection].map(img => (
                   <div key={img}>

@@ -111,7 +111,7 @@ const NdviInfoContainer = () => {
   return (
     <div className="info-container">
       <div className="info-box">
-        <div className="card">
+        <div className="card" style={{ height: '100%' }}>
           <div className="card-header">지수 변화</div>
           <div className="card-body">
             <Chart type="line" data={data} options={options} />
@@ -156,24 +156,26 @@ const NdviInfoContainer = () => {
               ))}
             </div>
           </div>
-          <div className="card-body ndvi-swiper">
-            {imageMap[selectedDirection]?.length ? (
-              <Slider {...settings}>
-                {imageMap[selectedDirection].map((image, index) => (
-                  <div key={index}>
-                    <ReactCompareImage
-                      leftImage={image.now}
-                      rightImage={image.predict}
-                      sliderPositionPercentage={0.5}
-                    />
-                  </div>
-                ))}
-              </Slider>
-            ) : (
-              <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
-                이미지가 없습니다.
-              </div>
-            )}
+          <div className="card-body">
+            <div className="slider-container">
+              {imageMap[selectedDirection]?.length ? (
+                <Slider {...settings}>
+                  {imageMap[selectedDirection].map((image, index) => (
+                    <div key={index}>
+                      <ReactCompareImage
+                        leftImage={image.now}
+                        rightImage={image.predict}
+                        sliderPositionPercentage={0.5}
+                      />
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
+                  이미지가 없습니다.
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
