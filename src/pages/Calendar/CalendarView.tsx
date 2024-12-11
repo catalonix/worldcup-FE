@@ -29,7 +29,7 @@ const CustomEvent = ({ event }: { event: GetCalendarListItemType }) => {
 };
 
 const Calendar = () => {
-  const { getCalendarList, getScheduleType } = useCalendar();
+  const { getCalendarList, getScheduleType, getCalendarTaskByDate } = useCalendar();
   const { getCurrentMonth } = useDate();
 
   const { dispatchMainTypes, dispatchSubTypes } = useCalendarStore();
@@ -102,14 +102,19 @@ const Calendar = () => {
   //     ]);
   // };
 
-  const handleSelectEvent = ({ start }: { start: Date }) => {
+  const handleSelectEvent = async ({ start }: { start: Date }) => {
     const selectedDate = dayjs(start).format('YYYY-MM-DD');
-    console.log('dd', selectedDate);
 
-    // TODO: 이 날짜 기준으로 해당 날짜 일정 조회
-    setIsEdit(true);
-    setSelectedDate(selectedDate);
-    handleIsModalVisible(true);
+    const res = await getCalendarTaskByDate(selectedDate);
+    if (res && Object.keys(res).length !== 0) {
+      setIsEdit(true);
+      setSelectedDate(selectedDate);
+      handleIsModalVisible(true);
+    } else {
+      setIsEdit(false);
+      setSelectedDate(selectedDate);
+      handleIsModalVisible(true);
+    }
   };
 
   const getScheduleTypes = async () => {
