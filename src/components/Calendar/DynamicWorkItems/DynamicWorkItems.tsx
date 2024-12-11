@@ -29,11 +29,9 @@ const DynamicWorkItems: React.FC<DynamicWorkItemsProps> = ({
     return filtered ? filtered.children : [];
   };
 
-  // filteredSubTypes 타입을 SelectOptionTypes[] 배열로 설정
   const [filteredSubTypes, setFilteredSubTypes] = useState<Record<number, SelectOptionTypes[]>>({});
 
   useEffect(() => {
-    // 각 workItem의 `main` 값에 따라 subTypes를 초기화
     const initialSubTypes = workItems.reduce(
       (acc, workItem, index) => {
         acc[index] = getFilteredSubTypes(workItem.main);
@@ -45,15 +43,12 @@ const DynamicWorkItems: React.FC<DynamicWorkItemsProps> = ({
   }, [workItems, subTypes]);
 
   const handleMainChange = (value: string, index: number) => {
-    // `main` 변경 시, 관련 `subTypes`를 필터링
     const newFilteredSubTypes = { ...filteredSubTypes, [index]: getFilteredSubTypes(value) };
     setFilteredSubTypes(newFilteredSubTypes);
 
-    // 상위 컴포넌트에 값 전달
     handleChange(value, 'main', index, type);
   };
 
-  // 첫 번째 항목을 기본값으로 설정
   const firstOptionValue = (options: SelectOptionTypes[]) => (options.length > 0 ? options[0].value : undefined);
 
   return (
@@ -92,7 +87,7 @@ const DynamicWorkItems: React.FC<DynamicWorkItemsProps> = ({
               {filteredOptions.length > 0 ? (
                 <Select
                   options={filteredOptions}
-                  value={workItems[index].sub || firstSubTypeValue} // 첫 번째 항목 선택
+                  value={workItems[index].sub || firstSubTypeValue}
                   onChange={value => handleChange(value, 'sub', index, type)}
                 />
               ) : (
