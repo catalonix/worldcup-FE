@@ -16,7 +16,7 @@ const CustomPrevArrow = (props: { onClick?: () => void }) => {
   return (
     <div
       onClick={onClick}
-      className="right"
+      className="left"
       style={{
         position: 'absolute',
         top: '50%',
@@ -34,7 +34,7 @@ const CustomNextArrow = (props: { onClick?: () => void }) => {
   return (
     <div
       onClick={onClick}
-      className="left"
+      className="right"
       style={{
         position: 'absolute',
         top: '50%',
@@ -54,6 +54,7 @@ const NdviInfoContainer = () => {
   const sliderRef = useRef<Slider | null>(null);
 
   const [isStop, setIsStop] = useState<boolean>(false);
+  const [hovered, setHovered] = useState<boolean>(false);
 
   const [chart, setChart] = useState<GetNdviChartResponseType>();
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -213,18 +214,37 @@ const NdviInfoContainer = () => {
               {imageMap[selectedDirection]?.length > 1 ? (
                 <Slider ref={sliderRef} {...settings}>
                   {imageMap[selectedDirection].map(img => (
-                    <div key={img.now}>
+                    <div
+                      key={img.now}
+                      className={`compare-wrapper ${hovered ? 'hovered' : ''}`}
+                      onMouseEnter={() => setHovered(true)}
+                      onMouseLeave={() => setHovered(false)}>
                       <ReactCompareImage leftImage={img.now} rightImage={img.predict} sliderPositionPercentage={0.5} />
+                      {hovered && (
+                        <>
+                          <div className="label left">현재</div>
+                          <div className="label right">예측</div>
+                        </>
+                      )}
                     </div>
                   ))}
                 </Slider>
               ) : imageMap[selectedDirection]?.length === 1 ? (
-                <div>
+                <div
+                  className={`compare-wrapper ${hovered ? 'hovered' : ''}`}
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}>
                   <ReactCompareImage
                     leftImage={imageMap[selectedDirection][0].now}
                     rightImage={imageMap[selectedDirection][0].predict}
                     sliderPositionPercentage={0.5}
                   />
+                  {hovered && (
+                    <>
+                      <div className="label left">현재</div>
+                      <div className="label right">예측</div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>

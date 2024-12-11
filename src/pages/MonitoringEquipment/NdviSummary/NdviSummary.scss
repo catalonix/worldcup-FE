@@ -8,6 +8,14 @@
   overflow: hidden;
 }
 
+.slick-initialized {
+  height: 100%;
+}
+
+.slick-list {
+  height: 100%;
+}
+
 .slick-track {
   display: flex !important; /* Flexbox로 강제 조정 */
   align-items: center;

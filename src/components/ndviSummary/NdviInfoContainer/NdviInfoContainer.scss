@@ -1,10 +1,37 @@
 .info-container {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
 
   gap: 0.5rem; /* 요소 간 간격 */
   margin-bottom: 10px;
+
+  .compare-wrapper {
+    position: relative;
+  }
+
+  .compare-wrapper.hovered {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .label {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .left {
+    top: 50%;
+    left: 0%;
+  }
+  .label.right {
+    top: 50%;
+    right: 10%;
+  }
 }
 
 .info-box {
@@ -32,6 +59,25 @@
   .card-body {
     height: 500px;
   }
+
+  .slick-list {
+    width: 100%;
+    max-width: 40vw;
+    height: 500px !important;
+  }
+
+  .slick-slide {
+    height: 100%;
+  }
+
+  .slick-slider {
+    display: flex;
+    justify-content: center;
+  }
+
+  .slick-current {
+    height: 100%;
+  }
 }
 
 .info-box:first-of-type {
@@ -57,12 +103,11 @@
   .card-body {
     height: 300px;
   }
-}
-.card {
-  border: 1px solid #22354e;
-  color: #aed5ff;
-  display: flex; /* card를 flex 컨테이너로 설정 */
-  flex-direction: column; /* 내부 요소 세로 정렬 */
+
+  .slick-list {
+    max-width: 80vw;
+    height: 100%;
+  }
 }
 
 .no-image-message {
