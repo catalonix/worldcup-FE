@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, DatePicker } from 'antd';
-import { PauseOutlined } from '@ant-design/icons';
+import { PauseOutlined, CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { Chart } from 'react-chartjs-2';
@@ -11,16 +11,49 @@ import ReactCompareImage from 'react-compare-image';
 import { directions } from 'common/constants/ndviSummary';
 import Slider from 'react-slick';
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1
+const CustomPrevArrow = (props: { onClick?: () => void }) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="right"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 1000,
+        cursor: 'pointer'
+      }}>
+      <CaretLeftOutlined />
+    </div>
+  );
+};
+
+const CustomNextArrow = (props: { onClick?: () => void }) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="left"
+      style={{
+        position: 'absolute',
+        top: '50%',
+        right: '0px',
+        transform: 'translateY(-50%)',
+        zIndex: 1000,
+        cursor: 'pointer'
+      }}>
+      <CaretRightOutlined />
+    </div>
+  );
 };
 
 const NdviInfoContainer = () => {
   const { getNdviImage, getNdviChart } = useSensor();
+
+  const sliderRef = useRef<Slider | null>(null);
+
+  const [isStop, setIsStop] = useState<boolean>(false);
 
   const [chart, setChart] = useState<GetNdviChartResponseType>();
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -39,12 +72,24 @@ const NdviInfoContainer = () => {
       }
     }
   };
-  // const [currentIndex, setCurrentIndex] = React.useState(0); // 현재 슬라이더 인덱스
 
   const imageMap: Record<string, { now: string; predict: string }[]> = {
     east: eastImage,
     south: southImage,
     west: westImage
+  };
+
+  const settings = {
+    dots: false,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    adaptiveHeight: true
   };
 
   const data = {
@@ -69,6 +114,18 @@ const NdviInfoContainer = () => {
         data: chart?.c003 || []
       }
     ]
+  };
+
+  const handleClickPause = () => {
+    setIsStop(prev => {
+      const newIsStop = !prev;
+      if (newIsStop) {
+        sliderRef.current?.slickPause();
+      } else {
+        sliderRef.current?.slickPlay();
+      }
+      return newIsStop;
+    });
   };
 
   const handleClickDirection = (direction: DirectionType) => {
@@ -140,12 +197,7 @@ const NdviInfoContainer = () => {
               <Button id="searchNDVI" className="tab-link" onClick={fetchNdviImage}>
                 검색
               </Button>
-              <Button>
-                <PauseOutlined />
-              </Button>
-              <li className="btn btn-bg4 nav-item mr-2" id="playBtn2">
-                <i className="ti-control-pause"></i>
-              </li>
+              <Button onClick={handleClickPause}>{isStop ? <CaretRightOutlined /> : <PauseOutlined />}</Button>
               {directions.map(direction => (
                 <Button
                   key={direction}
@@ -158,18 +210,22 @@ const NdviInfoContainer = () => {
           </div>
           <div className="card-body">
             <div className="slider-container">
-              {imageMap[selectedDirection]?.length ? (
-                <Slider {...settings}>
-                  {imageMap[selectedDirection].map((image, index) => (
-                    <div key={index}>
-                      <ReactCompareImage
-                        leftImage={image.now}
-                        rightImage={image.predict}
-                        sliderPositionPercentage={0.5}
-                      />
+              {imageMap[selectedDirection]?.length > 1 ? (
+                <Slider ref={sliderRef} {...settings}>
+                  {imageMap[selectedDirection].map(img => (
+                    <div key={img.now}>
+                      <ReactCompareImage leftImage={img.now} rightImage={img.predict} sliderPositionPercentage={0.5} />
                     </div>
                   ))}
                 </Slider>
+              ) : imageMap[selectedDirection]?.length === 1 ? (
+                <div>
+                  <ReactCompareImage
+                    leftImage={imageMap[selectedDirection][0].now}
+                    rightImage={imageMap[selectedDirection][0].predict}
+                    sliderPositionPercentage={0.5}
+                  />
+                </div>
               ) : (
                 <div className="no-image-message" style={{ textAlign: 'center', padding: '20px' }}>
                   이미지가 없습니다.
