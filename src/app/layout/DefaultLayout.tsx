@@ -11,7 +11,7 @@ import {
   ClockCircleOutlined,
   CalendarOutlined
 } from '@ant-design/icons';
-import { Button, Layout, Menu, theme, Tag, Avatar, Dropdown } from 'antd';
+import { Button, Layout, Menu, theme, Avatar, Dropdown, Tag } from 'antd';
 import type { MenuProps } from 'antd';
 import WeatherInfo from 'components/layout/WeatherInfo';
 import Breadcrumb from 'components/layout/Breadcrumb';
@@ -126,15 +126,15 @@ const DefaultLayout: React.FC = () => {
         {isOpenWeatherInfo && (
           <div className="weather-info__mobile">
             <div style={{ display: 'flex' }}>
-              <div className="weather-tag">
+              <div className="weather-tag pm-situation">
                 미세먼지
-                <Tag color="blue" style={{ fontSize: '10px' }}>
+                <Tag color="blue" className="pm-good" id="headPm10">
                   {weatherHeader?.pm10}
                 </Tag>
               </div>
               <div className="weather-tag">
                 초미세먼지
-                <Tag color="blue" style={{ fontSize: '10px' }}>
+                <Tag color="blue" className="pm-good  pm-situation" id="headPm25">
                   {weatherHeader?.pm25}
                 </Tag>
               </div>
@@ -146,13 +146,13 @@ const DefaultLayout: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
           <div className="weather-tag">
             미세먼지
-            <Tag color="blue" style={{ fontSize: '10px' }}>
+            <Tag color="blue" className="pm-good  pm-situation" id="headPm10">
               {weatherHeader?.pm10}
             </Tag>
           </div>
           <div className="weather-tag">
             초미세먼지
-            <Tag color="blue" style={{ fontSize: '10px' }}>
+            <Tag color="blue" className="pm-good  pm-situation" id="headPm25">
               {weatherHeader?.pm10}
             </Tag>
           </div>

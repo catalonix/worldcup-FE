@@ -391,6 +391,12 @@ h6,
   background: #16293a;
 }
 
+:where(.css-dev-only-do-not-override-dvk552).ant-tag.ant-tag-blue {
+  color: white;
+  background: #1c62c3;
+  border-color: transparent;
+}
+
 /*swiper*/
 .swiper {
   width: 100%;

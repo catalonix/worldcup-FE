@@ -53,6 +53,7 @@ const NdviLiveCameraContainer = () => {
 
   const sliderRef = useRef<Slider | null>(null);
 
+  const [isStop, setIsStop] = useState<boolean>(false);
   const [capturedDate, setCapturedDate] = useState<string>('');
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
@@ -70,15 +71,14 @@ const NdviLiveCameraContainer = () => {
 
   const settings = {
     dots: false,
-    arrow: false,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-    infinite: false,
-    autoPlay: false,
+    infinite: true,
+    autoplay: true,
     speed: 500,
+    autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: 2,
     adaptiveHeight: true
   };
 
@@ -123,6 +123,18 @@ const NdviLiveCameraContainer = () => {
     });
   };
 
+  const handleClickPause = () => {
+    setIsStop(prev => {
+      const newIsStop = !prev;
+      if (newIsStop) {
+        sliderRef.current?.slickPause();
+      } else {
+        sliderRef.current?.slickPlay();
+      }
+      return newIsStop;
+    });
+  };
+
   useEffect(() => {
     fetchFieldImage();
   }, []);
@@ -131,7 +143,7 @@ const NdviLiveCameraContainer = () => {
     if (sliderRef.current && imageMap[selectedDirection]?.length > 0) {
       sliderRef.current.slickGoTo(0); // 슬라이더 초기화
     }
-  }, [imageMap, selectedDirection]);
+  }, [selectedDirection]);
 
   return (
     <div className="camera-container">
@@ -157,9 +169,7 @@ const NdviLiveCameraContainer = () => {
             <Button id="searchNDVI" className="tab-link" onClick={fetchFieldImage}>
               검색
             </Button>
-            <Button>
-              <PauseOutlined />
-            </Button>
+            <Button onClick={handleClickPause}>{isStop ? <CaretRightOutlined /> : <PauseOutlined />}</Button>
 
             <Button type="primary" onClick={handleClickLive}>
               LIVE
@@ -181,7 +191,7 @@ const NdviLiveCameraContainer = () => {
         <div className="card-body">
           <div className="slider-container">
             {imageMap[selectedDirection]?.length > 1 ? (
-              <Slider ref={sliderRef} {...settings} key={imageMap[selectedDirection]?.length}>
+              <Slider ref={sliderRef} {...settings}>
                 {imageMap[selectedDirection].map(img => (
                   <div key={img}>
                     <img src={img} alt="실시간 사진" width="100%" />
