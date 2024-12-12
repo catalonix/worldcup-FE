@@ -271,9 +271,13 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         isModalVisible={isDetailModalOpen}
         handleCancel={handleCancelDetailModal}
         footer={
-          <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
-            삭제
-          </Button>
+          detailEvent.length ? (
+            <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
+              삭제
+            </Button>
+          ) : (
+            <></>
+          )
         }
         style={{ top: '30%', padding: '0 20px' }}>
         <div className="event-wrapper">
