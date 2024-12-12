@@ -28,7 +28,7 @@ const WeatherSummary = () => {
                   <label className="main-content-label my-auto pt-2 tx-16">
                     경기장 장비현황
                     <h5 className="card-data">
-                      측정일시 : <span id="tmFc">{weatherSummary?.date || '-'}</span>
+                      측정일시 : <span id="tmFc">{weatherSummary?.date.replace('T', ' ') || '-'}</span>
                     </h5>
                   </label>
                   <div className="card-header-right">
