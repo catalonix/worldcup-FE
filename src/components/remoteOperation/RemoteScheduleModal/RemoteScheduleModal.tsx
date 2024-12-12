@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Modal from 'components/common/Modal';
-import { Badge, Button, Calendar, Checkbox, ConfigProvider, DatePicker, GetProp, Input } from 'antd';
+import { Button, Calendar, Checkbox, ConfigProvider, DatePicker, GetProp, Input } from 'antd';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
@@ -86,8 +86,8 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       const isEventDay = events.includes(value.format('YYYY-MM-DD')); // 이벤트 날짜인지 확인
       return isEventDay ? (
         <ul className="events">
-          <li key={value.format('YYYY-MM-DD')} style={{ color: 'blue' }}>
-            <Badge status="warning" style={{ display: 'none' }} />
+          <li key={value.format('YYYY-MM-DD')} style={{ color: 'blue', fontSize: '12px' }}>
+            <span className="event-dot" />
           </li>
         </ul>
       ) : null;
