@@ -51,9 +51,11 @@ const LegendModal = (props: LegendModalProps) => {
         title: '구분',
         dataIndex: 'name',
         key: 'name',
-        align: 'center' as const
+        align: 'center' as const,
+        onCell: () => ({
+          style: { whiteSpace: 'nowrap' }
+        })
       },
-      // '매우 낮음', '낮음', '적정', '높음', '매우 높음' 범위에 대한 컬럼
       ...['매우 낮음', '낮음', '적정', '높음', '매우 높음'].map((grade, gradeIndex) => {
         return {
           title: grade,
