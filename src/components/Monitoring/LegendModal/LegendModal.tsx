@@ -38,13 +38,6 @@ const LegendModal = (props: LegendModalProps) => {
     handleSearch(); // 컴포넌트가 마운트될 때 데이터 호출
   }, []);
 
-  // 색상 변경 핸들러
-  const handleColorChange = (index: number, dataKey: keyof MeasurementDataType, color: string) => {
-    const newMeasurementData = { ...measurementData };
-    newMeasurementData[dataKey][index].color = color;
-    setMeasurementData(newMeasurementData);
-  };
-
   // 범위 변경 핸들러
   const handleRangeChange = (index: number, dataKey: keyof MeasurementDataType, value: string, rangeIndex: number) => {
     const newMeasurementData = { ...measurementData };
@@ -75,12 +68,7 @@ const LegendModal = (props: LegendModalProps) => {
             return (
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <Input
-                    type="color"
-                    value={item.color}
-                    onChange={e => handleColorChange(gradeIndex, dataKey as keyof MeasurementDataType, e.target.value)}
-                    style={{ border: 'none', padding: '0' }}
-                  />
+                  <div style={{ background: item.color, width: '2rem', height: '1rem' }} />
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     {item.range.map((rangeValue, rangeIndex) => (
                       <div key={rangeIndex} style={{ display: 'flex', alignItems: 'center' }}>
