@@ -22,7 +22,7 @@ import MonitoringEquipment from 'pages/MonitoringEquipment/MonitoringEquipment';
 export function Routing() {
   const { isLogin } = useMyInfoStore();
   return (
-    <div className="app">
+    <div>
       <BrowserRouter>
         <Routes>
           <Route path={AppPaths.LOGIN} element={<Login />} />

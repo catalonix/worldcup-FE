@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { AppPaths } from 'app/routing/app-routing';
 import airblowerIcon from 'common/assets/img/airblower-icon.png';
 import wateringIcon from 'common/assets/img/watering-icon.png';
 import stadium from 'common/assets/img/stadium.png';
@@ -12,13 +10,8 @@ import LegendModal from 'components/Monitoring/LegendModal';
 import { Button } from 'antd';
 
 const MonitoringView = () => {
-  const navigate = useNavigate();
   const { sensorSummary, getSensorSummary } = useSensor();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
-  const handleNavigate = (to: string) => {
-    navigate(to);
-  };
 
   const handleIsModalVisible = (isModalVisible: boolean) => {
     setIsModalVisible(isModalVisible);
@@ -81,10 +74,7 @@ const MonitoringView = () => {
                       <div className={`sensor-${idx + 1}`} key={it.code}>
                         <div className="equipment-btn-box">
                           <div className={`condition-icon ${statusClass}`}>
-                            <img
-                              src={sensorIcon}
-                              onClick={() => handleNavigate(`${AppPaths.WEATHER_SUMMARY}?sensorCode=${it.code}`)}
-                            />
+                            <img src={sensorIcon} />
                           </div>
                           <div className="equipment-title">
                             <a href={`weather-summary.html?sensorCode=${it.code}`} data-sensor={it.code}>
@@ -102,10 +92,7 @@ const MonitoringView = () => {
                       <div className={`camera-${idx + 1}`} key={it.code}>
                         <div className="equipment-btn-box">
                           <div className={`condition-icon ${statusClass}`}>
-                            <img
-                              src={cameraIcon}
-                              onClick={() => handleNavigate(`${AppPaths.NDVI_SUMMARY}?sensorNo=${it.code}`)}
-                            />
+                            <img src={cameraIcon} />
                           </div>
                           <div className="equipment-title">
                             <a href={`ndvi-summary.html?sensorNo=${it.code}`} data-sensor={it.code}>
@@ -123,10 +110,10 @@ const MonitoringView = () => {
                       <div className={`fan-${idx + 1}`} key={it.key}>
                         <div className="equipment-btn-box">
                           <div className={`condition-icon ${statusClass}`}>
-                            <img src={airblowerIcon} onClick={() => handleNavigate(AppPaths.REMOTE_OPERATION)} />
+                            <img src={airblowerIcon} />
                           </div>
                           <div className="equipment-title">
-                            <a href="./remote-operation.html">{it.name}</a>
+                            <a>{it.name}</a>
                           </div>
                         </div>
                       </div>

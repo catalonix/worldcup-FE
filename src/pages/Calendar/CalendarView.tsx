@@ -73,7 +73,6 @@ const Calendar = () => {
   };
 
   const handleSearch = async () => {
-    // api 다시 조회
     const res = await getCalendarList({ date: searchMonth, types: selectedTypes.toString() });
     const updatedRes = res.map(event => ({
       ...event,
@@ -84,27 +83,8 @@ const Calendar = () => {
     setEventsData([...updatedRes]);
   };
 
-  // const handleSelect = ({ start, end }: { start: Date; end: Date }) => {
-  //   console.log(start);
-  //   console.log(end);
-  //   const title = window.prompt('New Event name');
-  //   if (title)
-  //     setEventsData([
-  //       ...eventsData,
-  //       {
-  //         id: Number(start.toString().slice(0, 10)),
-  //         start,
-  //         end,
-  //         title,
-  //         type: '오전',
-  //         bgColor: '#3B76E1'
-  //       }
-  //     ]);
-  // };
-
   const handleSelectEvent = async ({ start }: { start: Date }) => {
     const selectedDate = dayjs(start).format('YYYY-MM-DD');
-
     const res = await getCalendarTaskByDate(selectedDate);
     if (res && Object.keys(res).length !== 0) {
       setIsEdit(true);
@@ -132,7 +112,7 @@ const Calendar = () => {
       // Sub types
       if (item.children && item.children.length > 0) {
         subTypes.push({
-          parentValue: item.name as string, // Link to main type
+          parentValue: item.name as string,
           children: item.children.map(child => ({
             label: child.name as string,
             value: child.name as unknown as string
@@ -168,7 +148,7 @@ const Calendar = () => {
           onSelectSlot={handleSelectEvent}
           dayPropGetter={() => ({
             style: {
-              overflowY: 'scroll' // 스크롤 활성화
+              overflowY: 'scroll'
             }
           })}
           showAllEvents
@@ -196,10 +176,10 @@ const Calendar = () => {
           eventPropGetter={event => ({
             style: {
               backgroundColor: event.bgColor,
-              whiteSpace: 'normal', // 줄바꿈 허용
-              wordWrap: 'break-word' // 긴 단어가 넘치지 않도록 처리
+              whiteSpace: 'normal',
+              wordWrap: 'break-word'
             },
-            title: event.title.replace(/\n/g, '<br />') // \n을 <br />로 변환
+            title: event.title.replace(/\n/g, '<br />')
           })}
           popup={false}
         />

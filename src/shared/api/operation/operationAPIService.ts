@@ -60,6 +60,10 @@ const operationAPI = {
   addFanSchedule: async (addFanParams: AddFanParams) => {
     const res = await authAxiosInstance.post('/api/remote/fan-schedule/', addFanParams);
     return res.data;
+  },
+  downloadIrrigation: async () => {
+    const res = await authAxiosInstance.get('/api/remote/irrigation-schedule-csv/');
+    return res.data;
   }
 };
 

@@ -11,7 +11,7 @@ import RemoteScheduleModal from 'components/remoteOperation/RemoteScheduleModal'
 import useOperation from 'hooks/useOperation';
 
 const RemoteOperation = () => {
-  const { stopAllFan } = useOperation();
+  const { stopAllFan, downloadIrrigation } = useOperation();
   const [selectedKey, setSelectedKey] = useState<FanList>('binary_sensor.fan04');
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [mode, setMode] = useState<'program' | 'unit'>('program');
@@ -22,6 +22,10 @@ const RemoteOperation = () => {
     if (res) {
       setIsReloadFanTable(!isReloadFanTable);
     }
+  };
+
+  const handleClickDownload = async () => {
+    await downloadIrrigation();
   };
 
   const handleIsModalVisible = (isModalVisible: boolean) => {
@@ -77,7 +81,7 @@ const RemoteOperation = () => {
           titleButton={
             <div className="d-flex ga-1 align-center">
               <Button>원격제어</Button>
-              <Button>
+              <Button onClick={handleClickDownload}>
                 <DownloadOutlined />
               </Button>
             </div>

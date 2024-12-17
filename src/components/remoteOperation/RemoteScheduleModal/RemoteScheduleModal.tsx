@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import Modal from 'components/common/Modal';
-import { Badge, Button, Calendar, Checkbox, ConfigProvider, DatePicker, GetProp, Input } from 'antd';
+import { Button, Calendar, Checkbox, ConfigProvider, DatePicker, GetProp, Input } from 'antd';
 import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import 'dayjs/locale/ko';
@@ -27,7 +27,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate())));
   const [comment, setComment] = useState<string>('');
   const [runTime, setRunTime] = useState<number>(30);
-  const [times, setTimes] = useState<string[]>(['', '', '', '', '', '', '', '']);
+  const [times, setTimes] = useState<string[]>(['', '', '', '', '', '', '', '', '', '']);
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [events, setEvents] = useState<string[]>([]);
@@ -35,10 +35,13 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
   const [isCheckedList, setIsCheckedList] = useState<number[]>([]);
 
   const handleChangeSelectedFans: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    if ((checkedValues as string[]).length === 0) {
+      openNotification('warning', '최소 하나의 팬은 선택해야 합니다!');
+      return;
+    }
     setSelectedFans(checkedValues as string[]);
     search();
   };
-
   const handleCancel = () => {
     setIsCheckedList([]);
     props.handleIsModalVisible(false);
@@ -83,8 +86,8 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
       const isEventDay = events.includes(value.format('YYYY-MM-DD')); // 이벤트 날짜인지 확인
       return isEventDay ? (
         <ul className="events">
-          <li key={value.format('YYYY-MM-DD')} style={{ color: 'blue' }}>
-            <Badge status="warning" style={{ display: 'none' }} />
+          <li key={value.format('YYYY-MM-DD')} style={{ color: 'blue', fontSize: '12px' }}>
+            <span className="event-dot" />
           </li>
         </ul>
       ) : null;
@@ -188,6 +191,7 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
 
         <h5 className="modal-info remote-table-header" style={{ flexDirection: 'row' }}>
           <span className="mNone">쿨링팬 번호</span>
+          {'  '}
           <Checkbox.Group
             options={remoteOperationFanOptions}
             defaultValue={selectedFans}
@@ -271,9 +275,13 @@ const RemoteScheduleModal = (props: RemoteScheduleModalProps) => {
         isModalVisible={isDetailModalOpen}
         handleCancel={handleCancelDetailModal}
         footer={
-          <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
-            삭제
-          </Button>
+          detailEvent.length ? (
+            <Button color="danger" className="danger-button" onClick={handleClickDeleteDetailSchedule}>
+              삭제
+            </Button>
+          ) : (
+            <></>
+          )
         }
         style={{ top: '30%', padding: '0 20px' }}>
         <div className="event-wrapper">
