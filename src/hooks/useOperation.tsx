@@ -10,8 +10,10 @@ import {
   GetRemoteStatusResponseType,
   UpdateIrrigationParams
 } from 'shared/api/operation/operationAPIService.types';
+import useDate from './useDate';
 
 const useOperation = () => {
+  const { getCurrentDate } = useDate();
   const { setLoading } = useLoading();
   const { openNotification } = useNotification();
 
@@ -188,19 +190,17 @@ const useOperation = () => {
       openNotification('success', '관수제어 내역이 다운로드되었어요.');
       const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
 
-      // 파일을 가리키는 URL 생성
       const url = URL.createObjectURL(blob);
 
-      // <a> 태그를 이용해서 파일 다운로드
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'irrigation-schedule.csv'; // 파일명 지정
+      link.download = `서울월드컵_관수제어_${getCurrentDate()}.csv`;
       document.body.appendChild(link);
-      link.click(); // 클릭 이벤트 실행 (파일 다운로드)
+      link.click();
 
-      // 정리
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('downloadIrrigation', error);
