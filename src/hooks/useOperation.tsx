@@ -181,6 +181,35 @@ const useOperation = () => {
     }
   };
 
+  const downloadIrrigation = async () => {
+    setLoading(true);
+    try {
+      const res = await operationAPI.downloadIrrigation();
+      openNotification('success', '관수제어 내역이 다운로드되었어요.');
+      const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
+
+      // 파일을 가리키는 URL 생성
+      const url = URL.createObjectURL(blob);
+
+      // <a> 태그를 이용해서 파일 다운로드
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'irrigation-schedule.csv'; // 파일명 지정
+      document.body.appendChild(link);
+      link.click(); // 클릭 이벤트 실행 (파일 다운로드)
+
+      // 정리
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('downloadIrrigation', error);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     getRemoteStatus,
     getRemoteDetail,
@@ -192,7 +221,8 @@ const useOperation = () => {
     getFanSchedule,
     getDetailFanSchedule,
     deleteDetailFanSchedule,
-    addFanSchedule
+    addFanSchedule,
+    downloadIrrigation
   };
 };
 export default useOperation;
