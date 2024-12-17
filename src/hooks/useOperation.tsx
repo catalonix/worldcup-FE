@@ -204,6 +204,7 @@ const useOperation = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error('downloadIrrigation', error);
+      openNotification('error', '관수제어 내역 다운로드에 실패했어요.');
       return false;
     } finally {
       setLoading(false);
