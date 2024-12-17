@@ -10,7 +10,7 @@ import { soilSearchOptions } from 'common/constants/soilDetail';
 import { dateFormat } from 'common/types';
 
 const SoilDetail = () => {
-  const { soilInfo, getSoilInfo } = useSensor();
+  const { soilInfo, getSoilInfo, downloadSoilCsv } = useSensor();
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
   const options = {
@@ -50,6 +50,10 @@ const SoilDetail = () => {
     getSoilInfo({ startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
   };
 
+  const handleClickDownload = async () => {
+    await downloadSoilCsv(startDate.format(dateFormat), endDate.format(dateFormat));
+  };
+
   useEffect(() => {
     handleSearch();
   }, []);
@@ -73,7 +77,7 @@ const SoilDetail = () => {
               <div className="chart-title">토양로봇</div>
               <div className="chart-description">선택하신 장비에 대한 관측 데이터 그래프 입니다.</div>
             </div>
-            <div>
+            <div onClick={handleClickDownload}>
               <Button icon={<DownloadOutlined />} />
             </div>
           </div>
