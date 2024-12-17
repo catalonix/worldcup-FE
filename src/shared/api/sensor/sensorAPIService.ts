@@ -94,6 +94,10 @@ const sensorAPI = {
   getLiveUrl: async (direction: DirectionType) => {
     const res = await authAxiosInstance.get<{ url: string }>(`/api/sensor/field-live/?direction=${direction}`);
     return res.data;
+  },
+  downloadWeatherCsv: async (startDate: string, endDate: string) => {
+    const res = await authAxiosInstance.get(`/api/sensor/weather-csv/?startDate=${startDate}&endDate=${endDate}`);
+    return res.data;
   }
 };
 

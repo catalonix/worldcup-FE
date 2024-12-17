@@ -335,6 +335,34 @@ const useSensor = () => {
     }
   };
 
+  const downloadWeatherCsv = async (startDate: string, endDate: string) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.downloadWeatherCsv(startDate, endDate);
+      openNotification('success', '기상센서 내역이 다운로드되었어요.');
+      const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `서울월드컵_기상센서_${startDate}-${endDate}.csv`;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('downloadWeatherCsv', error);
+      openNotification('error', '기상센서 내역 다운로드에 실패했어요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -363,7 +391,8 @@ const useSensor = () => {
     getNdviImage,
     captureCamera,
     getNdviChart,
-    getLiveUrl
+    getLiveUrl,
+    downloadWeatherCsv
   };
 };
 export default useSensor;
