@@ -3,6 +3,7 @@ import { Button, Checkbox, GetProp } from 'antd';
 
 import { DownloadOutlined, LeftOutlined, RightOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import { calendarSearchOptions } from 'common/constants/calendar';
+import useCalendar from 'hooks/useCalendar';
 
 type CustomToolbarProps = {
   date: Date;
@@ -21,6 +22,8 @@ const CustomToolbar = ({
   setSelectedTypes,
   setIsEdit
 }: CustomToolbarProps) => {
+  const { downloadCalendar } = useCalendar();
+
   const navigate = (action: 'TODAY' | 'PREV' | 'NEXT') => {
     onNavigate(action);
   };
@@ -29,8 +32,8 @@ const CustomToolbar = ({
     setSelectedTypes(checkedValues as string[]);
   };
 
-  const handleDownloadCalendar = () => {
-    alert('download');
+  const handleDownloadCalendar = async () => {
+    await downloadCalendar();
   };
 
   const handleAddBtnClick = () => {

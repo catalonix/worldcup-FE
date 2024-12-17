@@ -99,6 +99,41 @@ const useCalendar = () => {
     }
   };
 
-  return { getCalendarList, getCalendarTaskByDate, addSchedule, getScheduleType, deleteSchedule, editSchedule };
+  const downloadCalendar = async () => {
+    setLoading(true);
+    try {
+      const res = await calendarAPI.downloadCalendar();
+      openNotification('success', '작업일정 내역이 다운로드되었어요.');
+      const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = '서울월드컵_작업정보캘린더.csv';
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('downloadIrrigation', error);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    getCalendarList,
+    getCalendarTaskByDate,
+    addSchedule,
+    getScheduleType,
+    deleteSchedule,
+    editSchedule,
+    downloadCalendar
+  };
 };
 export default useCalendar;

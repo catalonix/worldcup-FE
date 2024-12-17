@@ -32,6 +32,10 @@ const calendarAPI = {
   editSchedule: async (params: AddScheduleParams) => {
     const res = await authAxiosInstance.patch('/api/task/', params);
     return res.data;
+  },
+  downloadCalendar: async () => {
+    const res = await authAxiosInstance.get('/api/task/csv/');
+    return res.data;
   }
 };
 
