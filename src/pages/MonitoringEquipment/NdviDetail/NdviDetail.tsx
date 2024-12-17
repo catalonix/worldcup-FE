@@ -11,7 +11,7 @@ import Card from 'components/common/Card';
 const dateFormat = 'YYYY-MM-DD';
 
 const NdviDetail = () => {
-  const { ndviInfo, getNdviInfo } = useSensor();
+  const { ndviInfo, getNdviInfo, downloadNdviCsv } = useSensor();
 
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
@@ -58,6 +58,10 @@ const NdviDetail = () => {
     getNdviInfo({ startDate: startDate.format(dateFormat), endDate: endDate.format(dateFormat) });
   };
 
+  const handleClickDownload = async () => {
+    await downloadNdviCsv(startDate.format(dateFormat), endDate.format(dateFormat));
+  };
+
   useEffect(() => {
     handleSearch();
   }, []);
@@ -83,7 +87,7 @@ const NdviDetail = () => {
               <div className="chart-title">카메라</div>
               <div className="chart-description">선택하신 장비에 대한 관측 데이터 그래프 입니다.</div>
             </div>
-            <div>
+            <div onClick={handleClickDownload}>
               <Button icon={<DownloadOutlined />} />
             </div>
           </div>

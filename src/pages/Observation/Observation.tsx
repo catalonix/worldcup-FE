@@ -16,7 +16,7 @@ import { chartDataOptions } from 'common/constants/userManagement';
 
 const Observation = () => {
   const { openNotification } = useNotification();
-  const { observation, getObservation, downloadWeatherCsv } = useSensor();
+  const { observation, getObservation, downloadWeatherCsv, downloadNdviCsv, downloadSoilCsv } = useSensor();
 
   const [startDate, setStartDate] = useState<Dayjs>(dayjs(new Date().setDate(new Date().getDate() - 7)));
   const [endDate, setEndDate] = useState<Dayjs>(dayjs(new Date()));
@@ -74,6 +74,10 @@ const Observation = () => {
   const handleClickDownload = async () => {
     if (type === 'weatherSensor') {
       await downloadWeatherCsv(startDate.format(dateFormat), endDate.format(dateFormat));
+    } else if (type === 'camera') {
+      await downloadNdviCsv(startDate.format(dateFormat), endDate.format(dateFormat));
+    } else {
+      await downloadSoilCsv(startDate.format(dateFormat), endDate.format(dateFormat));
     }
   };
 

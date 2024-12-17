@@ -98,6 +98,14 @@ const sensorAPI = {
   downloadWeatherCsv: async (startDate: string, endDate: string) => {
     const res = await authAxiosInstance.get(`/api/sensor/weather-csv/?startDate=${startDate}&endDate=${endDate}`);
     return res.data;
+  },
+  downloadNdviCsv: async (startDate: string, endDate: string) => {
+    const res = await authAxiosInstance.get(`/api/sensor/ndvi-csv/?startDate=${startDate}&endDate=${endDate}`);
+    return res.data;
+  },
+  downloadSoilCsv: async (startDate: string, endDate: string) => {
+    const res = await authAxiosInstance.get(`/api/sensor/soil-csv/?startDate=${startDate}&endDate=${endDate}`);
+    return res.data;
   }
 };
 

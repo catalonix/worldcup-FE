@@ -363,6 +363,62 @@ const useSensor = () => {
     }
   };
 
+  const downloadNdviCsv = async (startDate: string, endDate: string) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.downloadNdviCsv(startDate, endDate);
+      openNotification('success', '식생지수 내역이 다운로드되었어요.');
+      const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `서울월드컵_식생지수_${startDate}-${endDate}.csv`;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('downloadNdviCsv', error);
+      openNotification('error', '식생지수 내역 다운로드에 실패했어요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const downloadSoilCsv = async (startDate: string, endDate: string) => {
+    setLoading(true);
+    try {
+      const res = await sensorAPI.downloadSoilCsv(startDate, endDate);
+      openNotification('success', '토양관측 내역이 다운로드되었어요.');
+      const blob = new Blob([res], { type: 'text/csv;charset=utf-8;' });
+
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `서울월드컵_토양관측_${startDate}-${endDate}.csv`;
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('downloadSoilCsv', error);
+      openNotification('error', '토양관측 내역 다운로드에 실패했어요.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ndviInfo,
     soilInfo,
@@ -392,7 +448,9 @@ const useSensor = () => {
     captureCamera,
     getNdviChart,
     getLiveUrl,
-    downloadWeatherCsv
+    downloadWeatherCsv,
+    downloadNdviCsv,
+    downloadSoilCsv
   };
 };
 export default useSensor;
