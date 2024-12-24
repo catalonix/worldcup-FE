@@ -44,7 +44,9 @@ const NdviCameraContainer = () => {
               <h5>현재 식생지수</h5>
               <div className="now-value">
                 <h4>{Number(data.ndviDaily).toFixed(3)}</h4>
-                <span className={data.status === '양호' ? 'situation-success' : 'situation-danger'}>{data.status}</span>
+                <span className={data.statusDaily === '양호' ? 'situation-success' : 'situation-danger'}>
+                  {data.statusDaily}
+                </span>
               </div>
             </div>
             <div className="ndvi-now">
@@ -60,7 +62,9 @@ const NdviCameraContainer = () => {
               <h5>예측 식생지수</h5>
               <div className="prediction-value">
                 <h4>{Number(data.ndviMa5).toFixed(3)}</h4>
-                <span className={data.status === '양호' ? 'situation-success' : 'situation-danger'}>{data.status}</span>
+                <span className={data.statusMa5 === '양호' ? 'situation-success' : 'situation-danger'}>
+                  {data.statusMa5}
+                </span>
               </div>
             </div>
           </div>
