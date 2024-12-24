@@ -117,6 +117,7 @@ export type NdviCameraType = {
   ndviMa5: number;
   dailyUrl: string;
   ma5Url: string;
+  status: string;
 };
 export type GetNdviCameraResponseType = {
   east: NdviCameraType;
